@@ -1,0 +1,716 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap');
+
+:root {
+  /* BRAND PALETTE — Warm Browns */
+  --brown-50:   #fdf8f3;
+  --brown-100:  #f5e8d5;
+  --brown-200:  #e8ccac;
+  --brown-300:  #d4a87a;
+  --brown-400:  #c08050;
+  --brown-500:  #a0522d;   /* sienna — primary brand */
+  --brown-600:  #8b4423;
+  --brown-700:  #6b3218;
+  --brown-800:  #4a2210;
+  --brown-900:  #2d1409;
+
+  /* Warm whites & creams */
+  --cream-50:   #ffffff;
+  --cream-100:  #fefcfa;
+  --cream-200:  #faf5ef;
+  --cream-300:  #f5ece0;
+  --cream-400:  #ecddd0;
+
+  /* SEMANTIC COLORS — LIGHT */
+
+  /* Backgrounds */
+  --color-bg-app:         #f5ece0;   /* warm cream page background */
+  --color-bg-surface:     #fefcfa;   /* card / panel surface */
+  --color-bg-elevated:    #ffffff;   /* modal, popover, tooltip */
+  --color-bg-sunken:      #ecddd0;   /* input fields, code blocks */
+  --color-bg-overlay:     rgba(107, 50, 24, 0.35); /* modal scrim */
+
+  /* Text */
+  --color-text-primary:   #2d1409;   /* headings, bold labels */
+  --color-text-secondary: #6b3218;   /* body text, descriptions */
+  --color-text-muted:     #a0522d;   /* placeholders, hints */
+  --color-text-disabled:  #c08050;
+  --color-text-inverse:   #fefcfa;   /* text on dark/brown bg */
+
+  /* Brand / Primary interactive */
+  --color-primary:        #a0522d;
+  --color-primary-hover:  #8b4423;
+  --color-primary-active: #6b3218;
+  --color-primary-light:  #f5e8d5;   /* soft tint bg for active states */
+  --color-primary-ring:   rgba(160, 82, 45, 0.25);
+
+  /* Borders */
+  --color-border-subtle:  rgba(107, 50, 24, 0.10);
+  --color-border-default: rgba(107, 50, 24, 0.18);
+  --color-border-strong:  rgba(107, 50, 24, 0.30);
+  --color-border-focus:   #a0522d;
+
+  /* Status colors */
+  --color-success:        #3d8c5a;
+  --color-success-bg:     #eaf6ef;
+  --color-success-border: rgba(61, 140, 90, 0.25);
+
+  --color-warning:        #b07d1a;
+  --color-warning-bg:     #fef7e6;
+  --color-warning-border: rgba(176, 125, 26, 0.25);
+
+  --color-danger:         #c0392b;
+  --color-danger-bg:      #fdecea;
+  --color-danger-border:  rgba(192, 57, 43, 0.25);
+
+  --color-info:           #2471a3;
+  --color-info-bg:        #eaf3fb;
+  --color-info-border:    rgba(36, 113, 163, 0.25);
+
+  /* Income / Expense semantic */
+  --color-income:         #3d8c5a;
+  --color-income-bg:      #eaf6ef;
+  --color-expense:        #c0392b;
+  --color-expense-bg:     #fdecea;
+  --color-transfer:       #7b68ee;
+  --color-transfer-bg:    #f0eeff;
+
+  /* GLASS DESIGN SYSTEM — LIGHT */
+  --glass-bg:             rgba(255, 255, 255, 0.65);
+  --glass-bg-strong:      rgba(255, 255, 255, 0.82);
+  --glass-bg-subtle:      rgba(255, 255, 255, 0.40);
+  --glass-border:         rgba(255, 255, 255, 0.70);
+  --glass-border-subtle:  rgba(255, 255, 255, 0.45);
+  --glass-blur:           blur(20px);
+  --glass-blur-sm:        blur(12px);
+  --glass-blur-lg:        blur(32px);
+  --glass-shadow:         0 8px 32px rgba(107, 50, 24, 0.12),
+                          0 2px 8px  rgba(107, 50, 24, 0.08);
+  --glass-shadow-sm:      0 4px 16px rgba(107, 50, 24, 0.08),
+                          0 1px 4px  rgba(107, 50, 24, 0.06);
+  --glass-shadow-lg:      0 16px 48px rgba(107, 50, 24, 0.16),
+                          0 4px 16px rgba(107, 50, 24, 0.10);
+  --glass-shadow-hover:   0 12px 40px rgba(107, 50, 24, 0.18),
+                          0 4px 12px rgba(107, 50, 24, 0.12);
+
+  /* Brown-tinted glass (for sidebar, nav) */
+  --glass-brown-bg:       rgba(160, 82, 45, 0.08);
+  --glass-brown-border:   rgba(160, 82, 45, 0.20);
+
+  /* SHADOWS (non-glass) */
+  --shadow-xs:  0 1px 2px rgba(107, 50, 24, 0.07);
+  --shadow-sm:  0 2px 8px rgba(107, 50, 24, 0.10);
+  --shadow-md:  0 4px 16px rgba(107, 50, 24, 0.12);
+  --shadow-lg:  0 8px 32px rgba(107, 50, 24, 0.14);
+  --shadow-xl:  0 16px 64px rgba(107, 50, 24, 0.18);
+
+  /* TYPOGRAPHY */
+  --font-sans:    'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+
+  /* Font sizes — fluid minor third scale */
+  --text-xs:    0.75rem;    /* 12px */
+  --text-sm:    0.875rem;   /* 14px */
+  --text-base:  1rem;       /* 16px */
+  --text-md:    1.125rem;   /* 18px */
+  --text-lg:    1.25rem;    /* 20px */
+  --text-xl:    1.5rem;     /* 24px */
+  --text-2xl:   1.875rem;   /* 30px */
+  --text-3xl:   2.25rem;    /* 36px */
+  --text-4xl:   3rem;       /* 48px */
+  --text-5xl:   3.75rem;    /* 60px */
+
+  /* Font weights */
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* Line heights */
+  --leading-tight:   1.25;
+  --leading-snug:    1.375;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose:   2;
+
+  /* Letter spacing */
+  --tracking-tight:   -0.025em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.025em;
+  --tracking-wider:   0.05em;
+  --tracking-widest:  0.1em;
+
+  /* SPACING SCALE (4px base) */
+  --space-0:   0px;
+  --space-px:  1px;
+  --space-0-5: 2px;
+  --space-1:   4px;
+  --space-1-5: 6px;
+  --space-2:   8px;
+  --space-2-5: 10px;
+  --space-3:   12px;
+  --space-3-5: 14px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-7:   28px;
+  --space-8:   32px;
+  --space-9:   36px;
+  --space-10:  40px;
+  --space-11:  44px;
+  --space-12:  48px;
+  --space-14:  56px;
+  --space-16:  64px;
+  --space-20:  80px;
+  --space-24:  96px;
+  --space-32:  128px;
+
+  /* BORDER RADIUS */
+  --radius-none:  0px;
+  --radius-xs:    4px;
+  --radius-sm:    6px;
+  --radius-md:    8px;
+  --radius-lg:    12px;
+  --radius-xl:    16px;
+  --radius-2xl:   20px;
+  --radius-3xl:   24px;
+  --radius-full:  9999px;  /* pill */
+
+  /*  LAYOUT */
+  --sidebar-width:          260px;
+  --sidebar-collapsed-width: 72px;
+  --topbar-height:          64px;
+  --content-max-width:      1280px;
+  --card-max-width:         480px;
+  --modal-max-width-sm:     400px;
+  --modal-max-width-md:     560px;
+  --modal-max-width-lg:     720px;
+
+  /* Z-INDEX SCALE */
+  --z-below:    -1;
+  --z-base:      0;
+  --z-raised:    10;
+  --z-dropdown:  100;
+  --z-sticky:    200;
+  --z-overlay:   300;
+  --z-modal:     400;
+  --z-toast:     500;
+  --z-tooltip:   600;
+
+  /* TRANSITIONS & ANIMATION */
+  --duration-fast:    120ms;
+  --duration-normal:  200ms;
+  --duration-slow:    350ms;
+  --duration-slower:  500ms;
+
+  --ease-in:         cubic-bezier(0.4, 0, 1, 1);
+  --ease-out:        cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out:     cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce:     cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring:     cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  --transition-base:    all var(--duration-normal) var(--ease-in-out);
+  --transition-color:   color var(--duration-fast) var(--ease-in-out),
+                        background-color var(--duration-fast) var(--ease-in-out),
+                        border-color var(--duration-fast) var(--ease-in-out);
+  --transition-shadow:  box-shadow var(--duration-normal) var(--ease-out);
+  --transition-opacity: opacity var(--duration-normal) var(--ease-in-out);
+  --transition-transform: transform var(--duration-normal) var(--ease-out);
+
+  /* COMPONENT TOKENS (derived from above, for convenience) */
+
+  /* Card */
+  --card-bg:              var(--glass-bg);
+  --card-bg-hover:        var(--glass-bg-strong);
+  --card-border:          var(--glass-border);
+  --card-shadow:          var(--glass-shadow);
+  --card-shadow-hover:    var(--glass-shadow-hover);
+  --card-radius:          var(--radius-xl);
+  --card-padding:         var(--space-6);
+  --card-padding-sm:      var(--space-4);
+
+  /* Sidebar */
+  --sidebar-bg:           var(--glass-bg-strong);
+  --sidebar-border:       var(--glass-border);
+  --sidebar-shadow:       var(--glass-shadow-lg);
+
+  /* Input */
+  --input-bg:             rgba(255, 255, 255, 0.75);
+  --input-bg-hover:       rgba(255, 255, 255, 0.90);
+  --input-bg-focus:       #ffffff;
+  --input-border:         var(--color-border-default);
+  --input-border-hover:   var(--color-border-strong);
+  --input-border-focus:   var(--color-border-focus);
+  --input-radius:         var(--radius-lg);
+  --input-height:         44px;
+  --input-height-sm:      36px;
+  --input-height-lg:      52px;
+  --input-padding-x:      var(--space-4);
+
+  /* Button */
+  --btn-radius:           var(--radius-lg);
+  --btn-height:           44px;
+  --btn-height-sm:        36px;
+  --btn-height-lg:        52px;
+  --btn-padding-x:        var(--space-6);
+  --btn-padding-x-sm:     var(--space-4);
+
+  /* Chart colors (always fixed, same in light/dark) */
+  --chart-1: #a0522d;
+  --chart-2: #c08050;
+  --chart-3: #d4a87a;
+  --chart-4: #e8ccac;
+  --chart-5: #3d8c5a;
+  --chart-6: #2471a3;
+  --chart-7: #7b68ee;
+  --chart-8: #c0392b;
+}
+
+.dark {
+  /* Backgrounds */
+  --color-bg-app:         #1a0f07;   /* very dark warm brown */
+  --color-bg-surface:     #241508;   /* card surface */
+  --color-bg-elevated:    #2e1c0c;   /* modal, popover */
+  --color-bg-sunken:      #130a04;   /* input fields */
+  --color-bg-overlay:     rgba(0, 0, 0, 0.60);
+
+  /* Text */
+  --color-text-primary:   #faf2eb;
+  --color-text-secondary: #d4b898;
+  --color-text-muted:     #9c7a5c;
+  --color-text-disabled:  #6b4e38;
+  --color-text-inverse:   #2d1409;
+
+  /* Brand interactive */
+  --color-primary:        #c08050;   /* lighter in dark for contrast */
+  --color-primary-hover:  #d4a87a;
+  --color-primary-active: #e8ccac;
+  --color-primary-light:  rgba(160, 82, 45, 0.15);
+  --color-primary-ring:   rgba(192, 128, 80, 0.30);
+
+  /* Borders */
+  --color-border-subtle:  rgba(212, 168, 122, 0.08);
+  --color-border-default: rgba(212, 168, 122, 0.16);
+  --color-border-strong:  rgba(212, 168, 122, 0.28);
+  --color-border-focus:   #c08050;
+
+  /* Status */
+  --color-success:        #5cb87a;
+  --color-success-bg:     rgba(61, 140, 90, 0.15);
+  --color-warning:        #e0aa40;
+  --color-warning-bg:     rgba(176, 125, 26, 0.15);
+  --color-danger:         #e05c50;
+  --color-danger-bg:      rgba(192, 57, 43, 0.15);
+  --color-info:           #5499d0;
+  --color-info-bg:        rgba(36, 113, 163, 0.15);
+
+  /* Income / Expense */
+  --color-income:         #5cb87a;
+  --color-income-bg:      rgba(61, 140, 90, 0.15);
+  --color-expense:        #e05c50;
+  --color-expense-bg:     rgba(192, 57, 43, 0.15);
+  --color-transfer:       #9b8ef0;
+  --color-transfer-bg:    rgba(123, 104, 238, 0.15);
+
+  /* Glass — Dark */
+  --glass-bg:             rgba(36, 21, 8, 0.70);
+  --glass-bg-strong:      rgba(36, 21, 8, 0.88);
+  --glass-bg-subtle:      rgba(36, 21, 8, 0.45);
+  --glass-border:         rgba(212, 168, 122, 0.15);
+  --glass-border-subtle:  rgba(212, 168, 122, 0.08);
+  --glass-shadow:         0 8px 32px rgba(0, 0, 0, 0.40),
+                          0 2px 8px  rgba(0, 0, 0, 0.30);
+  --glass-shadow-sm:      0 4px 16px rgba(0, 0, 0, 0.30),
+                          0 1px 4px  rgba(0, 0, 0, 0.25);
+  --glass-shadow-lg:      0 16px 48px rgba(0, 0, 0, 0.50),
+                          0 4px 16px rgba(0, 0, 0, 0.35);
+  --glass-shadow-hover:   0 12px 40px rgba(0, 0, 0, 0.55),
+                          0 4px 12px rgba(0, 0, 0, 0.40);
+
+  /* Brown-tinted glass */
+  --glass-brown-bg:       rgba(192, 128, 80, 0.10);
+  --glass-brown-border:   rgba(192, 128, 80, 0.18);
+
+  /* Non-glass shadows */
+  --shadow-xs:  0 1px 2px  rgba(0, 0, 0, 0.20);
+  --shadow-sm:  0 2px 8px  rgba(0, 0, 0, 0.30);
+  --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-lg:  0 8px 32px rgba(0, 0, 0, 0.40);
+  --shadow-xl:  0 16px 64px rgba(0, 0, 0, 0.50);
+
+  /* Input */
+  --input-bg:             rgba(36, 21, 8, 0.70);
+  --input-bg-hover:       rgba(36, 21, 8, 0.85);
+  --input-bg-focus:       rgba(36, 21, 8, 0.95);
+}
+
+/* 4. GLOBAL RESET & BASE STYLES*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-app);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--duration-slow) var(--ease-in-out),
+              color var(--duration-slow) var(--ease-in-out);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* Background texture / gradient for visual depth */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(160, 82, 45, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(107, 50, 24, 0.10) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: var(--z-below);
+}
+
+[data-theme="dark"] body::before {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(160, 82, 45, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(107, 50, 24, 0.06) 0%, transparent 60%);
+}
+
+/* Typography base */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl);  }
+h5 { font-size: var(--text-lg);  }
+h6 { font-size: var(--text-md);  }
+
+p {
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition-color);
+}
+a:hover { color: var(--color-primary-hover); text-decoration: underline; }
+
+strong, b { font-weight: var(--weight-semibold); }
+em, i { font-style: italic; }
+small { font-size: var(--text-sm); }
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--color-bg-sunken);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+}
+
+/* Lists */
+ul, ol { list-style: none; }
+
+/* Media */
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Form elements — base reset (MUI will style further)*/
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+button { cursor: pointer; }
+
+/* ============================================================
+   5. UTILITY CLASSES
+   ============================================================ */
+
+/* Glass card — the primary surface in the app */
+.glass-card {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  transition: box-shadow var(--duration-normal) var(--ease-out),
+              background var(--duration-normal) var(--ease-out),
+              transform var(--duration-normal) var(--ease-out);
+}
+.glass-card:hover {
+  background: var(--card-bg-hover);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Strong glass — sidebar, topbar */
+.glass-strong {
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: var(--glass-blur-lg);
+  backdrop-filter: var(--glass-blur-lg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-lg);
+}
+
+/* Subtle glass — hover states, tags */
+.glass-subtle {
+  background: var(--glass-bg-subtle);
+  -webkit-backdrop-filter: var(--glass-blur-sm);
+  backdrop-filter: var(--glass-blur-sm);
+  border: 1px solid var(--glass-border-subtle);
+}
+
+/* Brown-tinted glass — active nav items, selected states */
+.glass-brown {
+  background: var(--glass-brown-bg);
+  -webkit-backdrop-filter: var(--glass-blur-sm);
+  backdrop-filter: var(--glass-blur-sm);
+  border: 1px solid var(--glass-brown-border);
+}
+
+/* Truncate text */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Visually hidden (accessibility) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Text colors */
+.text-income   { color: var(--color-income) !important; }
+.text-expense  { color: var(--color-expense) !important; }
+.text-transfer { color: var(--color-transfer) !important; }
+.text-muted    { color: var(--color-text-muted) !important; }
+.text-primary  { color: var(--color-primary) !important; }
+
+/* Amount display helpers */
+.amount-income {
+  color: var(--color-income);
+  font-weight: var(--weight-semibold);
+}
+.amount-expense {
+  color: var(--color-expense);
+  font-weight: var(--weight-semibold);
+}
+
+/* ============================================================
+   6. SCROLLBAR STYLING
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-default);
+  border-radius: var(--radius-full);
+  transition: background var(--duration-fast);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-strong);
+}
+
+/* Firefox */
+* { 
+  scrollbar-width: thin;
+   scrollbar-color: var(--color-border-default) transparent; 
+  }
+
+/* ============================================================
+   7. FOCUS STYLES (ACCESSIBILITY)
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   8. SELECTION
+   ============================================================ */
+::selection {
+  background: var(--color-primary-light);
+  color: var(--color-primary-active);
+}
+
+/* ============================================================
+   9. REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   10. RESPONSIVE BREAKPOINTS (for reference — use in CSS Modules)
+   ============================================================
+   xs:  320px  — small phones
+   sm:  480px  — large phones
+   md:  768px  — tablets
+   lg:  1024px — small laptops
+   xl:  1280px — desktops
+   2xl: 1536px — large screens
+   ============================================================ */
+
+/* App layout grid helper */
+.app-layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-rows: var(--topbar-height) 1fr;
+  min-height: 100dvh;
+  transition: grid-template-columns var(--duration-slow) var(--ease-in-out);
+}
+
+.app-layout.sidebar-collapsed {
+  grid-template-columns: var(--sidebar-collapsed-width) 1fr;
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--topbar-height) 1fr;
+  }
+}
+
+/* ============================================================
+   11. ANIMATION KEYFRAMES (used by GSAP targets + CSS fallbacks)
+   ============================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Skeleton loading shimmer */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-border-subtle) 25%,
+    var(--color-border-default) 50%,
+    var(--color-border-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* Page entry animation */
+.page-enter {
+  animation: fadeIn var(--duration-slow) var(--ease-out) both;
+}
+
+/* ============================================================
+   12. MUI OVERRIDES — bridge CSS variables to MUI theming
+   (Supplement the JS theme object in config/theme.js)
+   ============================================================ */
+
+/* Ensure MUI Paper respects glass design */
+.MuiPaper-root {
+  background: var(--glass-bg) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  box-shadow: var(--glass-shadow) !important;
+  border: 1px solid var(--glass-border) !important;
+}
+
+/* MUI Dialog scrim */
+.MuiBackdrop-root {
+  background: var(--color-bg-overlay) !important;
+  -webkit-backdrop-filter:  blur(4px) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* MUI Chip — tag style */
+.MuiChip-root {
+  background: var(--glass-brown-bg) !important;
+  border: 1px solid var(--glass-brown-border) !important;
+  color: var(--color-text-secondary) !important;
+  font-size: var(--text-xs) !important;
+  font-weight: var(--weight-medium) !important;
+}
+
+/* MUI Tooltip */
+.MuiTooltip-tooltip {
+  background: var(--glass-bg-strong) !important;
+  color: var(--color-text-primary) !important;
+  border: 1px solid var(--glass-border) !important;
+  -webkit-backdrop-filter:   var(--glass-blur-sm) !important;
+  backdrop-filter: var(--glass-blur-sm) !important;
+  font-size: var(--text-xs) !important;
+  font-weight: var(--weight-medium) !important;
+}
