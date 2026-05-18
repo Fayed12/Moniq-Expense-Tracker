@@ -3,9 +3,13 @@ import LoadingPage from "./pages/loading-page/LoadingPage";
 import MainLayout from "./layout/main/mainLayout";
 const WelcomePage = lazy(() => import("./pages/welcome-page/WelcomePage"));
 const OfflinePage = lazy(() => import("./pages/offline-page/OfflinePage"));
+import { themeSelector } from "./redux/theme/themeSlice";
 
 // react
 import { useEffect, useState, lazy, Suspense } from "react";
+
+// redux
+import { useSelector } from "react-redux";
 
 // react router
 import { Outlet } from "react-router";
@@ -20,6 +24,18 @@ function App() {
         const online = navigator.onLine;
         return online;
     });
+
+    // redux
+    const themeValue = useSelector(themeSelector);
+
+    // set theme to root element on mount and theme change
+    useEffect(() => {
+        if (themeValue === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    }, [themeValue]);
 
     useEffect(() => {
         function isOnlineFn() {

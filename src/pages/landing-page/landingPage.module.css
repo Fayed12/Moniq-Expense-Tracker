@@ -1,0 +1,476 @@
+/* ── Landing Page Main Wrapper ────────────────────────────── */
+.landingPage {
+    width: 100%;
+    overflow-x: hidden;
+    background-color: var(--color-bg-app);
+}
+
+/* ── Section 1: Hero ──────────────────────────────────────── */
+.hero {
+    min-height: 100dvh;
+    padding: calc(var(--topbar-height) + var(--space-20)) var(--space-8) var(--space-20);
+    background-color: var(--brown-700);
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Floating Orbs in background */
+.heroBlob1, .heroBlob2 {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    z-index: var(--z-below);
+    pointer-events: none;
+}
+
+.heroBlob1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+    top: -100px;
+    left: -100px;
+}
+
+.heroBlob2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--color-warning) 0%, transparent 70%);
+    bottom: -100px;
+    right: -100px;
+}
+
+.heroContent {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+    position: relative;
+    z-index: var(--z-base);
+}
+
+.heroEyebrow {
+    font-size: var(--text-sm);
+    color: var(--brown-300);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    font-weight: var(--weight-bold);
+    margin-bottom: var(--space-4);
+    display: block;
+}
+
+.heroTitle {
+    font-family: var(--font-display);
+    font-size: var(--text-5xl);
+    font-style: italic;
+    color: var(--color-text-inverse);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-6);
+}
+
+.heroSubtitle {
+    font-size: var(--text-lg);
+    color: var(--brown-200);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-8);
+    max-width: 500px;
+}
+
+.heroActions {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+    margin-bottom: var(--space-4);
+}
+
+.heroNote {
+    font-size: var(--text-xs);
+    color: var(--brown-300);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+/* Abstract 3D Dashboard representation for Hero Right */
+.heroGraphic {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.heroCard {
+    width: 80%;
+    height: 300px;
+    background: var(--glass-bg-subtle);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border-subtle);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
+    transform: rotateX(8deg) rotateY(-12deg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.cardSkeletonLine {
+    height: 20px;
+    background: var(--glass-bg-subtle);
+    border-radius: var(--radius-full);
+}
+
+.cardSkeletonLine:nth-child(1) { width: 40%; height: 32px; margin-bottom: var(--space-4); }
+.cardSkeletonLine:nth-child(2) { width: 100%; }
+.cardSkeletonLine:nth-child(3) { width: 80%; }
+.cardSkeletonLine:nth-child(4) { width: 90%; }
+.cardSkeletonLine:nth-child(5) { width: 60%; }
+
+/* ── Section 2: Stats Bar ─────────────────────────────────── */
+.statsBar {
+    background-color: var(--brown-100);
+    padding: var(--space-12) var(--space-8);
+    display: flex;
+    justify-content: center;
+}
+
+.statsGrid {
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-2);
+}
+
+.statIcon {
+    font-size: 40px;
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+}
+
+.statLabel {
+    font-size: var(--text-sm);
+    color: var(--brown-700);
+    font-weight: var(--weight-medium);
+}
+
+/* ── Section: About Us ────────────────────────────────────── */
+.aboutUs {
+    background-color: var(--color-bg-app);
+    padding: var(--space-24) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aboutContent {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.aboutText {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+}
+
+/* ── Section 3: Features ──────────────────────────────────── */
+.features {
+    background-color: var(--color-bg-surface);
+    padding: var(--space-24) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sectionHeader {
+    text-align: center;
+    margin-bottom: var(--space-16);
+}
+
+.sectionTitle {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    color: var(--brown-800);
+    margin-bottom: var(--space-4);
+}
+
+.featuresGrid {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+}
+
+.featureCard {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    transition: transform var(--duration-normal), box-shadow var(--duration-normal);
+    cursor: pointer;
+}
+
+.featureCard:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--glass-shadow-lg);
+    background: var(--glass-bg-strong);
+}
+
+.featureIconCircle {
+    width: 56px;
+    height: 56px;
+    background: var(--brown-100);
+    color: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all .5s ease-in-out;
+}
+
+.featureCard:hover .featureIconCircle {
+    transform: rotate(360deg) scale(1.2);
+}
+
+.featureTitle {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.featureDesc {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+}
+
+/* ── Section 4: App Preview ───────────────────────────────── */
+.preview {
+    background-color: var(--brown-800);
+    padding: var(--space-24) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.previewTitle {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    color: var(--color-text-inverse);
+    margin-bottom: var(--space-16);
+    text-align: center;
+    position: relative;
+    z-index: var(--z-base);
+}
+
+.browserMockup {
+    width: 100%;
+    max-width: 1000px;
+    background: var(--color-text-inverse);
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    z-index: var(--z-base);
+}
+
+.browserChrome {
+    height: 36px;
+    background: var(--brown-100);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--space-4);
+    gap: var(--space-2);
+}
+
+.browserDot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.dotRed { background: var(--color-danger); }
+.dotYellow { background: var(--color-warning); }
+.dotGreen { background: var(--color-success); }
+
+.browserContent {
+    width: 100%;
+    height: 500px;
+    background: var(--color-bg-app);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+/* ── Section 5: How It Works ──────────────────────────────── */
+.howItWorks {
+    background-color: var(--color-bg-app);
+    padding: var(--space-24) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stepsGrid {
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-12);
+    position: relative;
+}
+
+.stepCard {
+    position: relative;
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-4);
+    z-index: var(--z-base);
+    box-shadow: var(--glass-shadow);
+}
+
+.stepNumber {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-display);
+    font-size: 100px;
+    color: var(--brown-200);
+    opacity: 0.5;
+    z-index: var(--z-below);
+}
+
+.stepTitle {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    margin-top: var(--space-4);
+}
+
+.stepDesc {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+}
+
+/* ── Section 6: CTA Banner ────────────────────────────────── */
+.ctaBanner {
+    background-color: var(--brown-700);
+    padding: var(--space-20) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--color-text-inverse);
+}
+
+.ctaTitle {
+    font-family: var(--font-display);
+    font-size: var(--text-5xl);
+    color: var(--color-text-inverse);
+    margin-bottom: var(--space-6);
+}
+
+.ctaSubtitle {
+    font-size: var(--text-lg);
+    color: var(--color-text-disabled);
+    opacity: 0.9;
+    margin-bottom: var(--space-6);
+    max-width: 600px;
+}
+
+/* ── Responsive Adjustments ───────────────────────────────── */
+@media (max-width: 992px) {
+    .heroContent {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .heroActions {
+        justify-content: center;
+    }
+    
+    .heroGraphic {
+        height: 300px;
+    }
+    
+    .heroSubtitle {
+        margin: 0 auto var(--space-8);
+    }
+    
+    .featuresGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stepsGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+}
+
+@media (max-width: 640px) {
+    .heroTitle {
+        font-size: var(--text-4xl);
+    }
+    
+    .heroActions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .heroActions > button {
+        width: 100%;
+    }
+    
+    .statsGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+    }
+    
+    .featuresGrid {
+        grid-template-columns: 1fr;
+    }
+    
+    .browserContent {
+        height: 300px;
+    }
+    
+    .ctaTitle {
+        font-size: var(--text-3xl);
+    }
+}

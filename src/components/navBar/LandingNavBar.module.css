@@ -1,0 +1,179 @@
+/* ── Landing Nav Bar ──────────────────────────────────────── */
+.navBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-8);
+    z-index: calc(var(--z-overlay) + 1);
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border-subtle);
+    transition: all var(--duration-normal) var(--ease-out);
+}
+
+.navScrolled {
+    background-color: var(--glass-bg-strong);
+    box-shadow: var(--shadow-sm);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+/* ── Logo ─────────────────────────────────────────────────── */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    color: var(--brown-900);
+    text-decoration: none;
+}
+
+.logo img {
+    width: 40px;
+}
+
+/* ── Links (Center) ───────────────────────────────────────── */
+.links {
+    display: flex;
+    gap: var(--space-8);
+    align-items: center;
+}
+
+.navLink {
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    color: var(--brown-800);
+    transition: all var(--duration-fast) var(--ease-out);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.navLink:hover {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* ── Right Section ────────────────────────────────────────── */
+.rightSection {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+/* ── Actions (Desktop & Mobile) ───────────────────────────── */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.themeToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--glass-brown-bg);
+    border: 1px solid var(--glass-brown-border);
+    color: var(--color-text-primary);
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform var(--duration-fast), background var(--duration-fast);
+}
+
+.themeToggle:hover {
+    transform: scale(1.05);
+    background: var(--color-primary-light);
+}
+
+/* ── Mobile Burger ────────────────────────────────────────── */
+.burger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 32px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: calc(var(--z-overlay) + 1);
+}
+
+.burgerLine {
+    width: 100%;
+    height: 3px;
+    background: var(--color-text-primary);
+    border-radius: var(--radius-full);
+    transition: all 0.3s linear;
+    transform-origin: 1px;
+}
+
+/* ── Mobile Menu Overlay ──────────────────────────────────── */
+.mobileMenu {
+    position: fixed;
+    inset: 0;
+    background: var(--glass-bg-strong);
+    backdrop-filter: var(--glass-blur-lg);
+    -webkit-backdrop-filter: var(--glass-blur-lg);
+    z-index: var(--z-overlay);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-8);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.mobileLink {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: color var(--duration-fast);
+}
+
+.mobileLinkActive {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: var(--weight-bold);
+    transition: color var(--duration-fast);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 992px) {
+    .navBar {
+        padding: 0 var(--space-4);
+    }
+    
+    .links {
+        display: none;
+    }
+    
+    .burger {
+        display: flex;
+    }
+}
+
+/* ── Nav Link Active ──────────────────────────────────────── */
+.navLinkActive {
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.navLinkActive:hover {
+    color: var(--color-primary-light);
+}

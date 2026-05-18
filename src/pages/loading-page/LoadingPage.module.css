@@ -55,3 +55,14 @@
     color: var(--color-text-primary);
     letter-spacing: var(--tracking-wider);
 }
+
+/* ── Responsive Adjustments ───────────────────────────────── */
+@media (max-width: 640px) {
+    .logoText {
+        font-size: var(--text-2xl);
+    }
+    
+    .content {
+        gap: var(--space-4);
+    }
+}

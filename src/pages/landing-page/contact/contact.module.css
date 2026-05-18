@@ -1,0 +1,240 @@
+/* ── Contact Section Wrapper ──────────────────────────────── */
+.container {
+    width: 100%;
+    min-height: 100vh;
+    padding: var(--space-20) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-bg-app);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.header {
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: var(--space-16);
+    position: relative;
+    z-index: var(--z-base);
+}
+
+.overline {
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: var(--space-4);
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+}
+
+.subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+}
+
+/* ── Content Grid ─────────────────────────────────────────── */
+.contentGrid {
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--space-12);
+    position: relative;
+    z-index: var(--z-base);
+}
+
+/* ── Left: Info Column (About Website) ────────────────────── */
+.infoColumn {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.infoCard {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-6);
+    display: flex;
+    gap: var(--space-4);
+    box-shadow: var(--glass-shadow);
+    transition:
+        transform var(--duration-normal),
+        box-shadow var(--duration-normal);
+}
+
+.infoCard:hover {
+    transform: translateY(-4px);
+    background: var(--glass-bg-strong);
+    box-shadow: var(--glass-shadow-lg);
+}
+
+.infoIconBox {
+    width: 48px;
+    height: 48px;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.infoContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.infoLabel {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-1);
+}
+
+.infoValue {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+}
+
+/* ── Right: Form Card ─────────────────────────────────────── */
+.formCard {
+    background: var(--glass-bg-strong);
+    backdrop-filter: var(--glass-blur-lg);
+    -webkit-backdrop-filter: var(--glass-blur-lg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-3xl);
+    padding: var(--space-10);
+    box-shadow: var(--glass-shadow-lg);
+}
+
+.formTitle {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+}
+
+.formSubtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+.textareaWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.textareaLabel {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-secondary);
+}
+
+.textarea {
+    width: 100%;
+    padding: 0 var(--input-padding-x);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+    color: var(--color-text-primary);
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: var(--input-radius);
+    outline: none;
+    transition:
+        border-color var(--duration-fast) var(--ease-in-out),
+        background-color var(--duration-fast) var(--ease-in-out),
+        box-shadow var(--duration-normal) var(--ease-out),
+        color var(--duration-fast) var(--ease-in-out);
+    caret-color: var(--color-primary);
+}
+
+[data-theme="dark"] .textarea {
+    background: rgba(36, 21, 8, 0.7);
+    border-color: rgba(212, 168, 122, 0.15);
+    color: var(--color-white);
+}
+
+.textarea::placeholder {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.textarea[data-error="true"] {
+    border-color: var(--color-danger);
+}
+
+.errorMsg {
+    color: var(--color-danger);
+    font-size: var(--text-xs);
+    margin-top: var(--space-1);
+}
+
+.submitBtn {
+    margin-top: var(--space-2);
+    width: 100%;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 992px) {
+    .contentGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: var(--space-16) var(--space-4);
+    }
+
+    .title {
+        font-size: var(--text-3xl);
+    }
+
+    .formCard {
+        padding: var(--space-6);
+    }
+
+    .formRow {
+        grid-template-columns: 1fr;
+    }
+}
