@@ -1,6 +1,5 @@
 // local
 import LoadingPage from "./pages/loading-page/LoadingPage";
-import MainLayout from "./layout/main/mainLayout";
 const WelcomePage = lazy(() => import("./pages/welcome-page/WelcomePage"));
 const OfflinePage = lazy(() => import("./pages/offline-page/OfflinePage"));
 import { themeSelector } from "./redux/theme/themeSlice";
@@ -77,9 +76,7 @@ function App() {
         <>
             {
                 isOnline ?
-                    <MainLayout>
-                        <Outlet />
-                    </MainLayout>
+                    <Outlet />
                     :
                     <Suspense fallback={<LoadingPage />}>
                         <OfflinePage />

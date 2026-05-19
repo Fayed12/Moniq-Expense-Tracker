@@ -1,0 +1,47 @@
+.appLayout {
+    display: flex;
+    flex-direction: row;
+    min-height: 100dvh;
+    background-color: var(--color-bg-app);
+}
+
+/* ── Main content fills everything beside the sidebar ─────── */
+.mainContent {
+    flex: 1;
+    min-width: 0; /* prevent flex overflow */
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+}
+
+/* ── Scrollable page body ─────────────────────────────────── */
+.main {
+    flex: 1;
+    padding: var(--space-6) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.pageContainer {
+    flex: 1;
+    width: 100%;
+}
+
+/* ── Mobile overlay backdrop ──────────────────────────────── */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--color-bg-overlay);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: calc(var(--z-overlay) - 1);
+    animation: fadeIn var(--duration-fast) var(--ease-out);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 992px) {
+    .main {
+        padding: var(--space-4);
+    }
+}

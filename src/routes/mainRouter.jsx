@@ -18,6 +18,7 @@ const SuspenseWrapper = ({ children }) => (
 const App = lazy(() => import("../App"));
 const LandingPage = lazy(() => import("../pages/landing-page/landingPage"));
 const HomePage = lazy(() => import("../pages/dashboard-pages/home-page/homePage"));
+const DashboardLayout = lazy(() => import("../layout/dashboard/dashboardLayout"));
 
 const router = createBrowserRouter([
     {
@@ -38,12 +39,30 @@ const router = createBrowserRouter([
                 )
             },
             {
-                path: "home",
+                path: "/dashboard",
                 element: (
                     <SuspenseWrapper>
-                        <HomePage />
+                        <DashboardLayout />
                     </SuspenseWrapper>
-                )
+                ),
+                children: [
+                    {
+                        index: true,
+                        element: (
+                            <SuspenseWrapper>
+                                <HomePage />
+                            </SuspenseWrapper>
+                        )
+                    },
+                    {
+                        path:"home",
+                        element: (
+                            <SuspenseWrapper>
+                                <HomePage />
+                            </SuspenseWrapper>
+                        )
+                    }
+                ]
             }
         ]
     },
