@@ -17,6 +17,9 @@ const SuspenseWrapper = ({ children }) => (
 // lazy components
 const App = lazy(() => import("../App"));
 const LandingPage = lazy(() => import("../pages/landing-page/landingPage"));
+
+const RegisterUserPage = lazy(() => import("../pages/authentication/register-user/registerUser"));
+
 const HomePage = lazy(() => import("../pages/dashboard-pages/home-page/homePage"));
 const DashboardLayout = lazy(() => import("../layout/dashboard/dashboardLayout"));
 
@@ -35,6 +38,14 @@ const router = createBrowserRouter([
                 element: (
                     <SuspenseWrapper>
                         <LandingPage />
+                    </SuspenseWrapper>
+                )
+            },
+            {
+                path: "/register",
+                element: (
+                    <SuspenseWrapper>
+                        <RegisterUserPage />
                     </SuspenseWrapper>
                 )
             },
