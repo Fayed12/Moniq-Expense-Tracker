@@ -19,11 +19,25 @@ const SuspenseWrapper = ({ children }) => (
 const App = lazy(() => import("../App"));
 const LandingPage = lazy(() => import("../pages/landing-page/landingPage"));
 
-const RegisterUserPage = lazy(() => import("../pages/authentication/register-user/registerUser"));
-const LoginUserPage = lazy(() => import("../pages/authentication/login-user/loginUser"));
+const RegisterUserPage = lazy(
+    () => import("../pages/authentication/register-user/registerUser"),
+);
+const LoginUserPage = lazy(
+    () => import("../pages/authentication/login-user/loginUser"),
+);
+const ForgetPasswordPage = lazy(
+    () => import("../pages/authentication/forget-pass/forgetPassword"),
+);
+const ResetPasswordPage = lazy(
+    () => import("../pages/authentication/reset-pass/ResetPassword"),
+);
 
-const HomePage = lazy(() => import("../pages/dashboard-pages/home-page/homePage"));
-const DashboardLayout = lazy(() => import("../layout/dashboard/dashboardLayout"));
+const HomePage = lazy(
+    () => import("../pages/dashboard-pages/home-page/homePage"),
+);
+const DashboardLayout = lazy(
+    () => import("../layout/dashboard/dashboardLayout"),
+);
 
 const router = createBrowserRouter([
     {
@@ -41,7 +55,7 @@ const router = createBrowserRouter([
                     <SuspenseWrapper>
                         <LandingPage />
                     </SuspenseWrapper>
-                )
+                ),
             },
             {
                 path: "/register",
@@ -49,7 +63,7 @@ const router = createBrowserRouter([
                     <SuspenseWrapper>
                         <RegisterUserPage />
                     </SuspenseWrapper>
-                )
+                ),
             },
             {
                 path: "/login",
@@ -57,7 +71,23 @@ const router = createBrowserRouter([
                     <SuspenseWrapper>
                         <LoginUserPage />
                     </SuspenseWrapper>
-                )
+                ),
+            },
+            {
+                path: "/forgot-password",
+                element: (
+                    <SuspenseWrapper>
+                        <ForgetPasswordPage />
+                    </SuspenseWrapper>
+                ),
+            },
+            {
+                path: "/reset-password",
+                element: (
+                    <SuspenseWrapper>
+                        <ResetPasswordPage />
+                    </SuspenseWrapper>
+                ),
             },
             {
                 path: "/dashboard",
@@ -75,24 +105,24 @@ const router = createBrowserRouter([
                             <SuspenseWrapper>
                                 <HomePage />
                             </SuspenseWrapper>
-                        )
+                        ),
                     },
                     {
-                        path:"home",
+                        path: "home",
                         element: (
                             <SuspenseWrapper>
                                 <HomePage />
                             </SuspenseWrapper>
-                        )
-                    }
-                ]
-            }
-        ]
+                        ),
+                    },
+                ],
+            },
+        ],
     },
     {
         path: "*",
         element: <ErrorPage />,
-    }
+    },
 ]);
 
 export default router;

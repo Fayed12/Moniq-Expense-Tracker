@@ -1,8 +1,8 @@
 // local
-import styles from "./loginUser.module.css";
+import styles from "./ResetPassword.module.css";
 import MainButton from "../../../components/ui/button/MainButton";
 import MainInput from "../../../components/ui/input/MainInput";
-import { loginUser, loginWithGoogle } from "../../../redux/auth/authSlice";
+import { resetPassword } from "../../../services/users/auth";
 
 // react
 import { useEffect, useRef, useState } from "react";
@@ -10,8 +10,8 @@ import { useEffect, useRef, useState } from "react";
 // react hook form
 import { useForm } from "react-hook-form";
 
-// redux
-import { useDispatch } from "react-redux";
+// react icons
+import { FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 
 // gsap
 import gsap from "gsap";
@@ -19,29 +19,27 @@ import gsap from "gsap";
 // toastify
 import { toast } from "react-toastify";
 
-// react icons
-import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
-import { FcGoogle } from "react-icons/fc";
-import { GiBackForth } from "react-icons/gi";
-
 // react router
 import { Link, useNavigate } from "react-router";
 
-export default function LoginUser() {
-    const dispatch = useDispatch();
+function ResetPassword() {
     const navigate = useNavigate();
-
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const containerRef = useRef(null);
 
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors },
     } = useForm({
         mode: "onTouched"
     });
+
+    // eslint-disable-next-line react-hooks/incompatible-library
+    const password = watch("password", "");
 
     // ── GSAP Entrance Animation ────────────────────────────────
     useEffect(() => {
@@ -60,7 +58,7 @@ export default function LoginUser() {
                 { autoAlpha: 1, scale: 1, y: 0, duration: 1, ease: "back.out(1.15)" }
             );
 
-            // Stagger reveal of form items (Logo -> Heading -> Inputs -> Buttons)
+            // Stagger reveal of form items
             gsap.fromTo(
                 ".formItem",
                 { autoAlpha: 0, y: 15 },
@@ -108,93 +106,31 @@ export default function LoginUser() {
         });
     };
 
-    // ── Email and Password Credentials Login ──────────────────
+    // ── Password Update Handler ───────────────────────────────
     const onSubmit = async (data) => {
         setLoading(true);
-        const loadingToast = toast.loading("Verifying your credentials, please wait...");
+        const loadingToast = toast.loading("Updating password, please wait...");
         try {
-            const resultAction = await dispatch(
-                loginUser({
-                    email: data.email,
-                    password: data.password,
-                })
-            );
-
-            if (loginUser.fulfilled.match(resultAction)) {
-                toast.update(loadingToast, {
-                    render: "Welcome back! Login successful.",
-                    type: "success",
-                    isLoading: false,
-                    autoClose: 2000,
-                });
-                navigate("/dashboard");
-            } else {
-                toast.update(loadingToast, {
-                    render: resultAction.payload || "Login failed. Please check your credentials.",
-                    type: "error",
-                    isLoading: false,
-                    autoClose: 3000,
-                });
-            }
-        } catch (err) {
-            console.error(err);
+            await resetPassword(data.password);
+            
             toast.update(loadingToast, {
-                render: "An unexpected error occurred during login.",
-                type: "error",
+                render: "Password updated successfully! Welcome back.",
+                type: "success",
                 isLoading: false,
-                autoClose: 3000,
+                autoClose: 2000,
             });
-        } finally {
-            setLoading(false);
-        }
-    };
 
-    // ── Google OAuth Authentication ───────────────────────────
-    const handleGoogleLogin = async () => {
-        setLoading(true);
-        const loadingToast = toast.loading("Connecting to Google authentication...");
-        try {
-            // Consistent new user schema fallback in case of new profile creation
-            const newUserProfile = {
-                photo_url: null,
-                currency: "EGP",
-                locale: "ar-EG",
-                date_format: "DD/MM/YYYY",
-                onboarding_completed: false,
-                monthly_budget_limit: null,
-                default_account_id: null,
-                notify_budget_alert: true,
-                notify_goal_reached: true,
-                notify_recurring_due: true,
-                notify_weekly_digest: false,
-                created_at: new Date().toISOString(),
-                updated_at: null
-            };
-
-            const resultAction = await dispatch(loginWithGoogle(newUserProfile));
-            if (loginWithGoogle.rejected.match(resultAction)) {
-                toast.update(loadingToast, {
-                    render: resultAction.payload || "Google authentication failed.",
-                    type: "error",
-                    isLoading: false,
-                    autoClose: 3000,
-                });
-            } else {
-                toast.update(loadingToast, {
-                    render: "Google login successful! Redirecting...",
-                    type: "success",
-                    isLoading: false,
-                    autoClose: 2000,
-                });
-                navigate("/dashboard");
-            }
+            // Smoothly navigate back to landing home page as requested
+            setTimeout(() => {
+                navigate("/");
+            }, 2000);
         } catch (err) {
             console.error(err);
             toast.update(loadingToast, {
-                render: "An unexpected error occurred during Google sign-in.",
+                render: err.message || "Failed to reset password. Link may be expired.",
                 type: "error",
                 isLoading: false,
-                autoClose: 3000,
+                autoClose: 4000,
             });
         } finally {
             setLoading(false);
@@ -213,11 +149,13 @@ export default function LoginUser() {
                             <img src="/logo.png" alt="Moniq Logo" className={styles.logoImage} />
                         </div>
                     </div>
-                    <h1 className={`formItem ${styles.title}`}>Welcome back</h1>
-                    <p className={`formItem ${styles.subtitle}`}>Sign in to continue to Moniq.</p>
+                    <h1 className={`formItem ${styles.title}`}>Define new password</h1>
+                    <p className={`formItem ${styles.subtitle}`}>
+                        Choose a strong, secure password for your account.
+                    </p>
                 </div>
 
-                {/* Email and Password Form */}
+                {/* Reset Password Form */}
                 <form
                     className={styles.form}
                     onSubmit={handleSubmit(onSubmit)}
@@ -225,32 +163,11 @@ export default function LoginUser() {
                     onBlurCapture={handleInputBlur}
                     noValidate
                 >
-                    {/* Email Input */}
-                    <div className="formItem">
-                        <MainInput
-                            type="email"
-                            name="email"
-                            title="Email Address"
-                            placeholder="name@example.com"
-                            icon={<FiMail />}
-                            register={register("email", {
-                                required: "Email address is required",
-                                pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                    message: "Please enter a valid email address"
-                                }
-                            })}
-                            hasError={!!errors.email}
-                            errorMsg={errors.email?.message}
-                        />
-                    </div>
-
-                    {/* Password Input with custom forgot link */}
+                    {/* Password Input */}
                     <div className="formItem">
                         <div className={styles.passwordInputContainer}>
                             <div className={styles.labelRow}>
-                                <label htmlFor="password" className={styles.customLabel}>Password</label>
-                                <Link to="/forgot-password" className={styles.forgotLink}>Forgot?</Link>
+                                <label htmlFor="password" className={styles.customLabel}>New Password</label>
                             </div>
                             <div className={styles.passwordFieldWrapper}>
                                 <MainInput
@@ -260,6 +177,10 @@ export default function LoginUser() {
                                     icon={<FiLock />}
                                     register={register("password", {
                                         required: "Password is required",
+                                        pattern: {
+                                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                                            message: "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
+                                        },
                                         minLength: {
                                             value: 8,
                                             message: "Password must be at least 8 characters long"
@@ -280,49 +201,57 @@ export default function LoginUser() {
                         </div>
                     </div>
 
-                    {/* Start Journey Submit Button */}
+                    {/* Confirm Password Input */}
+                    <div className="formItem">
+                        <div className={styles.passwordInputContainer}>
+                            <div className={styles.labelRow}>
+                                <label htmlFor="confirmPassword" className={styles.customLabel}>Confirm Password</label>
+                            </div>
+                            <div className={styles.passwordFieldWrapper}>
+                                <MainInput
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    name="confirmPassword"
+                                    placeholder="••••••••"
+                                    icon={<FiLock />}
+                                    register={register("confirmPassword", {
+                                        required: "Please confirm your password",
+                                        validate: (value) => value === password || "The passwords do not match"
+                                    })}
+                                    hasError={!!errors.confirmPassword}
+                                    errorMsg={errors.confirmPassword?.message}
+                                />
+                                <button
+                                    type="button"
+                                    className={styles.eyeToggleBtn}
+                                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                                    aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                                >
+                                    {showConfirmPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Submit Button */}
                     <div className={`formItem ${styles.submitBtn}`}>
                         <MainButton
                             type="submit"
-                            title="Start Journey"
+                            title="Update Password"
                             action="primary"
                             isLoading={loading}
                         >
-                            Start Journey
+                            Update Password
                         </MainButton>
                     </div>
                 </form>
 
-                {/* Or Divider */}
-                <div className={`formItem ${styles.divider}`}>
-                    <span>Or continue with</span>
-                </div>
-
-                {/* Google Authentication (At Bottom) */}
-                <div className={`formItem ${styles.socialLogin}`}>
-                    <MainButton
-                        type="button"
-                        title="Continue with Google"
-                        action="outline"
-                        clickEvent={handleGoogleLogin}
-                        isDisabled={loading}
-                        className={styles.googleBtn}
-                    >
-                        <FcGoogle size={20} /> Continue with Google
-                    </MainButton>
-                </div>
-
-                <div className={styles.footerContainer}>
-                    <Link to="/" title="back to home">
-                        <GiBackForth size={20} className="text-muted" />
-                    </Link>
-                </div>
-
-                {/* Signup Redirect Footer */}
-                <p className={`formItem ${styles.registerPrompt}`}>
-                    Don't have an account? <Link to="/register">Sign up</Link>
+                {/* Optional back link to login */}
+                <p className={`formItem ${styles.loginPrompt}`}>
+                    Return to <Link to="/login">Login</Link>
                 </p>
             </div>
         </div>
     );
 }
+
+export default ResetPassword;

@@ -1,6 +1,11 @@
 // local
 import { supabase } from "../config/supabase";
-import { clearAuth, loadSession, setProfile, setSession } from "../redux/auth/authSlice";
+import {
+    clearAuth,
+    loadSession,
+    setProfile,
+    setSession,
+} from "../redux/auth/authSlice";
 import { fetchUserProfile } from "../services/users/auth";
 
 // react
@@ -25,7 +30,6 @@ export const useAuth = () => {
         const {
             data: { subscription },
         } = supabase.auth.onAuthStateChange(async (event, session) => {
-            console.log("[Auth event]", event);
 
             switch (event) {
                 case "SIGNED_IN":
@@ -58,6 +62,33 @@ export const useAuth = () => {
         // Cleanup listener on unmount
         return () => subscription.unsubscribe();
     }, [dispatch]);
+
+    // ── REALTIME user listener ─────────────────────
+    // Automatically updates Redux when backend user changes
+    useEffect(() => {
+        if (!user?.id) return;
+
+        const channel = supabase
+            .channel("user-profile")
+            .on(
+                "postgres_changes",
+                {
+                    event: "*",
+                    schema: "public",
+                    table: "users",
+                    filter: `uid=eq.${user.id}`,
+                },
+                async () => {
+                    const updatedProfile = await fetchUserProfile(user.id);
+                    dispatch(setProfile(updatedProfile));
+                },
+            )
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
+    }, [user?.id, dispatch]);
 
     return { user, profile, session, loading, error, emailConfirmSent };
 };

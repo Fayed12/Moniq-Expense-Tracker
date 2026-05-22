@@ -39,9 +39,9 @@ export const loginWithGoogle = createAsyncThunk(
             const data = await authSvc.signInWithGoogle();
 
             const mergedUser = {
-                uid: data.user.id,
-                display_name: data.user.user_metadata.full_name,
-                email: data.user.email,
+                uid: data?.user?.id,
+                display_name: data?.user?.user_metadata?.full_name,
+                email: data?.user?.email,
                 ...newUser
             }
 

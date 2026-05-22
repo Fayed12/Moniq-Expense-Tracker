@@ -3,6 +3,7 @@ import LoadingPage from "./pages/loading-page/LoadingPage";
 const WelcomePage = lazy(() => import("./pages/welcome-page/WelcomePage"));
 const OfflinePage = lazy(() => import("./pages/offline-page/OfflinePage"));
 import { themeSelector } from "./redux/theme/themeSlice";
+import { useAuth } from "./hooks/authHook";
 
 // react
 import { useEffect, useState, lazy, Suspense } from "react";
@@ -59,6 +60,9 @@ function App() {
             return () => clearTimeout(closeWelcome);
         }
     }, [openWelcome]);
+
+    // useAuth
+    useAuth();
 
     if (openWelcome) {
         return (
