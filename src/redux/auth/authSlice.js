@@ -39,13 +39,14 @@ export const loginWithGoogle = createAsyncThunk(
             const data = await authSvc.signInWithGoogle();
 
             const mergedUser = {
-                // uid: data.user.id,
-                displayName: data.user.user_metadata.full_name,
+                uid: data.user.id,
+                display_name: data.user.user_metadata.full_name,
                 email: data.user.email,
                 ...newUser
             }
 
-            return await authSvc.createUserProfile(mergedUser);
+            const profile = await authSvc.createUserProfile(mergedUser);
+            return { session: data.session, profile };
         } catch (err) {
             return rejectWithValue(err.message);
         }
@@ -81,12 +82,12 @@ export const loadSession = createAsyncThunk(
 const authSlice = createSlice({
     name: "auth",
     initialState: {
-        user: null, // Supabase auth user object
-        profile: null, // public.users row
+        user: null, 
+        profile: null, 
         session: null,
-        loading: true, // true on app start while session loads
+        loading: true,
         error: null,
-        emailConfirmSent: false, // true after signup — show "check email" UI
+        emailConfirmSent: false,
     },
     reducers: {
         // Called by onAuthStateChange listener

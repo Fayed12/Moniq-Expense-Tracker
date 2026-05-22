@@ -2,6 +2,7 @@
 // local
 import ErrorPage from "../pages/error-page/ErrorPage";
 import LoadingPage from "../pages/loading-page/LoadingPage";
+import ProtectRouter from "./protectRouter";
 
 // react router
 import { createBrowserRouter } from "react-router";
@@ -19,6 +20,7 @@ const App = lazy(() => import("../App"));
 const LandingPage = lazy(() => import("../pages/landing-page/landingPage"));
 
 const RegisterUserPage = lazy(() => import("../pages/authentication/register-user/registerUser"));
+const LoginUserPage = lazy(() => import("../pages/authentication/login-user/loginUser"));
 
 const HomePage = lazy(() => import("../pages/dashboard-pages/home-page/homePage"));
 const DashboardLayout = lazy(() => import("../layout/dashboard/dashboardLayout"));
@@ -50,11 +52,21 @@ const router = createBrowserRouter([
                 )
             },
             {
-                path: "/dashboard",
+                path: "/login",
                 element: (
                     <SuspenseWrapper>
-                        <DashboardLayout />
+                        <LoginUserPage />
                     </SuspenseWrapper>
+                )
+            },
+            {
+                path: "/dashboard",
+                element: (
+                    <ProtectRouter>
+                        <SuspenseWrapper>
+                            <DashboardLayout />
+                        </SuspenseWrapper>
+                    </ProtectRouter>
                 ),
                 children: [
                     {

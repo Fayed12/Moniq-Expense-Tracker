@@ -1,10 +1,8 @@
-/* eslint-disable react-hooks/incompatible-library */
-// Mohamed@as1
 // local
-import styles from "./registerUser.module.css";
-import MainInput from "../../../components/ui/input/MainInput";
+import styles from "./loginUser.module.css";
 import MainButton from "../../../components/ui/button/MainButton";
-import { registerUser, loginWithGoogle } from "../../../redux/auth/authSlice";
+import MainInput from "../../../components/ui/input/MainInput";
+import { loginUser, loginWithGoogle } from "../../../redux/auth/authSlice";
 
 // react
 import { useEffect, useRef, useState } from "react";
@@ -22,54 +20,50 @@ import gsap from "gsap";
 import { toast } from "react-toastify";
 
 // react icons
-import { FiUser, FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 
 // react router
 import { Link, useNavigate } from "react-router";
 
-function RegisterUser() {
+export default function LoginUser() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const containerRef = useRef(null);
 
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm({
         mode: "onTouched"
     });
 
-    const password = watch("password", "");
-
-    // GSAP Entrance Animation
+    // ── GSAP Entrance Animation ────────────────────────────────
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Background color animation
+            // Smooth background color animate
             gsap.fromTo(
                 `.${styles.pageContainer}`,
                 { backgroundColor: "var(--brown-50)" },
                 { backgroundColor: "var(--color-bg-app)", duration: 1.5, ease: "power2.out" }
             );
 
-            // Container popping animation
+            // Centered card popping scale and fade in
             gsap.fromTo(
                 `.${styles.contentWrapper}`,
-                { autoAlpha: 0, scale: 0.95, y: 20 },
-                { autoAlpha: 1, scale: 1, y: 0, duration: 1, ease: "back.out(1.2)" }
+                { autoAlpha: 0, scale: 0.95, y: 25 },
+                { autoAlpha: 1, scale: 1, y: 0, duration: 1, ease: "back.out(1.15)" }
             );
 
-            // Stagger form items
+            // Stagger reveal of form items (Logo -> Heading -> Inputs -> Buttons)
             gsap.fromTo(
                 ".formItem",
-                { autoAlpha: 0, x: 20 },
-                { autoAlpha: 1, x: 0, duration: 0.6, stagger: 0.1, delay: 0.3, ease: "power2.out" }
+                { autoAlpha: 0, y: 15 },
+                { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.1, delay: 0.2, ease: "power3.out" }
             );
         }, containerRef);
 
@@ -113,67 +107,53 @@ function RegisterUser() {
         });
     };
 
+    // ── Email and Password Credentials Login ──────────────────
     const onSubmit = async (data) => {
         setLoading(true);
-        const loadingToast = toast.loading("Please wait. Creating an account...");
+        const loadingToast = toast.loading("Verifying your credentials, please wait...");
         try {
-            // Match with database.md user profile structure
-            const newUserProfile = {
-                display_name: data.fullName,
-                email: data.email,
-                photo_url: null,
-                currency: "EGP",
-                locale: "ar-EG",
-                date_format: "DD/MM/YYYY",
-                onboarding_completed: false,
-                monthly_budget_limit: null,
-                default_account_id: null,
-                notify_budget_alert: true,
-                notify_goal_reached: true,
-                notify_recurring_due: true,
-                notify_weekly_digest: false,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString()
-            };
-
             const resultAction = await dispatch(
-                registerUser({
-                    displayName: data.fullName,
+                loginUser({
                     email: data.email,
                     password: data.password,
-                    newUser: newUserProfile
                 })
             );
 
-            if (registerUser.fulfilled.match(resultAction)) {
+            if (loginUser.fulfilled.match(resultAction)) {
                 toast.update(loadingToast, {
-                    render: "Account created successfully!",
+                    render: "Welcome back! Login successful.",
                     type: "success",
                     isLoading: false,
                     autoClose: 2000,
                 });
-                navigate("/login");
+                navigate("/dashboard");
             } else {
                 toast.update(loadingToast, {
-                    render: resultAction.payload || "Registration failed. Please try again.",
+                    render: resultAction.payload || "Login failed. Please check your credentials.",
                     type: "error",
                     isLoading: false,
-                    autoClose: 2000,
+                    autoClose: 3000,
                 });
-                console.log(resultAction.payload);
             }
         } catch (err) {
-            console.log(err);
-            toast.error("An unexpected error occurred.");
+            console.error(err);
+            toast.update(loadingToast, {
+                render: "An unexpected error occurred during login.",
+                type: "error",
+                isLoading: false,
+                autoClose: 3000,
+            });
         } finally {
             setLoading(false);
         }
     };
 
+    // ── Google OAuth Authentication ───────────────────────────
     const handleGoogleLogin = async () => {
         setLoading(true);
-        const loadingToast = toast.loading("Please wait, Creating an account via Google.....");
+        const loadingToast = toast.loading("Connecting to Google authentication...");
         try {
+            // Consistent new user schema fallback in case of new profile creation
             const newUserProfile = {
                 photo_url: null,
                 currency: "EGP",
@@ -187,20 +167,20 @@ function RegisterUser() {
                 notify_recurring_due: true,
                 notify_weekly_digest: false,
                 created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString()
+                updated_at: null
             };
-            
+
             const resultAction = await dispatch(loginWithGoogle(newUserProfile));
             if (loginWithGoogle.rejected.match(resultAction)) {
                 toast.update(loadingToast, {
-                    render: resultAction.payload || "Google login failed.",
+                    render: resultAction.payload || "Google authentication failed.",
                     type: "error",
                     isLoading: false,
-                    autoClose: 2000,
+                    autoClose: 3000,
                 });
             } else {
                 toast.update(loadingToast, {
-                    render: "Google login successful!",
+                    render: "Google login successful! Redirecting...",
                     type: "success",
                     isLoading: false,
                     autoClose: 2000,
@@ -208,33 +188,35 @@ function RegisterUser() {
                 navigate("/dashboard");
             }
         } catch (err) {
+            console.error(err);
             toast.update(loadingToast, {
-                render: "An unexpected error occurred.",
+                render: "An unexpected error occurred during Google sign-in.",
                 type: "error",
                 isLoading: false,
-                autoClose: 2000,
+                autoClose: 3000,
             });
-            console.log(err.message);
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className={`pageContainer ${styles.pageContainer}`} ref={containerRef}>
+        <div className={styles.pageContainer} ref={containerRef}>
             <div className={styles.bgOverlay}></div>
-            
-            <div className={`contentWrapper ${styles.contentWrapper}`}>
-                <div className={styles.formHeader}>
+
+            <div className={styles.contentWrapper}>
+                {/* Header Section */}
+                <div className={styles.header}>
                     <div className="formItem">
                         <div className={styles.logoWrapper}>
                             <img src="/logo.png" alt="Moniq Logo" className={styles.logoImage} />
                         </div>
                     </div>
-                    <h2 className={`formItem ${styles.formTitle}`}>Begin Your Journey</h2>
-                    <p className={`formItem ${styles.formSubtitle}`}>Create your premium account today.</p>
+                    <h1 className={`formItem ${styles.title}`}>Welcome back</h1>
+                    <p className={`formItem ${styles.subtitle}`}>Sign in to continue to Moniq.</p>
                 </div>
 
+                {/* Email and Password Form */}
                 <form
                     className={styles.form}
                     onSubmit={handleSubmit(onSubmit)}
@@ -242,41 +224,19 @@ function RegisterUser() {
                     onBlurCapture={handleInputBlur}
                     noValidate
                 >
-                    <div className="formItem">
-                        <MainInput
-                            type="text"
-                            name="fullName"
-                            title="Full Name"
-                            placeholder="Jane Doe"
-                            icon={<FiUser />}
-                            register={register("fullName", { 
-                                required: "Full name is required",
-                                maxLength: {
-                                    value: 50,
-                                    message: "Name must be less than 50 characters"
-                                },
-                                validate: value => {
-                                    const words = value.trim().split(/\s+/);
-                                    return words.length === 3 || "Please enter exactly three words";
-                                }
-                            })}
-                            hasError={!!errors.fullName}
-                            errorMsg={errors.fullName?.message}
-                        />
-                    </div>
-
+                    {/* Email Input */}
                     <div className="formItem">
                         <MainInput
                             type="email"
                             name="email"
                             title="Email Address"
-                            placeholder="jane@example.com"
+                            placeholder="name@example.com"
                             icon={<FiMail />}
-                            register={register("email", { 
-                                required: "Email is required",
+                            register={register("email", {
+                                required: "Email address is required",
                                 pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                    message: "Invalid email address"
+                                    message: "Please enter a valid email address"
                                 }
                             })}
                             hasError={!!errors.email}
@@ -284,10 +244,12 @@ function RegisterUser() {
                         />
                     </div>
 
+                    {/* Password Input with custom forgot link */}
                     <div className="formItem">
                         <div className={styles.passwordInputContainer}>
                             <div className={styles.labelRow}>
                                 <label htmlFor="password" className={styles.customLabel}>Password</label>
+                                <Link to="/forgot-password" className={styles.forgotLink}>Forgot?</Link>
                             </div>
                             <div className={styles.passwordFieldWrapper}>
                                 <MainInput
@@ -295,15 +257,11 @@ function RegisterUser() {
                                     name="password"
                                     placeholder="••••••••"
                                     icon={<FiLock />}
-                                    register={register("password", { 
+                                    register={register("password", {
                                         required: "Password is required",
-                                        pattern: {
-                                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                                            message: "Must contain at least one uppercase letter, one lowercase letter, one number and one special character"
-                                        },
                                         minLength: {
                                             value: 8,
-                                            message: "Must be at least 8 characters."
+                                            message: "Password must be at least 8 characters long"
                                         }
                                     })}
                                     hasError={!!errors.password}
@@ -320,53 +278,26 @@ function RegisterUser() {
                             </div>
                         </div>
                     </div>
-                    
-                    <div className="formItem">
-                        <div className={styles.passwordInputContainer}>
-                            <div className={styles.labelRow}>
-                                <label htmlFor="confirmPassword" className={styles.customLabel}>Confirm Password</label>
-                            </div>
-                            <div className={styles.passwordFieldWrapper}>
-                                <MainInput
-                                    type={showConfirmPassword ? "text" : "password"}
-                                    name="confirmPassword"
-                                    placeholder="••••••••"
-                                    icon={<FiLock />}
-                                    register={register("confirmPassword", { 
-                                        required: "Please confirm your password",
-                                        validate: value => value === password || "The passwords do not match"
-                                    })}
-                                    hasError={!!errors.confirmPassword}
-                                    errorMsg={errors.confirmPassword?.message}
-                                />
-                                <button
-                                    type="button"
-                                    className={styles.eyeToggleBtn}
-                                    onClick={() => setShowConfirmPassword((prev) => !prev)}
-                                    aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-                                >
-                                    {showConfirmPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
+                    {/* Start Journey Submit Button */}
                     <div className={`formItem ${styles.submitBtn}`}>
-                        <MainButton 
-                            type="submit" 
-                            title="Create Account" 
-                            action="primary" 
+                        <MainButton
+                            type="submit"
+                            title="Start Journey"
+                            action="primary"
                             isLoading={loading}
                         >
-                            Create Account
+                            Start Journey
                         </MainButton>
                     </div>
                 </form>
 
+                {/* Or Divider */}
                 <div className={`formItem ${styles.divider}`}>
                     <span>Or continue with</span>
                 </div>
 
+                {/* Google Authentication (At Bottom) */}
                 <div className={`formItem ${styles.socialLogin}`}>
                     <MainButton
                         type="button"
@@ -380,12 +311,11 @@ function RegisterUser() {
                     </MainButton>
                 </div>
 
-                <p className={`formItem ${styles.loginPrompt}`}>
-                    Already have an account? <Link to="/login">Login</Link>
+                {/* Signup Redirect Footer */}
+                <p className={`formItem ${styles.registerPrompt}`}>
+                    Don't have an account? <Link to="/register">Sign up</Link>
                 </p>
             </div>
         </div>
     );
 }
-
-export default RegisterUser;

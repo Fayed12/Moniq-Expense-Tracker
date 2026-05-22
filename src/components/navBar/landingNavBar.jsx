@@ -27,6 +27,8 @@ export default function LandingNavBar() {
     const menuRef = useRef(null);
     const linksRef = useRef(null);
 
+    const { user } = useSelector((state) => state.auth);
+
     // redux
     const dispatch = useDispatch()
     const themeValue = useSelector(themeSelector)
@@ -108,9 +110,19 @@ export default function LandingNavBar() {
                         <button className={styles.themeToggle} onClick={() => dispatch(toggleTheme())} aria-label="Toggle Theme">
                             {themeValue === "dark" ? <FaSun /> : <FaMoon />}
                         </button>
-                        <MainButton action="primary" size="md">
-                            Login
-                        </MainButton>
+                        {user ? (
+                            <Link to="/dashboard">
+                                <MainButton action="primary" size="md">
+                                    Dashboard
+                                </MainButton>
+                            </Link>
+                        ) : (
+                            <Link to="/login">
+                                <MainButton action="primary" size="md">
+                                    Login
+                                </MainButton>
+                            </Link>
+                        )}
                     </div>
 
                     {/* Mobile Burger Icon */}
