@@ -39,6 +39,29 @@ const DashboardLayout = lazy(
     () => import("../layout/dashboard/dashboardLayout"),
 );
 
+// Onboarding pages
+const OnboardingLayout = lazy(
+    () => import("../pages/Onboarding/OnboardingLayout"),
+);
+const OnboardingWelcome = lazy(
+    () => import("../pages/Onboarding/Onboarding-welcome/onboardingWelcome"),
+);
+const OnboardingExpense = lazy(
+    () => import("../pages/Onboarding/Onboarding-expense/onboardingExpense"),
+);
+const OnboardingAnalytics = lazy(
+    () => import("../pages/Onboarding/Onboarding-analytics/onboardingAnalytics"),
+);
+const OnboardingGoals = lazy(
+    () => import("../pages/Onboarding/Onboarding-goals/onboardingGoals"),
+);
+const OnboardingQuickSetup = lazy(
+    () => import("../pages/Onboarding/Onboarding-quickSetup/onboardingQuickSetup"),
+);
+const OnboardingFinish = lazy(
+    () => import("../pages/Onboarding/Onboarding-finish/onboardingFinish"),
+);
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -88,6 +111,74 @@ const router = createBrowserRouter([
                         <ResetPasswordPage />
                     </SuspenseWrapper>
                 ),
+            },
+            {
+                path: "/onboarding",
+                element: (
+                    <ProtectRouter>
+                        <SuspenseWrapper>
+                            <OnboardingLayout />
+                        </SuspenseWrapper>
+                    </ProtectRouter>
+                ),
+                children: [
+                    {
+                        index: true,
+                        element: (
+                            <SuspenseWrapper>
+                                <OnboardingWelcome />
+                            </SuspenseWrapper>
+                        ),
+                    },
+                    {
+                        path: "welcome",
+                        element: (
+                            <SuspenseWrapper>
+                                <OnboardingWelcome />
+                            </SuspenseWrapper>
+                        ),
+                    },
+                    {
+                        path: "expense",
+                        element: (
+                            <SuspenseWrapper>
+                                <OnboardingExpense />
+                            </SuspenseWrapper>
+                        ),
+                    },
+                    {
+                        path: "analytics",
+                        element: (
+                            <SuspenseWrapper>
+                                <OnboardingAnalytics />
+                            </SuspenseWrapper>
+                        ),
+                    },
+                    {
+                        path: "goals",
+                        element: (
+                            <SuspenseWrapper>
+                                <OnboardingGoals />
+                            </SuspenseWrapper>
+                        ),
+                    },
+                    {
+                        path: "quick-setup",
+                        element: (
+                            <SuspenseWrapper>
+                                <OnboardingQuickSetup />
+                            </SuspenseWrapper>
+                        ),
+                    },
+                    {
+                        path: "finish",
+                        element: (
+                            <SuspenseWrapper>
+                                <OnboardingFinish />
+                            </SuspenseWrapper>
+                        ),
+                    },
+                ],
             },
             {
                 path: "/dashboard",

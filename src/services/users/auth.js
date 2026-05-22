@@ -124,7 +124,7 @@ export const updateUserProfile = async (userId, changes) => {
     const { data, error } = await supabase
         .from("users")
         .update({ ...changes, updated_at: new Date() })
-        .eq("id", userId)
+        .eq("uid", userId)
         .select()
         .single();
 

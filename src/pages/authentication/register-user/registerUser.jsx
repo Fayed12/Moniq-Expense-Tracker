@@ -205,7 +205,14 @@ function RegisterUser() {
                     isLoading: false,
                     autoClose: 2000,
                 });
-                navigate("/dashboard");
+
+                // Check onboarding status and redirect accordingly
+                const profile = resultAction.payload?.profile;
+                if (profile?.onboarding_completed) {
+                    navigate("/dashboard");
+                } else {
+                    navigate("/onboarding/welcome");
+                }
             }
         } catch (err) {
             toast.update(loadingToast, {
