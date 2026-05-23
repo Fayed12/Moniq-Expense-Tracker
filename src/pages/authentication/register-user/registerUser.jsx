@@ -98,6 +98,24 @@ function RegisterUser() {
     const handleInputBlur = (e) => {
         if (e.target.tagName !== "INPUT") return;
 
+        // Auto-trim spaces on blur to prevent typing and whitespace errors
+        if (e.target.type === "email" || e.target.name === "email") {
+            const originalVal = e.target.value;
+            const trimmedVal = originalVal.trim();
+            if (originalVal !== trimmedVal) {
+                e.target.value = trimmedVal;
+                e.target.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+        } else if (e.target.name === "fullName") {
+            const originalVal = e.target.value;
+            // Trim outer whitespace and normalize inner multiple spaces to a single space
+            const sanitizedVal = originalVal.trim().replace(/\s+/g, ' ');
+            if (originalVal !== sanitizedVal) {
+                e.target.value = sanitizedVal;
+                e.target.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+        }
+
         const parent = e.target.closest(".formItem");
         if (parent) {
             parent.classList.remove(styles.focusedWrapper);
@@ -117,10 +135,13 @@ function RegisterUser() {
         setLoading(true);
         const loadingToast = toast.loading("Please wait. Creating an account...");
         try {
+            const trimmedFullName = data.fullName ? data.fullName.trim().replace(/\s+/g, ' ') : "";
+            const trimmedEmail = data.email ? data.email.trim() : "";
+
             // Match with database.md user profile structure
             const newUserProfile = {
-                display_name: data.fullName,
-                email: data.email,
+                display_name: trimmedFullName,
+                email: trimmedEmail,
                 photo_url: null,
                 currency: "EGP",
                 locale: "ar-EG",
@@ -138,8 +159,8 @@ function RegisterUser() {
 
             const resultAction = await dispatch(
                 registerUser({
-                    displayName: data.fullName,
-                    email: data.email,
+                    displayName: trimmedFullName,
+                    email: trimmedEmail,
                     password: data.password,
                     newUser: newUserProfile
                 })

@@ -93,6 +93,17 @@ export default function LoginUser() {
     const handleInputBlur = (e) => {
         if (e.target.tagName !== "INPUT") return;
 
+        // Auto-trim spaces on blur for email and text fields to prevent typing errors
+        if (e.target.type === "email" || e.target.name === "email" || e.target.type === "text") {
+            const originalVal = e.target.value;
+            const trimmedVal = originalVal.trim();
+            if (originalVal !== trimmedVal) {
+                e.target.value = trimmedVal;
+                // Dispatch input event to notify react-hook-form of the change
+                e.target.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+        }
+
         const parent = e.target.closest(".formItem");
         if (parent) {
             parent.classList.remove(styles.focusedWrapper);
@@ -113,9 +124,10 @@ export default function LoginUser() {
         setLoading(true);
         const loadingToast = toast.loading("Verifying your credentials, please wait...");
         try {
+            const trimmedEmail = data.email ? data.email.trim() : "";
             const resultAction = await dispatch(
                 loginUser({
-                    email: data.email,
+                    email: trimmedEmail,
                     password: data.password,
                 })
             );

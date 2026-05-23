@@ -23,9 +23,19 @@ import { Modal, Box, Avatar, Typography } from "@mui/material";
 function Header({ setIsSidebarOpen }) {
     const dispatch = useDispatch();
     const themeValue = useSelector(themeSelector);
+    const { profile } = useSelector((s) => s.auth);
     const headerRef = useRef(null);
 
-    const locationValue = useGetLocationPathValue()
+    console.log(profile);
+    const nameArray = profile?.display_name.split(" ");
+    const avatarName =
+        nameArray.at(0).toUpperCase().slice(0, 1) +
+        nameArray
+            .at(nameArray.length - 1)
+            .toUpperCase()
+            .slice(0, 1);
+
+    const locationValue = useGetLocationPathValue();
 
     // Profile Modal State
     const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -37,7 +47,7 @@ function Header({ setIsSidebarOpen }) {
                 y: -50,
                 opacity: 0,
                 duration: 0.6,
-                ease: "power2.out"
+                ease: "power2.out",
             });
         }, headerRef);
         return () => ctx.revert();
@@ -57,7 +67,10 @@ function Header({ setIsSidebarOpen }) {
                 </MainButton>
 
                 <h1 className={styles.title}>
-                    dashboard/<span className={styles.locationValue}>{locationValue}</span>
+                    dashboard/
+                    <span className={styles.locationValue}>
+                        {locationValue}
+                    </span>
                 </h1>
             </div>
 
@@ -67,9 +80,17 @@ function Header({ setIsSidebarOpen }) {
                     action="ghost"
                     className={styles.iconBtn}
                     clickEvent={() => dispatch(toggleTheme())}
-                    title={themeValue === "dark" ? "Switch to Light" : "Switch to Dark"}
+                    title={
+                        themeValue === "dark"
+                            ? "Switch to Light"
+                            : "Switch to Dark"
+                    }
                 >
-                    {themeValue === "dark" ? <FaSun size={19} /> : <FaMoon size={19} />}
+                    {themeValue === "dark" ? (
+                        <FaSun size={19} />
+                    ) : (
+                        <FaMoon size={19} />
+                    )}
                 </MainButton>
 
                 {/* Notifications */}
@@ -93,9 +114,17 @@ function Header({ setIsSidebarOpen }) {
                 {/* Avatar — opens profile modal */}
                 <Avatar
                     onClick={() => setIsProfileOpen(true)}
-                    sx={{ width: 38, height: 38, cursor: 'pointer', bgcolor: 'var(--color-primary)', fontSize: '14px', fontFamily: 'var(--font-sans)', fontWeight: 600 }}
+                    sx={{
+                        width: 38,
+                        height: 38,
+                        cursor: "pointer",
+                        bgcolor: "var(--color-primary)",
+                        fontSize: "14px",
+                        fontFamily: "var(--font-sans)",
+                        fontWeight: 600,
+                    }}
                 >
-                    MF
+                    {avatarName}
                 </Avatar>
             </div>
 
@@ -108,15 +137,40 @@ function Header({ setIsSidebarOpen }) {
             >
                 <Box className={styles.profileModal}>
                     <Avatar
-                        sx={{ width: 80, height: 80, bgcolor: 'var(--color-primary)', mb: 2, fontSize: '28px', fontFamily: 'var(--font-sans)', fontWeight: 700 }}
+                        sx={{
+                            width: 80,
+                            height: 80,
+                            bgcolor: "var(--color-primary)",
+                            mb: 2,
+                            fontSize: "28px",
+                            fontFamily: "var(--font-sans)",
+                            fontWeight: 700,
+                        }}
                     >
-                        MF
+                        {avatarName}
                     </Avatar>
-                    <Typography id="profile-modal-title" variant="h6" component="h2" sx={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-display)', fontWeight: 700 }}>
-                        Mohamed Fayed
+                    <Typography
+                        id="profile-modal-title"
+                        variant="h6"
+                        component="h2"
+                        sx={{
+                            color: "var(--color-text-primary)",
+                            fontFamily: "var(--font-display)",
+                            fontWeight: 700,
+                        }}
+                    >
+                        {profile?.display_name}
                     </Typography>
-                    <Typography id="profile-modal-description" sx={{ mt: 0.5, color: 'var(--color-text-secondary)', fontFamily: 'var(--font-sans)', fontSize: '14px' }}>
-                        mohamed.fayed@moniq.com
+                    <Typography
+                        id="profile-modal-description"
+                        sx={{
+                            mt: 0.5,
+                            color: "var(--color-text-secondary)",
+                            fontFamily: "var(--font-sans)",
+                            fontSize: "14px",
+                        }}
+                    >
+                        {profile?.email}
                     </Typography>
 
                     {/* Modal close button */}

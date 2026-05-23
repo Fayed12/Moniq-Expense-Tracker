@@ -9,10 +9,12 @@ export const registerUser = createAsyncThunk(
     "auth/register",
     async ({ newUser, ...credentials }, { rejectWithValue }) => {
         try {
-
             // send email and password as credentials object then destruct this object before using inside function
             const data = await authSvc.signUp(credentials);
-            return await authSvc.createUserProfile({ ...newUser, uid: data.user.id });
+            return await authSvc.createUserProfile({
+                ...newUser,
+                uid: data.user.id,
+            });
         } catch (err) {
             return rejectWithValue(err.message);
         }
@@ -40,10 +42,10 @@ export const loginWithGoogle = createAsyncThunk(
 
             const mergedUser = {
                 uid: data?.user?.id,
-                display_name: data?.user?.user_metadata?.full_name,
-                email: data?.user?.email,
-                ...newUser
-            }
+                display_name: data?.user?.user_metadata?.full_name.trim(),
+                email: data?.user?.email.trim(),
+                ...newUser,
+            };
 
             const profile = await authSvc.createUserProfile(mergedUser);
             return { session: data.session, profile };
@@ -82,8 +84,8 @@ export const loadSession = createAsyncThunk(
 const authSlice = createSlice({
     name: "auth",
     initialState: {
-        user: null, 
-        profile: null, 
+        user: null,
+        profile: null,
         session: null,
         loading: true,
         error: null,

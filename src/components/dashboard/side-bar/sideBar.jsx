@@ -1,6 +1,6 @@
 // local
 import styles from "./sideBar.module.css";
-import MainButton from "../../ui/button/MainButton";
+import LogoutButton from "../logout/logout";
 
 // react router
 import { NavLink } from "react-router";
@@ -18,7 +18,7 @@ import { TbReceipt2 } from "react-icons/tb";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import { GoGoal } from "react-icons/go";
 import { HiOutlineChartBar } from "react-icons/hi";
-import { FiSettings, FiLogOut, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiSettings, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const navItems = [
     { name: "Home", path: "/dashboard/home", icon: <MdDashboard /> },
@@ -105,14 +105,16 @@ function SideBar({ isSidebarOpen, setIsSidebarOpen, isSidebarCollapsed, setIsSid
                     {!isSidebarCollapsed && <span>Collapse</span>}
                 </button>
 
-                <MainButton
+                {/* <MainButton
                     action="ghost"
                     className={styles.logoutBtn}
                     clickEvent={() => console.log("Logout clicked")}
                 >
                     <FiLogOut size={18} />
                     {!isSidebarCollapsed && <span>Logout</span>}
-                </MainButton>
+                </MainButton> */}
+
+                <LogoutButton collapse={isSidebarCollapsed}/>
             </div>
         </aside>
     );

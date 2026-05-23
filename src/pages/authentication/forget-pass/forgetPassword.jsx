@@ -86,6 +86,17 @@ function ForgetPassword() {
     const handleInputBlur = (e) => {
         if (e.target.tagName !== "INPUT") return;
 
+        // Auto-trim spaces on blur for email and text fields to prevent typing errors
+        if (e.target.type === "email" || e.target.name === "email" || e.target.type === "text") {
+            const originalVal = e.target.value;
+            const trimmedVal = originalVal.trim();
+            if (originalVal !== trimmedVal) {
+                e.target.value = trimmedVal;
+                // Dispatch input event to notify react-hook-form of the change
+                e.target.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+        }
+
         const parent = e.target.closest(".formItem");
         if (parent) {
             parent.classList.remove(styles.focusedWrapper);
@@ -106,8 +117,9 @@ function ForgetPassword() {
         setLoading(true);
         const loadingToast = toast.loading("Sending recovery link, please wait...");
         try {
-            await sendPasswordReset(data.email);
-            setSubmittedEmail(data.email);
+            const trimmedEmail = data.email ? data.email.trim() : "";
+            await sendPasswordReset(trimmedEmail);
+            setSubmittedEmail(trimmedEmail);
             setIsSent(true);
 
             toast.update(loadingToast, {
