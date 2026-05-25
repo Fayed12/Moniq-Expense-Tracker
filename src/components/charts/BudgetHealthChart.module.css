@@ -1,0 +1,188 @@
+/* ── Budget Health Container ─────────────────────────────────── */
+.container {
+    position: relative;
+    overflow: hidden;
+    padding: var(--space-6);
+    border-radius: var(--card-radius);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow-sm);
+    height: 100%;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ── Animated circle decorations ─────────────────────────────── */
+.container::before {
+    content: "";
+    position: absolute;
+    width: var(--home-circle-md);
+    height: var(--home-circle-md);
+    border-radius: 50%;
+    background: var(--home-circle-color-1);
+    opacity: var(--home-circle-opacity);
+    filter: blur(var(--home-circle-blur));
+    bottom: -30px;
+    right: -30px;
+    animation: floatHealthCircle 9s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.container::after {
+    content: "";
+    position: absolute;
+    width: var(--home-circle-sm);
+    height: var(--home-circle-sm);
+    border-radius: 50%;
+    background: var(--home-circle-color-2);
+    opacity: calc(var(--home-circle-opacity) * 0.7);
+    filter: blur(25px);
+    top: -15px;
+    left: -15px;
+    animation: floatHealthCircle 7s ease-in-out infinite alternate-reverse;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Title ────────────────────────────────────────────────────── */
+.title {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-4) 0;
+    align-self: flex-start;
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Doughnut wrapper ────────────────────────────────────────── */
+.chartWrapper {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 180px;
+}
+
+/* ── Center label overlay ────────────────────────────────────── */
+.centerLabel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.percentValue {
+    font-family: var(--font-sans);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    line-height: 1;
+    display: block;
+}
+
+.percentUnit {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+}
+
+.usedLabel {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    margin-top: var(--space-1);
+    display: block;
+}
+
+/* ── Remaining row ───────────────────────────────────────────── */
+.remaining {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+    margin-top: var(--space-4);
+    position: relative;
+    z-index: 1;
+}
+
+.remainingLabel {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    font-weight: var(--weight-medium);
+}
+
+.remainingValue {
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+}
+
+/* ── Float animation ─────────────────────────────────────────── */
+@keyframes floatHealthCircle {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(-8px, 10px) scale(1.1);
+    }
+    100% {
+        transform: translate(5px, -5px) scale(0.92);
+    }
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--space-4);
+        min-height: 280px;
+    }
+
+    .title {
+        font-size: var(--text-base);
+    }
+
+    .percentValue {
+        font-size: var(--text-2xl);
+    }
+
+    .percentUnit {
+        font-size: var(--text-base);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: var(--space-3);
+        min-height: 240px;
+    }
+
+    .title {
+        font-size: var(--text-sm);
+    }
+
+    .percentValue {
+        font-size: var(--text-xl);
+    }
+
+    .remaining {
+        flex-direction: column;
+        gap: var(--space-1);
+        text-align: center;
+    }
+}

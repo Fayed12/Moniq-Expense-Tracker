@@ -265,6 +265,16 @@
   --chart-6: #2471a3;
   --chart-7: #7b68ee;
   --chart-8: #c0392b;
+
+  /* HomePage card decorative circles */
+  --home-circle-sm: 80px;
+  --home-circle-md: 120px;
+  --home-circle-lg: 180px;
+  --home-circle-opacity: 0.07;
+  --home-circle-blur: 40px;
+  --home-circle-color-1: var(--brown-400);
+  --home-circle-color-2: var(--brown-300);
+  --home-circle-color-3: var(--color-success);
 }
 
 .dark {

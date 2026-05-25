@@ -6,7 +6,7 @@ import {
     markAllNotificationsRead,
     deleteNotification,
     deleteAllNotifications,
-} from "../../services/notifications.service";
+} from "../services/Notifications/NotificationsService";
 
 export const loadNotifications = createAsyncThunk(
     "notifications/load",

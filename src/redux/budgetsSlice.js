@@ -4,7 +4,7 @@ import {
     upsertBudget,
     updateBudget,
     deleteBudget,
-} from "../../services/budgets.service";
+} from "../services/Budgets/BudgetsService";
 
 export const loadBudgets = createAsyncThunk(
     "budgets/load",

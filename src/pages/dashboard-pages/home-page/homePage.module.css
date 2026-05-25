@@ -1,0 +1,918 @@
+/* ================================================================
+   HomePage — CSS Module
+   Modern glass-morphism dashboard with animated circle decorations
+   Mobile-first responsive design
+   ================================================================ */
+
+/* ── Page Container ──────────────────────────────────────────── */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding: var(--space-2) 0;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    width: 100%;
+    will-change: opacity;
+}
+
+/* ── Welcome Section ─────────────────────────────────────────── */
+.welcomeSection {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+}
+
+.welcomeText h1 {
+    font-family: var(--font-sans);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: var(--leading-tight);
+}
+
+.welcomeText p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+    font-weight: var(--weight-regular);
+}
+
+/* ── Month Picker ────────────────────────────────────────────── */
+.monthPicker {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    position: relative;
+}
+
+.monthPickerBtn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-lg);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur-sm);
+    -webkit-backdrop-filter: var(--glass-blur-sm);
+    border: 1px solid var(--glass-border);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: var(--transition-base);
+    white-space: nowrap;
+    font-family: var(--font-sans);
+}
+
+.monthPickerBtn:hover {
+    background: var(--glass-bg-strong);
+    box-shadow: var(--glass-shadow-sm);
+}
+
+.monthPickerBtn svg {
+    color: var(--color-text-muted);
+}
+
+/* react-datepicker overrides for month picker */
+.monthPicker :global(.react-datepicker) {
+    font-family: var(--font-sans) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: var(--radius-xl) !important;
+    background: var(--glass-bg-strong) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    box-shadow: var(--glass-shadow-lg) !important;
+    overflow: hidden;
+}
+
+.monthPicker :global(.react-datepicker__header) {
+    background: var(--glass-brown-bg) !important;
+    border-bottom: 1px solid var(--color-border-subtle) !important;
+    padding-top: var(--space-3) !important;
+}
+
+.monthPicker :global(.react-datepicker__current-month),
+.monthPicker :global(.react-datepicker-year-header) {
+    color: var(--color-text-primary) !important;
+    font-weight: var(--weight-semibold) !important;
+    font-size: var(--text-sm) !important;
+}
+
+.monthPicker :global(.react-datepicker__month-text) {
+    color: var(--color-text-secondary) !important;
+    font-weight: var(--weight-medium) !important;
+    border-radius: var(--radius-md) !important;
+    padding: var(--space-2) !important;
+}
+
+.monthPicker :global(.react-datepicker__month-text:hover) {
+    background: var(--color-primary-light) !important;
+    color: var(--color-primary) !important;
+}
+
+.monthPicker :global(.react-datepicker__month-text--selected),
+.monthPicker :global(.react-datepicker__month-text--keyboard-selected) {
+    background: var(--color-primary) !important;
+    color: var(--cream-50) !important;
+}
+
+.monthPicker :global(.react-datepicker__navigation-icon::before) {
+    border-color: var(--color-text-muted) !important;
+}
+
+.monthPicker :global(.react-datepicker__navigation:hover *::before) {
+    border-color: var(--color-primary) !important;
+}
+
+/* ── Overview Cards Grid ─────────────────────────────────────── */
+.overviewGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+}
+
+/* ── Individual Overview Card ────────────────────────────────── */
+.overviewCard {
+    position: relative;
+    overflow: hidden;
+    padding: var(--space-5);
+    border-radius: var(--card-radius);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow-sm);
+    transition: transform var(--duration-normal) var(--ease-spring),
+                box-shadow var(--duration-normal) var(--ease-out);
+    cursor: default;
+}
+
+.overviewCard:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--glass-shadow-hover);
+}
+
+/* Primary card (Total Balance) — larger, highlighted */
+.overviewCardPrimary {
+    composes: overviewCard;
+    background: var(--color-primary);
+    border-color: transparent;
+}
+
+.overviewCardPrimary .cardLabel,
+.overviewCardPrimary .cardValue,
+.overviewCardPrimary .cardSub {
+    color: var(--cream-50);
+}
+
+.overviewCardPrimary .cardIconWrap {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--cream-50);
+}
+
+/* Card circle decorations */
+.overviewCard::before {
+    content: "";
+    position: absolute;
+    width: var(--home-circle-md);
+    height: var(--home-circle-md);
+    border-radius: 50%;
+    background: var(--home-circle-color-1);
+    opacity: var(--home-circle-opacity);
+    filter: blur(var(--home-circle-blur));
+    top: -40px;
+    right: -30px;
+    animation: cardFloat 7s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.overviewCard::after {
+    content: "";
+    position: absolute;
+    width: var(--home-circle-sm);
+    height: var(--home-circle-sm);
+    border-radius: 50%;
+    background: var(--home-circle-color-2);
+    opacity: calc(var(--home-circle-opacity) * 0.5);
+    filter: blur(25px);
+    bottom: -20px;
+    left: -15px;
+    animation: cardFloat 9s ease-in-out infinite alternate-reverse;
+    pointer-events: none;
+}
+
+.overviewCardPrimary::before {
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 0.15;
+}
+
+.overviewCardPrimary::after {
+    background: rgba(255, 255, 255, 0.15);
+    opacity: 0.1;
+}
+
+/* Card layout */
+.cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-3);
+    position: relative;
+    z-index: 1;
+}
+
+.cardLabel {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+}
+
+.cardIconWrap {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-md);
+    background: var(--color-primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.cardBody {
+    position: relative;
+    z-index: 1;
+}
+
+.cardValue {
+    font-family: var(--font-sans);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.cardSub {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-weight: var(--weight-medium);
+}
+
+/* Trend badge */
+.trendBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: var(--weight-semibold);
+    line-height: 1.4;
+}
+
+.trendUp {
+    composes: trendBadge;
+    background: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.trendDown {
+    composes: trendBadge;
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+}
+
+.trendUpPrimary {
+    composes: trendBadge;
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--cream-50);
+}
+
+.trendDownPrimary {
+    composes: trendBadge;
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--cream-50);
+}
+
+/* ── Charts Row ──────────────────────────────────────────────── */
+.chartsRow {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: var(--space-4);
+}
+
+/* ── Middle Row (Transactions + Categories) ──────────────────── */
+.middleRow {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-4);
+}
+
+/* ── Glass Section Card ──────────────────────────────────────── */
+.sectionCard {
+    position: relative;
+    overflow: hidden;
+    padding: var(--space-6);
+    border-radius: var(--card-radius);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow-sm);
+}
+
+.sectionCard::before {
+    content: "";
+    position: absolute;
+    width: var(--home-circle-lg);
+    height: var(--home-circle-lg);
+    border-radius: 50%;
+    background: var(--home-circle-color-2);
+    opacity: calc(var(--home-circle-opacity) * 0.5);
+    filter: blur(50px);
+    bottom: -60px;
+    right: -40px;
+    animation: cardFloat 11s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.sectionCard::after {
+    content: "";
+    position: absolute;
+    width: var(--home-circle-sm);
+    height: var(--home-circle-sm);
+    border-radius: 50%;
+    background: var(--home-circle-color-3);
+    opacity: calc(var(--home-circle-opacity) * 0.4);
+    filter: blur(30px);
+    top: -25px;
+    left: 30px;
+    animation: cardFloat 8s ease-in-out infinite alternate-reverse;
+    pointer-events: none;
+}
+
+/* ── Section Header ──────────────────────────────────────────── */
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-5);
+    position: relative;
+    z-index: 1;
+}
+
+.sectionTitle {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.sectionAction {
+    font-size: var(--text-xs) !important;
+    padding: 0 var(--space-3) !important;
+    height: 32px !important;
+}
+
+/* ── Recent Transactions List ────────────────────────────────── */
+.txList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    position: relative;
+    z-index: 1;
+}
+
+.txItem {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
+    transition: background var(--duration-fast) var(--ease-in-out);
+}
+
+.txItem:hover {
+    background: var(--glass-bg-subtle);
+}
+
+.txIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.txInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.txTitle {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.txDate {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: 1px;
+}
+
+.txAmountWrap {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.txAmount {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    white-space: nowrap;
+}
+
+.txAmountIncome {
+    composes: txAmount;
+    color: var(--color-income);
+}
+
+.txAmountExpense {
+    composes: txAmount;
+    color: var(--color-expense);
+}
+
+.txAmountTransfer {
+    composes: txAmount;
+    color: var(--color-transfer);
+}
+
+.txCategory {
+    font-size: 10px;
+    color: var(--color-text-muted);
+    margin-top: 1px;
+}
+
+.txPrefix {
+    margin-right: var(--space-1);
+    font-weight: var(--weight-medium);
+}
+
+/* ── Top Categories ──────────────────────────────────────────── */
+.catList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    position: relative;
+    z-index: 1;
+}
+
+.catItem {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1-5);
+}
+
+.catInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.catName {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-primary);
+}
+
+.catPercent {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+}
+
+.catBar {
+    width: 100%;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--color-border-subtle);
+    overflow: hidden;
+}
+
+.catBarFill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    transition: width 1s var(--ease-out);
+}
+
+/* ── Active Goals Section (Full Width Footer) ────────────────── */
+.goalsSection {
+    composes: sectionCard;
+    width: 100%;
+}
+
+.goalsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-4);
+    position: relative;
+    z-index: 1;
+}
+
+.goalCard {
+    position: relative;
+    overflow: hidden;
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    background: var(--glass-bg-subtle);
+    border: 1px solid var(--glass-border-subtle);
+    transition: transform var(--duration-normal) var(--ease-spring),
+                box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.goalCard:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glass-shadow-sm);
+}
+
+.goalCard::before {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    opacity: 0.08;
+    filter: blur(20px);
+    top: -15px;
+    right: -15px;
+    pointer-events: none;
+    animation: cardFloat 6s ease-in-out infinite alternate;
+}
+
+.goalTop {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+}
+
+.goalIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.goalName {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.goalProgress {
+    margin-bottom: var(--space-2);
+}
+
+.goalBar {
+    width: 100%;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--color-border-subtle);
+    overflow: hidden;
+}
+
+.goalBarFill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    transition: width 1.2s var(--ease-out);
+}
+
+.goalAmounts {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-1);
+    flex-wrap: wrap;
+}
+
+.goalCurrent {
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+}
+
+.goalTarget {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    font-weight: var(--weight-medium);
+}
+
+/* ── Empty State ─────────────────────────────────────────────── */
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8) var(--space-4);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.emptyIcon {
+    font-size: 40px;
+    color: var(--color-text-muted);
+    opacity: 0.4;
+    margin-bottom: var(--space-3);
+}
+
+.emptyText {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    font-weight: var(--weight-medium);
+}
+
+/* ── Float Animation Keyframe ────────────────────────────────── */
+@keyframes cardFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    33% {
+        transform: translate(6px, -8px) scale(1.06);
+    }
+    66% {
+        transform: translate(-4px, 5px) scale(0.97);
+    }
+    100% {
+        transform: translate(8px, 12px) scale(1.03);
+    }
+}
+
+/* ================================================================
+   RESPONSIVE DESIGN — Mobile-first breakpoints
+   ================================================================ */
+
+/* ── ≤ 1024px — Tablet landscape ─────────────────────────────── */
+@media (max-width: 1024px) {
+    .overviewGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .chartsRow {
+        grid-template-columns: 1fr;
+    }
+
+    .middleRow {
+        grid-template-columns: 1fr;
+    }
+
+    .welcomeText h1 {
+        font-size: var(--text-xl);
+    }
+}
+
+/* ── ≤ 768px — Tablet portrait ───────────────────────────────── */
+@media (max-width: 768px) {
+    .container {
+        gap: var(--space-5);
+        padding: var(--space-1) 0;
+    }
+
+    .overviewGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-3);
+    }
+
+    .overviewCard {
+        padding: var(--space-4);
+    }
+
+    .cardValue {
+        font-size: var(--text-lg);
+    }
+
+    .cardLabel {
+        font-size: 10px;
+    }
+
+    .sectionCard {
+        padding: var(--space-4);
+    }
+
+    .sectionTitle {
+        font-size: var(--text-base);
+    }
+
+    .welcomeText h1 {
+        font-size: var(--text-lg);
+    }
+
+    .welcomeText p {
+        font-size: var(--text-xs);
+    }
+
+    .goalsGrid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: var(--space-3);
+    }
+
+    .txIcon {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .txTitle {
+        font-size: var(--text-xs);
+    }
+
+    .txAmount {
+        font-size: var(--text-xs);
+    }
+}
+
+/* ── ≤ 480px — Mobile ────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .container {
+        gap: var(--space-4);
+    }
+
+    .welcomeSection {
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+
+    .welcomeText h1 {
+        font-size: var(--text-base);
+    }
+
+    .welcomeText p {
+        font-size: 11px;
+    }
+
+    .overviewGrid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-2);
+    }
+
+    .overviewCard {
+        padding: var(--space-3);
+    }
+
+    .cardValue {
+        font-size: var(--text-base);
+    }
+
+    .cardLabel {
+        font-size: 9px;
+        letter-spacing: var(--tracking-wide);
+    }
+
+    .cardIconWrap {
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+        border-radius: var(--radius-sm);
+    }
+
+    .cardSub {
+        font-size: 10px;
+    }
+
+    .sectionCard {
+        padding: var(--space-3);
+    }
+
+    .sectionTitle {
+        font-size: var(--text-sm);
+    }
+
+    .sectionHeader {
+        margin-bottom: var(--space-3);
+    }
+
+    .txItem {
+        gap: var(--space-2);
+        padding: var(--space-2);
+    }
+
+    .txIcon {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+
+    .txTitle {
+        font-size: 11px;
+    }
+
+    .txDate {
+        font-size: 10px;
+    }
+
+    .txAmount {
+        font-size: 11px;
+    }
+
+    .txCategory {
+        font-size: 9px;
+    }
+
+    .catName {
+        font-size: var(--text-xs);
+    }
+
+    .catPercent {
+        font-size: var(--text-xs);
+    }
+
+    .goalsGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+
+    .goalCard {
+        padding: var(--space-3);
+    }
+
+    .goalName {
+        font-size: var(--text-xs);
+    }
+
+    .goalCurrent {
+        font-size: var(--text-sm);
+    }
+
+    .goalTarget {
+        font-size: 10px;
+    }
+
+    .monthPickerBtn {
+        padding: var(--space-1-5) var(--space-3);
+        font-size: var(--text-xs);
+    }
+
+    .trendBadge {
+        font-size: 9px;
+        padding: 1px 6px;
+    }
+}
+
+/* ── ≤ 360px — Very small phones ─────────────────────────────── */
+@media (max-width: 360px) {
+    .overviewGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .cardValue {
+        font-size: var(--text-sm);
+    }
+
+    .welcomeText h1 {
+        font-size: var(--text-sm);
+    }
+}
+
+/* ── Reduced Motion ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .overviewCard::before,
+    .overviewCard::after,
+    .sectionCard::before,
+    .sectionCard::after,
+    .goalCard::before {
+        animation: none !important;
+    }
+
+    .overviewCard:hover {
+        transform: none;
+    }
+
+    .goalCard:hover {
+        transform: none;
+    }
+}
