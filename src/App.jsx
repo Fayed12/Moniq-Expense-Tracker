@@ -4,6 +4,12 @@ const WelcomePage = lazy(() => import("./pages/welcome-page/WelcomePage"));
 const OfflinePage = lazy(() => import("./pages/offline-page/OfflinePage"));
 import { themeSelector } from "./redux/theme/themeSlice";
 import { useAuth } from "./hooks/authHook";
+import { useTransactions } from "./hooks/useTransactions";
+import { useNotifications } from "./hooks/useNotifications";
+import { useBudgets } from "./hooks/useBudgets";
+import { useCategories } from "./hooks/useCategories";
+import { useAccounts } from "./hooks/useAccounts";
+import { useGoals } from "./hooks/useGoals";
 
 // react
 import { useEffect, useState, lazy, Suspense } from "react";
@@ -63,6 +69,15 @@ function App() {
 
     // useAuth
     useAuth();
+
+    // realtime hooks
+    const userId = useSelector((s) => s.auth.user?.id);
+    useTransactions(userId);
+    useNotifications(userId);
+    useBudgets(userId);
+    useCategories(userId);
+    useAccounts(userId);
+    useGoals(userId);
 
     if (openWelcome) {
         return (
