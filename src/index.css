@@ -278,6 +278,13 @@
     --home-circle-sm: 80px;
     --home-circle-md: 120px;
     --home-circle-lg: 250px;
+
+    /* ACCOUNTS PAGE CIRCLES */
+    --accounts-circle-color-1: var(--color-primary);
+    --accounts-circle-color-2: var(--color-transfer);
+    --accounts-circle-color-3: var(--color-income);
+    --accounts-circle-opacity: 0.12;
+    --accounts-circle-blur: 35px;
 }
 
 .dark {
@@ -358,6 +365,9 @@
 
     /* HOME PAGE CIRCLES (DARK) */
     --home-circle-opacity: 0.08;
+
+    /* ACCOUNTS PAGE CIRCLES (DARK) */
+    --accounts-circle-opacity: 0.08;
 }
 
 /* 4. GLOBAL RESET & BASE STYLES*/

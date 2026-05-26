@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
     fetchAccounts,
+    fetchAllAccounts,
     insertAccount,
     updateAccount,
     archiveAccount,
@@ -19,6 +20,16 @@ export const loadAccounts = createAsyncThunk(
     },
 );
 
+export const loadAllAccounts = createAsyncThunk(
+    "accounts/loadAll",
+    async (userId, { rejectWithValue }) => {
+        try {
+            return await fetchAllAccounts(userId);
+        } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    },
+);
 
 export const createAccount = createAsyncThunk(
     "accounts/create",
@@ -81,7 +92,7 @@ export const doTransfer = createAsyncThunk(
 
 const accountsSlice = createSlice({
     name: "accounts",
-    initialState: { items: [], loading: false, error: null },
+    initialState: { items: [], archivedItems: [], loading: false, error: null },
     reducers: {
         rtUpdateAccount(state, { payload }) {
             const i = state.items.findIndex((a) => a.id === payload.id);
@@ -93,6 +104,7 @@ const accountsSlice = createSlice({
         },
         rtDeleteAccount(state, { payload }) {
             state.items = state.items.filter((a) => a.id !== payload.id);
+            state.archivedItems = state.archivedItems.filter((a) => a.id !== payload.id);
         },
     },
     extraReducers: (builder) => {
@@ -108,19 +120,44 @@ const accountsSlice = createSlice({
                 s.loading = false;
                 s.error = payload;
             })
+            // loadAll — populates both active and archived
+            .addCase(loadAllAccounts.pending, (s) => {
+                s.loading = true;
+            })
+            .addCase(loadAllAccounts.fulfilled, (s, { payload }) => {
+                s.loading = false;
+                s.items = payload.filter((a) => !a.is_archived);
+                s.archivedItems = payload.filter((a) => a.is_archived);
+            })
+            .addCase(loadAllAccounts.rejected, (s, { payload }) => {
+                s.loading = false;
+                s.error = payload;
+            })
             .addCase(createAccount.fulfilled, (s, { payload }) => {
                 s.items.push(payload);
             })
             .addCase(editAccount.fulfilled, (s, { payload }) => {
+                // If the account was unarchived, move from archivedItems to items
+                const archivedIdx = s.archivedItems.findIndex((a) => a.id === payload.id);
+                if (archivedIdx !== -1 && !payload.is_archived) {
+                    s.archivedItems.splice(archivedIdx, 1);
+                    s.items.push(payload);
+                    return;
+                }
+
                 const i = s.items.findIndex((a) => a.id === payload.id);
                 if (i !== -1) s.items[i] = payload;
             })
             .addCase(removeAccount.fulfilled, (s, { payload }) => {
                 s.items = s.items.filter((a) => a.id !== payload);
+                s.archivedItems = s.archivedItems.filter((a) => a.id !== payload);
             })
             .addCase(doArchiveAccount.fulfilled, (s, { payload }) => {
-                const i = s.items.findIndex((a) => a.id === payload.id);
-                if (i !== -1) s.items[i] = payload;
+                // Move from items to archivedItems
+                s.items = s.items.filter((a) => a.id !== payload.id);
+                if (!s.archivedItems.find((a) => a.id === payload.id)) {
+                    s.archivedItems.push(payload);
+                }
             });
     },
 });

@@ -38,6 +38,9 @@ const HomePage = lazy(
 const DashboardLayout = lazy(
     () => import("../layout/dashboard/dashboardLayout"),
 );
+const AccountsPage = lazy(
+    () => import("../pages/dashboard-pages/accounts-page/accountsPage"),
+);
 
 // Onboarding pages
 const OnboardingLayout = lazy(
@@ -203,6 +206,14 @@ const router = createBrowserRouter([
                         element: (
                             <SuspenseWrapper>
                                 <HomePage />
+                            </SuspenseWrapper>
+                        ),
+                    },
+                    {
+                        path: "accounts",
+                        element: (
+                            <SuspenseWrapper>
+                                <AccountsPage />
                             </SuspenseWrapper>
                         ),
                     },
