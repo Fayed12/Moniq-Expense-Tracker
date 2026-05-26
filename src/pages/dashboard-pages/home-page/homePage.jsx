@@ -19,7 +19,6 @@ import gsap from "gsap";
 import {
     FiTrendingUp,
     FiTrendingDown,
-    FiDollarSign,
     FiArrowUpRight,
     FiArrowDownRight,
     FiTarget,
@@ -56,29 +55,29 @@ import {
 
 // ── Icon map for dynamic rendering ──────────────────────────
 const ICON_MAP = {
-    FaWallet: FaWallet,
-    FaShoppingBag: FaShoppingBag,
-    FaUtensils: FaUtensils,
-    FaCar: FaCar,
-    FaHome: FaHome,
-    FaHeartbeat: FaHeartbeat,
-    FaFilm: FaFilm,
-    FaBook: FaBook,
-    FaPlane: FaPlane,
-    FaBolt: FaBolt,
-    FaSpa: FaSpa,
-    FaGift: FaGift,
-    FaBriefcase: FaBriefcase,
-    FaLaptopCode: FaLaptopCode,
-    FaChartLine: FaChartLine,
-    FaPlusCircle: FaPlusCircle,
-    FaUniversity: FaUniversity,
-    FaMoneyBillWave: FaMoneyBillWave,
-    FaCreditCard: FaCreditCard,
-    FaFlag: FaFlag,
-    FaShieldAlt: FaShieldAlt,
-    FaLaptop: FaLaptop,
-    FaEllipsisH: FaEllipsisH,
+    FaWallet,
+    FaShoppingBag,
+    FaUtensils,
+    FaCar,
+    FaHome,
+    FaHeartbeat,
+    FaFilm,
+    FaBook,
+    FaPlane,
+    FaBolt,
+    FaSpa,
+    FaGift,
+    FaBriefcase,
+    FaLaptopCode,
+    FaChartLine,
+    FaPlusCircle,
+    FaUniversity,
+    FaMoneyBillWave,
+    FaCreditCard,
+    FaFlag,
+    FaShieldAlt,
+    FaLaptop,
+    FaEllipsisH,
 };
 
 // ── Helper: render icon from string key ─────────────────────
@@ -132,6 +131,7 @@ function relativeDate(dateStr) {
 export default function HomePage() {
     const [selectedMonth, setSelectedMonth] = useState(new Date());
     const containerRef = useRef(null);
+    const animRan = useRef(false);
 
     const {
         totalBalance,
@@ -153,31 +153,33 @@ export default function HomePage() {
         monthLabel,
         isLoading,
     } = useHomePageData(selectedMonth);
-
     // ── Month picker handler ────────────────────────────────
     const handleMonthChange = useCallback((date) => {
         if (date) setSelectedMonth(date);
     }, []);
 
-    // ── GSAP Page entrance animation ────────────────────────
+    // ── GSAP Page entrance animation — runs once ────────────
     useEffect(() => {
-        if (!containerRef.current) return;
+        if (!containerRef.current || animRan.current || isLoading) return;
+        animRan.current = true;
+
         const prefersReduced = window.matchMedia(
             "(prefers-reduced-motion: reduce)",
         ).matches;
         if (prefersReduced) return;
 
         const ctx = gsap.context(() => {
-            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+            const tl = gsap.timeline({
+                defaults: { ease: "power3.out", duration: 0.6 },
+            });
 
             // Welcome header slides in from top
             tl.from("[data-anim='welcome']", {
                 y: -30,
                 opacity: 0,
-                duration: 0.6,
             });
 
-            // Overview cards stagger up
+            // Overview cards stagger up with bounce
             tl.from(
                 "[data-anim='overview-card']",
                 {
@@ -190,18 +192,17 @@ export default function HomePage() {
                 "-=0.3",
             );
 
-            // Charts row
+            // Charts row fades up
             tl.from(
                 "[data-anim='charts-row']",
                 {
                     y: 40,
                     opacity: 0,
-                    duration: 0.6,
                 },
                 "-=0.2",
             );
 
-            // Middle row stagger
+            // Middle row cards stagger
             tl.from(
                 "[data-anim='middle-card']",
                 {
@@ -214,7 +215,7 @@ export default function HomePage() {
                 "-=0.3",
             );
 
-            // Footer goals
+            // Footer goals section
             tl.from(
                 "[data-anim='goals-section']",
                 {
@@ -226,7 +227,7 @@ export default function HomePage() {
                 "-=0.2",
             );
 
-            // Goal cards stagger
+            // Goal cards scale-in with bounce
             tl.from(
                 "[data-anim='goal-card']",
                 {
@@ -287,7 +288,7 @@ export default function HomePage() {
                 className={styles.overviewGrid}
                 aria-label="Financial overview cards"
             >
-                {/* Total Balance */}
+                {/* Total Balance — Primary Card */}
                 <article
                     className={styles.overviewCardPrimary}
                     data-anim="overview-card"
@@ -295,16 +296,26 @@ export default function HomePage() {
                     id="home-card-balance"
                 >
                     <div className={styles.cardHeader}>
-                        <span className={styles.cardLabel}>Total Balance</span>
-                        <span className={styles.cardIconWrap}>
+                        <span
+                            className={`${styles.cardLabel} ${styles.primaryLabel}`}
+                        >
+                            Total Balance
+                        </span>
+                        <span
+                            className={`${styles.cardIconWrap} ${styles.primaryIconWrap}`}
+                        >
                             <FaWallet size={16} />
                         </span>
                     </div>
                     <div className={styles.cardBody}>
-                        <p className={styles.cardValue}>
+                        <p
+                            className={`${styles.cardValue} ${styles.primaryValue}`}
+                        >
                             {formatFullAmount(totalBalance, currency)}
                         </p>
-                        <div className={styles.cardSub}>
+                        <div
+                            className={`${styles.cardSub} ${styles.primarySub}`}
+                        >
                             {balanceChangePercent !== null && (
                                 <span
                                     className={
@@ -433,12 +444,9 @@ export default function HomePage() {
                             Recent Transactions
                         </h2>
                         <MainButton
-                            action="ghost"
+                            action="primary"
                             size="sm"
-                            className={styles.sectionAction}
                             title="View all transactions"
-                            href="/dashboard/transactions"
-                            id="home-view-all-tx"
                         >
                             View All
                         </MainButton>
@@ -571,7 +579,7 @@ export default function HomePage() {
                                                 width: `${cat.percent}%`,
                                                 background:
                                                     cat.color ||
-                                                    "var(--chart-1)",
+                                                    "var(--color-expense)",
                                             }}
                                         />
                                     </div>
@@ -614,8 +622,6 @@ export default function HomePage() {
                         size="sm"
                         className={styles.sectionAction}
                         title="Add new goal"
-                        href="/dashboard/goals"
-                        id="home-add-goal-btn"
                     >
                         <FiPlus size={14} />
                         Add Goal
@@ -632,7 +638,7 @@ export default function HomePage() {
                                 ? Math.min(
                                     Math.round(
                                         (Number(goal.current_amount) /
-                                              Number(goal.target_amount)) *
+                                            Number(goal.target_amount)) *
                                             100,
                                     ),
                                     100,
@@ -644,27 +650,16 @@ export default function HomePage() {
                                     key={goal.id}
                                     className={styles.goalCard}
                                     data-anim="goal-card"
-                                    aria-label={`${goal.name}: ${progress}% complete — ${formatFullAmount(goal.current_amount, currency)} of ${formatFullAmount(goal.target_amount, currency)}`}
-                                    style={{
-                                        "--goal-color":
-                                            goal.color || "var(--chart-5)",
-                                    }}
+                                    aria-label={`${goal.name}: ${progress}% complete`}
                                 >
-                                    {/* Goal color circle decoration */}
-                                    <style>{`
-                                        [data-goal-id="${goal.id}"]::before {
-                                            background: ${goal.color || "var(--chart-5)"};
-                                        }
-                                    `}</style>
-
                                     <div className={styles.goalTop}>
                                         <span
                                             className={styles.goalIcon}
                                             style={{
-                                                background: `${goal.color || "var(--chart-5)"}18`,
+                                                background: `${goal.color || "var(--color-success)"}18`,
                                                 color:
                                                     goal.color ||
-                                                    "var(--chart-5)",
+                                                    "var(--color-success)",
                                             }}
                                             aria-hidden="true"
                                         >
@@ -693,7 +688,7 @@ export default function HomePage() {
                                                     width: `${progress}%`,
                                                     background:
                                                         goal.color ||
-                                                        "var(--chart-5)",
+                                                        "var(--color-success)",
                                                 }}
                                             />
                                         </div>

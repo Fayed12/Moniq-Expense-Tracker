@@ -81,6 +81,7 @@ export const useHomePageData = (selectedMonth = new Date()) => {
         return profile?.currency || "EGP";
     }, [accounts, profile]);
 
+
     // ── User ────────────────────────────────────────────────
     const userName = profile?.display_name || "User";
 
@@ -104,7 +105,7 @@ export const useHomePageData = (selectedMonth = new Date()) => {
     const totalExpenses = useMemo(
         () =>
             accounts.reduce(
-                (sum, a) => sum + (Number(a.total_expenses) || 0),
+                (sum, a) => sum + (Number(a.total_expense) || 0),
                 0,
             ),
         [accounts],
@@ -180,7 +181,6 @@ export const useHomePageData = (selectedMonth = new Date()) => {
         const m = selectedMonth.getMonth();
 
         // Calculate weeks in the month
-        const firstDay = new Date(y, m, 1);
         const lastDay = new Date(y, m + 1, 0);
         const totalDays = lastDay.getDate();
 
