@@ -26,13 +26,12 @@ function Header({ setIsSidebarOpen }) {
     const { profile } = useSelector((s) => s.auth);
     const headerRef = useRef(null);
 
-    console.log(profile);
-    const nameArray = profile?.display_name.split(" ");
+    const nameArray = profile?.display_name?.split(" ");
     const avatarName =
-        nameArray.at(0).toUpperCase().slice(0, 1) +
+        nameArray?.at(0)?.toUpperCase().slice(0, 1) +
         nameArray
-            .at(nameArray.length - 1)
-            .toUpperCase()
+            ?.at(nameArray.length - 1)
+            ?.toUpperCase()
             .slice(0, 1);
 
     const locationValue = useGetLocationPathValue();

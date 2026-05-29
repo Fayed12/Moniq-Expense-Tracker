@@ -2,9 +2,10 @@
 import styles from "./AccountModal.module.css";
 import MainButton from "../../../components/ui/button/MainButton";
 import MainInput from "../../../components/ui/input/MainInput";
+import { getSelectStyles } from "../../../utils/reactSelectStyles";
 
 // react
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
 
 // redux
@@ -13,6 +14,9 @@ import { createAccount, editAccount } from "../../../redux/accountsSlice";
 
 // gsap
 import gsap from "gsap";
+
+// react-select
+import Select from "react-select";
 
 // react-icons
 import { FiX } from "react-icons/fi";
@@ -35,17 +39,26 @@ import {
 import PropTypes from "prop-types";
 
 // ── Constants ───────────────────────────────────────────────
-const ACCOUNT_TYPES = [
-    "Checking",
-    "Savings",
-    "Digital Wallet",
-    "Brokerage",
-    "Cash",
-    "Credit Card",
-    "Investment",
+const ACCOUNT_TYPE_OPTIONS = [
+    { value: "checking", label: "Checking" },
+    { value: "savings", label: "Savings" },
+    { value: "digital-wallet", label: "Digital Wallet" },
+    { value: "brokerage", label: "Brokerage" },
+    { value: "cash", label: "Cash" },
+    { value: "credit-card", label: "Credit Card" },
+    { value: "investment", label: "Investment" },
+    { value: "bank", label: "Bank" },
+    { value: "wallet", label: "Wallet" },
 ];
 
-const CURRENCIES = ["EGP", "USD", "EUR", "GBP", "SAR", "AED"];
+const CURRENCY_OPTIONS = [
+    { value: "EGP", label: "EGP" },
+    { value: "USD", label: "USD" },
+    { value: "EUR", label: "EUR" },
+    { value: "GBP", label: "GBP" },
+    { value: "SAR", label: "SAR" },
+    { value: "AED", label: "AED" },
+];
 
 const ICON_OPTIONS = [
     { key: "FaUniversity", Icon: FaUniversity },
@@ -76,11 +89,20 @@ function AccountModal({ mode = "add", account = null, onClose }) {
     const dispatch = useDispatch();
     const userId = useSelector((s) => s.auth.user?.id);
 
+    // ── react-select styles (memoised) ──────────────────────
+    const selectStyles = useMemo(() => getSelectStyles(), []);
+
     // ── Form state ──────────────────────────────────────────
     const [name, setName] = useState(account?.name || "");
-    const [type, setType] = useState(account?.type || "Checking");
+    const [type, setType] = useState(
+        ACCOUNT_TYPE_OPTIONS.find((o) => o.value === (account?.type || "Checking")) ||
+            ACCOUNT_TYPE_OPTIONS[0],
+    );
     const [balance, setBalance] = useState(account?.balance?.toString() || "0");
-    const [currency, setCurrency] = useState(account?.currency || "EGP");
+    const [currency, setCurrency] = useState(
+        CURRENCY_OPTIONS.find((o) => o.value === (account?.currency || "EGP")) ||
+            CURRENCY_OPTIONS[0],
+    );
     const [icon, setIcon] = useState(account?.icon || "FaUniversity");
     const [color, setColor] = useState(account?.color || "#A0522D");
     const [submitting, setSubmitting] = useState(false);
@@ -116,6 +138,15 @@ function AccountModal({ mode = "add", account = null, onClose }) {
         return () => ctx.revert();
     }, []);
 
+    // ── Lock body scroll when modal is open ─────────────────
+    useEffect(() => {
+        const original = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        return () => {
+            document.body.style.overflow = original;
+        };
+    }, []);
+
     // ── Close on Escape ─────────────────────────────────────
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -138,7 +169,6 @@ function AccountModal({ mode = "add", account = null, onClose }) {
         e.preventDefault();
         setError("");
 
-        // Validation
         if (!name.trim()) {
             setError("Account name is required.");
             return;
@@ -150,10 +180,10 @@ function AccountModal({ mode = "add", account = null, onClose }) {
                 await dispatch(
                     createAccount({
                         userId,
-                        name: name.trim(),
-                        type,
+                        name: name?.trim(),
+                        type: type?.value,
                         balance: Number(balance) || 0,
-                        currency,
+                        currency: currency?.value,
                         icon,
                         color,
                     }),
@@ -163,10 +193,10 @@ function AccountModal({ mode = "add", account = null, onClose }) {
                     editAccount({
                         id: account.id,
                         changes: {
-                            name: name.trim(),
-                            type,
+                            name: name?.trim(),
+                            type: type?.value,
                             balance: Number(balance) || 0,
-                            currency,
+                            currency: currency?.value,
                             icon,
                             color,
                         },
@@ -176,6 +206,7 @@ function AccountModal({ mode = "add", account = null, onClose }) {
             onClose();
         } catch (err) {
             setError(err || "Something went wrong. Please try again.");
+            setSubmitting(false);
         } finally {
             setSubmitting(false);
         }
@@ -235,27 +266,23 @@ function AccountModal({ mode = "add", account = null, onClose }) {
                         hasError={!!error && !name.trim()}
                     />
 
-                    {/* Account Type */}
+                    {/* Account Type — react-select */}
                     <div className={styles.selectWrapper}>
-                        <label
-                            className={styles.selectLabel}
-                            htmlFor="account-type"
-                        >
+                        <label className={styles.selectLabel}>
                             Account Type
                         </label>
-                        <select
-                            id="account-type"
-                            className={styles.select}
+                        <Select
+                            options={ACCOUNT_TYPE_OPTIONS}
                             value={type}
-                            onChange={(e) => setType(e.target.value)}
+                            onChange={setType}
+                            styles={selectStyles}
+                            isSearchable={false}
                             aria-label="Account type"
-                        >
-                            {ACCOUNT_TYPES.map((t) => (
-                                <option key={t} value={t}>
-                                    {t}
-                                </option>
-                            ))}
-                        </select>
+                            inputId="account-type"
+                            menuPlacement="auto"
+                            menuPortalTarget={document.body}
+                            menuPosition="fixed"
+                        />
                     </div>
 
                     {/* Balance & Currency Row */}
@@ -275,25 +302,21 @@ function AccountModal({ mode = "add", account = null, onClose }) {
                             }}
                         />
                         <div className={styles.selectWrapper}>
-                            <label
-                                className={styles.selectLabel}
-                                htmlFor="account-currency"
-                            >
+                            <label className={styles.selectLabel}>
                                 Currency
                             </label>
-                            <select
-                                id="account-currency"
-                                className={styles.select}
+                            <Select
+                                options={CURRENCY_OPTIONS}
                                 value={currency}
-                                onChange={(e) => setCurrency(e.target.value)}
+                                onChange={setCurrency}
+                                styles={selectStyles}
+                                isSearchable={false}
                                 aria-label="Currency"
-                            >
-                                {CURRENCIES.map((c) => (
-                                    <option key={c} value={c}>
-                                        {c}
-                                    </option>
-                                ))}
-                            </select>
+                                inputId="account-currency"
+                                menuPlacement="auto"
+                                menuPortalTarget={document.body}
+                                menuPosition="fixed"
+                            />
                         </div>
                     </div>
 
@@ -310,7 +333,9 @@ function AccountModal({ mode = "add", account = null, onClose }) {
                                     key={key}
                                     type="button"
                                     className={styles.iconOption}
-                                    data-selected={icon === key ? "true" : undefined}
+                                    data-selected={
+                                        icon === key ? "true" : undefined
+                                    }
                                     onClick={() => setIcon(key)}
                                     aria-label={key}
                                     role="radio"

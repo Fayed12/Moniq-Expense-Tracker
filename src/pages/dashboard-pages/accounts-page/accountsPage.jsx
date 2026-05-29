@@ -4,6 +4,7 @@ import MainButton from "../../../components/ui/button/MainButton";
 import AccountModal from "./AccountModal";
 import TransferSection from "./TransferSection";
 import { useAccountsPageData } from "../../../hooks/useAccountsPageData";
+import { useSweetAlert } from "../../../hooks/useSweetAlert";
 
 // react
 import { useState, useEffect, useRef, useCallback } from "react";
@@ -98,6 +99,9 @@ function AccountsPage() {
         transferCategory,
     } = useAccountsPageData();
 
+    const { confirmDelete, confirmArchive, confirmSetDefault } =
+        useSweetAlert();
+
     // ── Local state ─────────────────────────────────────────
     const [showArchived, setShowArchived] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -181,38 +185,43 @@ function AccountsPage() {
 
     // ── Action handlers ─────────────────────────────────────
     const handleArchive = useCallback(
-        async (id) => {
+        async (account) => {
+            const confirmed = await confirmArchive(account.name);
+            if (!confirmed) return;
+
             try {
-                await dispatch(doArchiveAccount(id)).unwrap();
+                await dispatch(doArchiveAccount(account.id)).unwrap();
             } catch (err) {
                 console.error("Archive failed:", err);
             }
         },
-        [dispatch],
+        [dispatch, confirmArchive],
     );
 
     const handleDelete = useCallback(
-        async (id) => {
-            const confirmed = window.confirm(
-                "Are you sure you want to permanently delete this account? This action cannot be undone.",
-            );
+        async (account) => {
+            const confirmed = await confirmDelete(account.name);
             if (!confirmed) return;
 
             try {
-                await dispatch(removeAccount(id)).unwrap();
+                await dispatch(removeAccount(account.id)).unwrap();
+                await dispatch(loadAllAccounts(userId)).unwrap();
             } catch (err) {
                 console.error("Delete failed:", err);
             }
         },
-        [dispatch],
+        [dispatch, confirmDelete, userId],
     );
 
     const handleSetDefault = useCallback(
-        async (id) => {
+        async (account) => {
+            const confirmed = await confirmSetDefault(account.name);
+            if (!confirmed) return;
+
             try {
                 // Unset previous default
                 const currentDefault = accounts.find((a) => a.is_default);
-                if (currentDefault && currentDefault.id !== id) {
+                if (currentDefault && currentDefault.id !== account.id) {
                     await dispatch(
                         editAccount({
                             id: currentDefault.id,
@@ -223,7 +232,7 @@ function AccountsPage() {
                 // Set new default
                 await dispatch(
                     editAccount({
-                        id,
+                        id: account.id,
                         changes: { is_default: true },
                     }),
                 ).unwrap();
@@ -231,7 +240,7 @@ function AccountsPage() {
                 console.error("Set default failed:", err);
             }
         },
-        [dispatch, accounts],
+        [dispatch, accounts, confirmSetDefault],
     );
 
     const handleRestore = useCallback(
@@ -317,44 +326,44 @@ function AccountsPage() {
                     showArchived ? "Archived accounts" : "Active accounts"
                 }
             >
-                {displayAccounts.length > 0 ? (
-                    displayAccounts.map((account) => (
+                {displayAccounts?.length > 0 ? (
+                    displayAccounts?.map((account) => (
                         <article
-                            key={account.id}
+                            key={account?.id}
                             className={`${styles.accountCard} ${showArchived ? styles.archivedCard : ""}`}
                             data-anim="account-card"
-                            aria-label={`${account.name} account: ${formatFullAmount(account.balance, currency)}`}
-                            id={`account-card-${account.id}`}
+                            aria-label={`${account?.name} account: ${formatFullAmount(account?.balance, currency)}`}
+                            id={`account-card-${account?.id}`}
                         >
                             {/* ── Card Top: Icon + Info + Badges ── */}
                             <div className={styles.cardTop}>
                                 <span
                                     className={styles.accountIcon}
                                     style={{
-                                        background: `${account.color || "var(--color-primary)"}18`,
+                                        background: `${account?.color || "var(--color-primary)"}18`,
                                         color:
-                                            account.color ||
+                                            account?.color ||
                                             "var(--color-primary)",
                                     }}
                                     aria-hidden="true"
                                 >
                                     <DynamicIcon
-                                        name={account.icon}
+                                        name={account?.icon}
                                         size={20}
                                     />
                                 </span>
 
                                 <div className={styles.accountInfo}>
                                     <h3 className={styles.accountName}>
-                                        {account.name}
+                                        {account?.name}
                                     </h3>
                                     <span className={styles.accountType}>
-                                        {account.type}
+                                        {account?.type}
                                     </span>
                                 </div>
 
                                 <div className={styles.badgesWrap}>
-                                    {account.is_default && (
+                                    {account?.is_default && (
                                         <span
                                             className={styles.defaultBadge}
                                             aria-label="Default account"
@@ -379,8 +388,8 @@ function AccountsPage() {
                             <div className={styles.balanceSection}>
                                 <p className={styles.balanceValue}>
                                     {formatFullAmount(
-                                        account.balance,
-                                        account.currency || currency,
+                                        account?.balance,
+                                        account?.currency || currency,
                                     )}
                                 </p>
                             </div>
@@ -388,29 +397,29 @@ function AccountsPage() {
                             {/* ── Footer: Transactions + Arrows ── */}
                             <div className={styles.cardFooter}>
                                 <span className={styles.txCount}>
-                                    {account.transaction_count || 0}{" "}
-                                    {(account.transaction_count || 0) === 1
+                                    {account?.transaction_count || 0}{" "}
+                                    {(account?.transaction_count || 0) === 1
                                         ? "Transaction"
                                         : "Transactions"}{" "}
                                     this month
                                 </span>
                                 <div className={styles.arrowsWrap}>
-                                    {(Number(account.total_income) > 0 ||
+                                    {(Number(account?.total_income) > 0 ||
                                         !showArchived) && (
                                         <span
                                             className={styles.arrowIncome}
                                             aria-label="Has income"
-                                            title={`Income: ${formatFullAmount(account.total_income, account.currency || currency)}`}
+                                            title={`Income: ${formatFullAmount(account?.total_income, account?.currency || currency)}`}
                                         >
                                             <FiArrowDownLeft />
                                         </span>
                                     )}
-                                    {(Number(account.total_expenses) > 0 ||
+                                    {(Number(account?.total_expenses) > 0 ||
                                         !showArchived) && (
                                         <span
                                             className={styles.arrowExpense}
                                             aria-label="Has expenses"
-                                            title={`Expenses: ${formatFullAmount(account.total_expenses, account.currency || currency)}`}
+                                            title={`Expenses: ${formatFullAmount(account?.total_expenses, account?.currency || currency)}`}
                                         >
                                             <FiArrowUpRight />
                                         </span>
@@ -426,9 +435,9 @@ function AccountsPage() {
                                         <button
                                             className={styles.restoreBtn}
                                             onClick={() =>
-                                                handleRestore(account.id)
+                                                handleRestore(account?.id)
                                             }
-                                            aria-label={`Restore ${account.name}`}
+                                            aria-label={`Restore ${account?.name}`}
                                             title="Restore account"
                                             type="button"
                                         >
@@ -438,9 +447,9 @@ function AccountsPage() {
                                         <button
                                             className={styles.deleteBtn}
                                             onClick={() =>
-                                                handleDelete(account.id)
+                                                handleDelete(account)
                                             }
-                                            aria-label={`Delete ${account.name}`}
+                                            aria-label={`Delete ${account?.name}`}
                                             title="Delete permanently"
                                             type="button"
                                         >
@@ -456,7 +465,7 @@ function AccountsPage() {
                                             onClick={() =>
                                                 openEditModal(account)
                                             }
-                                            aria-label={`Edit ${account.name}`}
+                                            aria-label={`Edit ${account?.name}`}
                                             title="Edit account"
                                             type="button"
                                         >
@@ -466,9 +475,9 @@ function AccountsPage() {
                                         <button
                                             className={styles.archiveBtn}
                                             onClick={() =>
-                                                handleArchive(account.id)
+                                                handleArchive(account)
                                             }
-                                            aria-label={`Archive ${account.name}`}
+                                            aria-label={`Archive ${account?.name}`}
                                             title="Archive account"
                                             type="button"
                                         >
@@ -478,20 +487,20 @@ function AccountsPage() {
                                         <button
                                             className={styles.defaultBtn}
                                             onClick={() =>
-                                                handleSetDefault(account.id)
+                                                handleSetDefault(account)
                                             }
                                             data-current={
-                                                account.is_default
+                                                account?.is_default
                                                     ? "true"
                                                     : undefined
                                             }
                                             aria-label={
-                                                account.is_default
+                                                account?.is_default
                                                     ? "Already default account"
-                                                    : `Set ${account.name} as default`
+                                                    : `Set ${account?.name} as default`
                                             }
                                             title={
-                                                account.is_default
+                                                account?.is_default
                                                     ? "Current default"
                                                     : "Set as default"
                                             }
@@ -499,7 +508,7 @@ function AccountsPage() {
                                         >
                                             <FiStar />
                                             <span>
-                                                {account.is_default
+                                                {account?.is_default
                                                     ? "Default"
                                                     : "Set Default"}
                                             </span>
@@ -507,9 +516,9 @@ function AccountsPage() {
                                         <button
                                             className={styles.deleteBtn}
                                             onClick={() =>
-                                                handleDelete(account.id)
+                                                handleDelete(account)
                                             }
-                                            aria-label={`Delete ${account.name}`}
+                                            aria-label={`Delete ${account?.name}`}
                                             title="Delete permanently"
                                             type="button"
                                         >

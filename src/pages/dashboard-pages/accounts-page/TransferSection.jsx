@@ -1,13 +1,18 @@
 // local
 import styles from "./TransferSection.module.css";
 import MainButton from "../../../components/ui/button/MainButton";
+import { getSelectStyles } from "../../../utils/reactSelectStyles";
+import { useSweetAlert } from "../../../hooks/useSweetAlert";
 
 // react
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 
 // redux
 import { useDispatch } from "react-redux";
 import { doTransfer, loadAllAccounts } from "../../../redux/accountsSlice";
+
+// react-select
+import Select from "react-select";
 
 // react-icons
 import { FiRepeat } from "react-icons/fi";
@@ -20,31 +25,73 @@ import PropTypes from "prop-types";
 // ════════════════════════════════════════════════════════════
 function TransferSection({ accounts, userId, currency, transferCategory }) {
     const dispatch = useDispatch();
+    const { confirmTransfer } = useSweetAlert();
+
+    // ── react-select styles ─────────────────────────────────
+    const selectStyles = useMemo(() => getSelectStyles(), []);
+
+    // ── Build option objects for react-select ────────────────
+    const accountOptions = useMemo(
+        () =>
+            accounts.map((acc) => ({
+                value: acc.id,
+                label: `${acc.name} (${currency} ${(Number(acc.balance) || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })})`,
+                balance: Number(acc.balance) || 0,
+            })),
+        [accounts, currency],
+    );
 
     // ── Local state ─────────────────────────────────────────
-    const [fromId, setFromId] = useState(accounts[0]?.id || "");
-    const [toId, setToId] = useState(accounts[1]?.id || "");
+    const [fromAccountId, setFromAccountId] = useState(accounts[0]?.id || null);
+    const [toAccountId, setToAccountId] = useState(accounts[1]?.id || null);
     const [amount, setAmount] = useState("");
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
+    // ── Derived Options ─────────────────────────────────────
+    const fromOption = useMemo(
+        () => accountOptions.find((o) => o.value === fromAccountId) || null,
+        [accountOptions, fromAccountId],
+    );
+    const toOption = useMemo(
+        () => accountOptions.find((o) => o.value === toAccountId) || null,
+        [accountOptions, toAccountId],
+    );
+
+    // ── Filtered options: "From" excludes selected "To" and vice versa ──
+    const fromOptions = useMemo(
+        () => accountOptions.filter((o) => o.value !== toAccountId),
+        [accountOptions, toAccountId],
+    );
+
+    const toOptions = useMemo(
+        () => accountOptions.filter((o) => o.value !== fromAccountId),
+        [accountOptions, fromAccountId],
+    );
+
+    // ── Source account balance ───────────────────────────────
+    const sourceBalance = fromOption?.balance ?? 0;
+
+    // ── Transfer button disabled logic ──────────────────────
+    const numAmount = Number(amount) || 0;
+    const isTransferDisabled =
+        submitting ||
+        !fromOption ||
+        !toOption ||
+        fromOption.value === toOption?.value ||
+        sourceBalance <= 0 ||
+        numAmount <= 0 ||
+        numAmount > sourceBalance;
+
     // ── Swap handler ────────────────────────────────────────
     const handleSwap = useCallback(() => {
-        setFromId((prev) => {
-            setToId(prev);
-            return toId;
+        setFromAccountId((prev) => {
+            const old = prev;
+            setToAccountId(old);
+            return toAccountId;
         });
-    }, [toId]);
-
-    // ── Format balance for display ──────────────────────────
-    const getAccountLabel = useCallback(
-        (acc) => {
-            const bal = Number(acc.balance) || 0;
-            return `${acc.name} (${currency} ${bal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })})`;
-        },
-        [currency],
-    );
+    }, [toAccountId]);
 
     // ── Submit handler ──────────────────────────────────────
     const handleTransfer = async (e) => {
@@ -52,46 +99,51 @@ function TransferSection({ accounts, userId, currency, transferCategory }) {
         setError("");
         setSuccess("");
 
-        const numAmount = Number(amount);
-        const fromAccount = accounts.find((a) => a.id === fromId);
-
-        // Validation
-        if (!fromId || !toId) {
+        if (!fromOption || !toOption) {
             setError("Please select both accounts.");
             return;
         }
-        if (fromId === toId) {
+        if (fromOption.value === toOption.value) {
             setError("Cannot transfer to the same account.");
             return;
         }
-        if (!numAmount || numAmount <= 0) {
+        if (numAmount <= 0) {
             setError("Amount must be greater than zero.");
             return;
         }
-        if (fromAccount && numAmount > Number(fromAccount.balance)) {
+        if (numAmount > sourceBalance) {
             setError("Insufficient balance in source account.");
             return;
         }
+
+        const formattedAmount = `${currency} ${numAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        const fromName = fromOption.label.split(" (")[0];
+        const toName = toOption.label.split(" (")[0];
+
+        const { isConfirmed, note } = await confirmTransfer(fromName, toName, formattedAmount);
+        
+        if (!isConfirmed) return;
 
         setSubmitting(true);
         try {
             await dispatch(
                 doTransfer({
-                    accountId: fromId,
-                    toAccountId: toId,
+                    accountId: fromOption.value,
+                    toAccountId: toOption.value,
                     categoryId: transferCategory?.id ?? null,
                     categoryName: transferCategory?.name ?? "Transfer",
                     categoryIcon: transferCategory?.icon ?? "FaMoneyBillWave",
                     categoryColor: transferCategory?.color ?? "#7b68ee",
                     amount: numAmount,
+                    accountName: fromName,
                     userId,
-                    note: null,
+                    note: note?.trim() || null,
                     date: new Date().toISOString(),
                 }),
             ).unwrap();
 
-            // Refresh accounts to get updated balances
-            dispatch(loadAllAccounts(userId));
+            // Wait for Redux to fetch the newly updated balances
+            await dispatch(loadAllAccounts(userId)).unwrap();
 
             setSuccess("Transfer completed successfully!");
             setAmount("");
@@ -122,25 +174,19 @@ function TransferSection({ accounts, userId, currency, transferCategory }) {
             >
                 {/* From Account */}
                 <div className={styles.fieldGroup}>
-                    <label
-                        className={styles.fieldLabel}
-                        htmlFor="transfer-from"
-                    >
-                        From
-                    </label>
-                    <select
-                        id="transfer-from"
-                        className={styles.fieldSelect}
-                        value={fromId}
-                        onChange={(e) => setFromId(e.target.value)}
+                    <label className={styles.fieldLabel}>From</label>
+                    <Select
+                        options={fromOptions}
+                        value={fromOption}
+                        onChange={(opt) => setFromAccountId(opt.value)}
+                        styles={selectStyles}
+                        isSearchable={false}
                         aria-label="Transfer from account"
-                    >
-                        {accounts.map((acc) => (
-                            <option key={acc.id} value={acc.id}>
-                                {getAccountLabel(acc)}
-                            </option>
-                        ))}
-                    </select>
+                        inputId="transfer-from"
+                        placeholder="Select source..."
+                        menuPortalTarget={document.body}
+                        menuPosition="fixed"
+                    />
                 </div>
 
                 {/* Swap Button */}
@@ -156,22 +202,19 @@ function TransferSection({ accounts, userId, currency, transferCategory }) {
 
                 {/* To Account */}
                 <div className={styles.fieldGroup}>
-                    <label className={styles.fieldLabel} htmlFor="transfer-to">
-                        To
-                    </label>
-                    <select
-                        id="transfer-to"
-                        className={styles.fieldSelect}
-                        value={toId}
-                        onChange={(e) => setToId(e.target.value)}
+                    <label className={styles.fieldLabel}>To</label>
+                    <Select
+                        options={toOptions}
+                        value={toOption}
+                        onChange={(opt) => setToAccountId(opt.value)}
+                        styles={selectStyles}
+                        isSearchable={false}
                         aria-label="Transfer to account"
-                    >
-                        {accounts.map((acc) => (
-                            <option key={acc.id} value={acc.id}>
-                                {getAccountLabel(acc)}
-                            </option>
-                        ))}
-                    </select>
+                        inputId="transfer-to"
+                        placeholder="Select destination..."
+                        menuPortalTarget={document.body}
+                        menuPosition="fixed"
+                    />
                 </div>
 
                 {/* Amount */}
@@ -187,13 +230,25 @@ function TransferSection({ accounts, userId, currency, transferCategory }) {
                         className={styles.amountInput}
                         type="number"
                         min="0"
+                        max={sourceBalance}
                         step="0.01"
                         placeholder={`${currency}  0.00`}
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
                         aria-label="Transfer amount"
-                        data-error={error ? "true" : undefined}
+                        data-error={
+                            numAmount > sourceBalance ? "true" : undefined
+                        }
                     />
+                    {sourceBalance > 0 && (
+                        <span className={styles.balanceHint}>
+                            Available: {currency}{" "}
+                            {sourceBalance.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            })}
+                        </span>
+                    )}
                 </div>
 
                 {/* Transfer Button */}
@@ -203,8 +258,7 @@ function TransferSection({ accounts, userId, currency, transferCategory }) {
                     size="md"
                     title="Transfer funds"
                     isLoading={submitting}
-                    isDisabled={submitting}
-                    className={styles.transferBtn}
+                    isDisabled={isTransferDisabled}
                 >
                     Transfer
                 </MainButton>

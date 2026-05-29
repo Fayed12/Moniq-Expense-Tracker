@@ -199,6 +199,7 @@
     --z-modal: 400;
     --z-toast: 500;
     --z-tooltip: 600;
+    --z-max: 100000;
 
     /* TRANSITIONS & ANIMATION */
     --duration-fast: 120ms;
@@ -839,4 +840,82 @@ button {
     backdrop-filter: var(--glass-blur-sm) !important;
     font-size: var(--text-xs) !important;
     font-weight: var(--weight-medium) !important;
+}
+
+/* ================================================================
+   7. SWEETALERT2 — Moniq Theme Overrides
+   ================================================================ */
+.swal2-popup.swal-moniq-popup {
+    font-family: var(--font-sans) !important;
+    border-radius: var(--radius-2xl) !important;
+    border: 1px solid var(--glass-border) !important;
+    background: var(--color-bg-elevated) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    box-shadow: var(--glass-shadow-lg) !important;
+    padding: var(--space-8) var(--space-6) var(--space-6) !important;
+}
+
+.swal-moniq-title {
+    font-family: var(--font-sans) !important;
+    font-weight: var(--weight-bold) !important;
+    font-size: var(--text-xl) !important;
+    color: var(--color-text-primary) !important;
+}
+
+.swal-moniq-html {
+    font-family: var(--font-sans) !important;
+    font-size: var(--text-sm) !important;
+    color: var(--color-text-secondary) !important;
+    line-height: var(--leading-relaxed) !important;
+}
+
+.swal-moniq-actions {
+    gap: var(--space-3) !important;
+}
+
+.swal-moniq-confirm {
+    font-family: var(--font-sans) !important;
+    font-weight: var(--weight-semibold) !important;
+    font-size: var(--text-sm) !important;
+    padding: var(--space-2-5) var(--space-6) !important;
+    border-radius: var(--radius-full) !important;
+    transition: var(--transition-base) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+.swal-moniq-confirm:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+.swal-moniq-cancel {
+    font-family: var(--font-sans) !important;
+    font-weight: var(--weight-semibold) !important;
+    font-size: var(--text-sm) !important;
+    padding: var(--space-2-5) var(--space-6) !important;
+    border-radius: var(--radius-full) !important;
+    background: var(--glass-bg-subtle) !important;
+    color: var(--color-text-secondary) !important;
+    border: 1px solid var(--glass-border) !important;
+    transition: var(--transition-base) !important;
+}
+
+.swal-moniq-cancel:hover {
+    background: var(--glass-bg) !important;
+    transform: translateY(-1px) !important;
+}
+
+.swal2-backdrop-show {
+    background: var(--color-bg-overlay) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+}
+
+.swal2-timer-progress-bar {
+    background: var(--color-primary) !important;
+}
+
+.swal-moniq-icon {
+    border-color: transparent !important;
 }
