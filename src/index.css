@@ -286,6 +286,13 @@
     --accounts-circle-color-3: var(--color-income);
     --accounts-circle-opacity: 0.12;
     --accounts-circle-blur: 35px;
+
+    /* TRANSACTIONS PAGE CIRCLES */
+    --txn-circle-color-1: var(--color-expense);
+    --txn-circle-color-2: var(--color-income);
+    --txn-circle-color-3: var(--color-transfer);
+    --txn-circle-opacity: 0.10;
+    --txn-circle-blur: 40px;
 }
 
 .dark {
@@ -369,6 +376,9 @@
 
     /* ACCOUNTS PAGE CIRCLES (DARK) */
     --accounts-circle-opacity: 0.08;
+
+    /* TRANSACTIONS PAGE CIRCLES (DARK) */
+    --txn-circle-opacity: 0.06;
 }
 
 /* 4. GLOBAL RESET & BASE STYLES*/

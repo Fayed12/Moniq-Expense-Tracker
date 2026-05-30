@@ -1,0 +1,276 @@
+/* ── Overlay ─────────────────────────────────────────────────── */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--color-bg-overlay);
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+}
+
+/* ── Drawer Panel ────────────────────────────────────────────── */
+.drawer {
+    width: 400px;
+    max-width: 90vw;
+    height: 100%;
+    overflow-y: auto;
+    background: var(--color-bg-elevated);
+    border-left: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow-lg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-6);
+    border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.title {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.closeBtn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--glass-bg-subtle);
+    border: 1px solid var(--glass-border-subtle);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.closeBtn:hover {
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+    border-color: var(--color-danger-border);
+}
+
+/* ── Content ─────────────────────────────────────────────────── */
+.content {
+    flex: 1;
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+/* ── Top Section (icon + title + category) ───────────────────── */
+.topSection {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.txnIcon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.txnMainInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.txnTitle {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.txnCat {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    font-weight: var(--weight-medium);
+}
+
+/* ── Amount Section ──────────────────────────────────────────── */
+.amountSection {
+    text-align: center;
+    padding: var(--space-5) 0;
+    border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.amountValue {
+    font-family: var(--font-sans);
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.amountValue[data-type="income"] {
+    color: var(--color-income);
+}
+
+.amountValue[data-type="expense"] {
+    color: var(--color-expense);
+}
+
+.amountValue[data-type="transfer"] {
+    color: var(--color-transfer);
+}
+
+/* ── Type Badge ──────────────────────────────────────────────── */
+.typeBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    text-transform: capitalize;
+    margin-top: var(--space-2);
+}
+
+.typeBadge[data-type="income"] {
+    background: var(--color-income-bg);
+    color: var(--color-income);
+}
+
+.typeBadge[data-type="expense"] {
+    background: var(--color-expense-bg);
+    color: var(--color-expense);
+}
+
+.typeBadge[data-type="transfer"] {
+    background: var(--color-transfer-bg);
+    color: var(--color-transfer);
+}
+
+/* ── Detail Rows ─────────────────────────────────────────────── */
+.detailGrid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.detailRow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-3);
+}
+
+.detailLabel {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    min-width: 80px;
+}
+
+.detailValue {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    color: var(--color-text-primary);
+    text-align: right;
+    word-break: break-word;
+}
+
+/* ── Tags ────────────────────────────────────────────────────── */
+.tagsRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1-5);
+    justify-content: flex-end;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    background: var(--glass-brown-bg);
+    border: 1px solid var(--glass-brown-border);
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: var(--weight-medium);
+    color: var(--color-text-secondary);
+}
+
+/* ── Note ────────────────────────────────────────────────────── */
+.noteSection {
+    padding: var(--space-3);
+    background: var(--glass-bg-subtle);
+    border: 1px solid var(--glass-border-subtle);
+    border-radius: var(--radius-lg);
+}
+
+.noteLabel {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    margin-bottom: var(--space-1);
+}
+
+.noteText {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    white-space: pre-wrap;
+}
+
+/* ── Timestamps ──────────────────────────────────────────────── */
+.timestamps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border-subtle);
+}
+
+.timestamp {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 480px) {
+    .drawer {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .header {
+        padding: var(--space-4);
+    }
+
+    .content {
+        padding: var(--space-4);
+    }
+
+    .amountValue {
+        font-size: var(--text-2xl);
+    }
+}
