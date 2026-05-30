@@ -1,0 +1,332 @@
+/* ── Table Wrapper (glass card) ───────────────────────────────── */
+.tableWrap {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--glass-shadow-sm);
+    overflow: hidden;
+}
+
+/* ── MUI Table Overrides ─────────────────────────────────────── */
+.tableWrap :global(.MuiTable-root) {
+    min-width: 800px;
+}
+
+.tableWrap :global(.MuiTableCell-root) {
+    font-family: var(--font-sans) !important;
+    font-size: var(--text-sm) !important;
+    color: var(--color-text-primary) !important;
+    border-bottom: 1px solid var(--color-border-subtle) !important;
+    padding: var(--space-3) var(--space-4) !important;
+    background: transparent !important;
+}
+
+.tableWrap :global(.MuiTableHead-root .MuiTableCell-root) {
+    font-weight: var(--weight-semibold) !important;
+    font-size: var(--text-xs) !important;
+    color: var(--color-text-muted) !important;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    background: var(--glass-bg-subtle) !important;
+    border-bottom: 1px solid var(--color-border-default) !important;
+    padding: var(--space-3) var(--space-4) !important;
+    white-space: nowrap;
+}
+
+.tableWrap :global(.MuiTableBody-root .MuiTableRow-root) {
+    transition: background-color var(--duration-fast) var(--ease-in-out),
+        transform var(--duration-fast) var(--ease-out);
+    position: relative;
+}
+
+.tableWrap :global(.MuiTableBody-root .MuiTableRow-root:hover) {
+    background: var(--color-primary-light) !important;
+}
+
+.tableWrap :global(.MuiTableBody-root .MuiTableRow-root:last-child .MuiTableCell-root) {
+    border-bottom: none !important;
+}
+
+.tableWrap :global(.MuiCheckbox-root) {
+    color: var(--color-text-muted) !important;
+}
+
+.tableWrap :global(.MuiCheckbox-root.Mui-checked) {
+    color: var(--color-primary) !important;
+}
+
+/* ── Category Cell ────────────────────────────────────────────── */
+.catCell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.catIcon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: transform var(--duration-normal) var(--ease-spring);
+}
+
+.tableWrap :global(.MuiTableBody-root .MuiTableRow-root:hover) .catIcon {
+    transform: scale(1.08);
+}
+
+.catInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.catName {
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tagBadgeRow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin-top: 1px;
+}
+
+.defaultTag {
+    font-size: 9px;
+    padding: 0px 6px;
+    background: var(--color-success-bg);
+    color: var(--color-success);
+    border: 1px solid var(--color-success-border);
+    border-radius: var(--radius-sm);
+    font-weight: var(--weight-semibold);
+}
+
+.archivedTag {
+    font-size: 9px;
+    padding: 0px 6px;
+    background: var(--color-warning-bg);
+    color: var(--color-warning);
+    border: 1px solid var(--color-warning-border);
+    border-radius: var(--radius-sm);
+    font-weight: var(--weight-semibold);
+}
+
+/* ── Type Badge ──────────────────────────────────────────────── */
+.typeBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.typeBadge[data-type="income"] {
+    background: var(--color-income-bg);
+    color: var(--color-income);
+}
+
+.typeBadge[data-type="expense"] {
+    background: var(--color-expense-bg);
+    color: var(--color-expense);
+}
+
+.typeBadge[data-type="both"] {
+    background: var(--color-transfer-bg);
+    color: var(--color-transfer);
+}
+
+/* ── Budget Limit Cell ────────────────────────────────────────── */
+.budgetText {
+    font-weight: var(--weight-medium);
+    font-size: var(--text-sm);
+}
+
+.perMonth {
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-regular);
+}
+
+.noBudget {
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    font-style: italic;
+}
+
+/* ── Spent Cell ──────────────────────────────────────────────── */
+.spentNormal {
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.spentOverBudget {
+    font-weight: var(--weight-semibold);
+    color: var(--color-danger);
+    background: var(--color-danger-bg);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-danger-border);
+}
+
+/* ── Linked Transactions Badge ───────────────────────────────── */
+.txnBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+    border-radius: var(--radius-full);
+    background: var(--glass-brown-bg);
+    border: 1px solid var(--glass-brown-border);
+    color: var(--color-text-secondary);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+}
+
+/* ── Action Buttons ──────────────────────────────────────────── */
+.actionsCell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    justify-content: center;
+}
+
+.actionBtn {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: var(--transition-base);
+    font-size: 15px;
+    padding: 0;
+}
+
+.actionBtn:hover {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    transform: translateY(-1px);
+}
+
+.actionBtn[data-action="default"]:hover {
+    background: #fff8e1;
+    color: #ffb300;
+}
+
+.actionBtn[data-action="delete"]:hover {
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+}
+
+.actionBtn[data-action="info"]:hover {
+    background: var(--color-info-bg);
+    color: var(--color-info);
+}
+
+.actionBtn[data-action="archive"]:hover {
+    background: var(--color-warning-bg);
+    color: var(--color-warning);
+}
+
+/* ── Empty State ─────────────────────────────────────────────── */
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-12) var(--space-4);
+    text-align: center;
+}
+
+.emptyIcon {
+    font-size: 48px;
+    color: var(--color-text-muted);
+    opacity: 0.3;
+    margin-bottom: var(--space-3);
+}
+
+.emptyText {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    font-weight: var(--weight-medium);
+}
+
+/* ── Table container scroll ──────────────────────────────────── */
+.tableScroll {
+    overflow-x: auto;
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+
+@media (max-width: 1024px) {
+    .tableWrap :global(.MuiTableCell-root) {
+        padding: var(--space-2-5) var(--space-3) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .budgetCol,
+    .spentCol,
+    .txnsCol {
+        display: none;
+    }
+
+    .catIcon {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .tableWrap :global(.MuiTableCell-root) {
+        padding: var(--space-2) var(--space-2-5) !important;
+        font-size: var(--text-xs) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .tableWrap :global(.MuiTable-root) {
+        min-width: unset;
+    }
+
+    .catIcon {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .actionsCell {
+        flex-wrap: wrap;
+        max-width: 100px;
+        gap: 2px;
+    }
+
+    .actionBtn {
+        width: 26px;
+        height: 26px;
+        font-size: 13px;
+    }
+}

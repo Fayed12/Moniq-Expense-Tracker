@@ -44,6 +44,9 @@ const AccountsPage = lazy(
 const TransactionsPage = lazy(
     () => import("../pages/dashboard-pages/transactions-page/transactionsPage"),
 );
+const CategoriesPage = lazy(
+    () => import("../pages/dashboard-pages/categories-page/categoriesPage"),
+);
 
 // Onboarding pages
 const OnboardingLayout = lazy(
@@ -225,6 +228,14 @@ const router = createBrowserRouter([
                         element: (
                             <SuspenseWrapper>
                                 <TransactionsPage />
+                            </SuspenseWrapper>
+                        ),
+                    },
+                    {
+                        path: "categories",
+                        element: (
+                            <SuspenseWrapper>
+                                <CategoriesPage />
                             </SuspenseWrapper>
                         ),
                     },

@@ -12,7 +12,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 // react icons
-import { MdDashboard, MdOutlineAccountBalanceWallet, MdOutlineEventRepeat } from "react-icons/md";
+import { MdCategory, MdDashboard, MdOutlineAccountBalanceWallet, MdOutlineEventRepeat } from "react-icons/md";
 import { RiBankLine } from "react-icons/ri";
 import { TbReceipt2 } from "react-icons/tb";
 import { IoAnalyticsOutline } from "react-icons/io5";
@@ -24,11 +24,12 @@ const navItems = [
     { name: "Home", path: "/dashboard/home", icon: <MdDashboard /> },
     { name: "Accounts", path: "/dashboard/accounts", icon: <RiBankLine /> },
     { name: "Transactions", path: "/dashboard/transactions", icon: <TbReceipt2 /> },
-    { name: "Analytics", path: "/dashboard/analytics", icon: <IoAnalyticsOutline /> },
+    { name: "Categories", path: "/dashboard/categories", icon: <MdCategory /> },
     { name: "Budget", path: "/dashboard/budget", icon: <MdOutlineAccountBalanceWallet /> },
     { name: "Goals", path: "/dashboard/goals", icon: <GoGoal /> },
     { name: "Recurring", path: "/dashboard/recurring", icon: <MdOutlineEventRepeat /> },
     { name: "Reports", path: "/dashboard/reports", icon: <HiOutlineChartBar /> },
+    { name: "Analytics", path: "/dashboard/analytics", icon: <IoAnalyticsOutline /> },
     { name: "Settings", path: "/dashboard/settings", icon: <FiSettings /> },
 ];
 

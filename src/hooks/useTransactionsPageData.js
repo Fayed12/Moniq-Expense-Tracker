@@ -5,7 +5,10 @@ export const useTransactionsPageData = () => {
     // ── Raw Redux data ──────────────────────────────────────
     const transactions = useSelector((s) => s.transactions.items);
     const accounts = useSelector((s) => s.accounts.items);
-    const categories = useSelector((s) => s.categories.items);
+    const rawCategories = useSelector((s) => s.categories.items);
+    const categories = useMemo(() => {
+        return rawCategories.filter((c) => c.is_default && !c.is_archived);
+    }, [rawCategories]);
     const budgets = useSelector((s) => s.budgets.items);
     const profile = useSelector((s) => s.auth.profile);
     const user = useSelector((s) => s.auth.user);

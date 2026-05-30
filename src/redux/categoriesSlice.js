@@ -69,7 +69,7 @@ const categoriesSlice = createSlice({
     reducers: {
         rtInsertCategory(state, { payload }) {
             if (!state.items.find((c) => c.id === payload.id))
-                state.items.push(payload);
+                state.items.unshift(payload);
         },
         rtUpdateCategory(state, { payload }) {
             const i = state.items.findIndex((c) => c.id === payload.id);
@@ -93,7 +93,7 @@ const categoriesSlice = createSlice({
                 s.error = payload;
             })
             .addCase(createCategory.fulfilled, (s, { payload }) => {
-                s.items.push(payload);
+                s.items.unshift(payload);
             })
             .addCase(editCategory.fulfilled, (s, { payload }) => {
                 const i = s.items.findIndex((c) => c.id === payload.id);

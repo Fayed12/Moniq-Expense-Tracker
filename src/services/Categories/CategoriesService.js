@@ -3,14 +3,14 @@ import { supabase } from "../../config/supabase";
 // ===========================================================================
 // FETCH — all active categories for the user
 // ===========================================================================
-export const fetchCategories = async (userId, type = null) => {
+export const fetchCategories = async (userId, type = null, includeArchived = true) => {
     let q = supabase
         .from("categories")
         .select("*")
         .eq("uid", userId)
-        .eq("is_archived", false)
-        .order("sort_order", { ascending: true });
+        .order("created_at", { ascending: false });
 
+    if (!includeArchived) q = q.eq("is_archived", false);
     if (type) q = q.eq("type", type);
 
     const { data, error } = await q;
@@ -30,7 +30,7 @@ export const insertCategory = async (payload) => {
             icon: payload.icon ?? "FaEllipsisH",
             color: payload.color ?? "#9E9E9E",
             type: payload.type,
-            is_default: false,
+            is_default: payload.isDefault ?? true,
             is_archived: false,
             sort_order: payload.sortOrder ?? 99,
             created_at: new Date().toISOString(),
