@@ -293,7 +293,20 @@ function CategoriesPage() {
                         await dispatch(removeBudget(stats.budgetId)).unwrap();
                     }
 
-                    // 2. Delete all related transactions
+                    // 2. Disassociate category on all database transactions first (safety)
+                    const { error: dbError } = await supabase
+                        .from("transactions")
+                        .update({
+                            category_id: null,
+                            category_name: null,
+                            category_icon: null,
+                            category_color: null
+                        })
+                        .eq("category_id", cat.id);
+
+                    if (dbError) throw dbError;
+
+                    // 3. Delete all related transactions
                     const relatedTxIds = transactions
                         .filter((t) => String(t.category_id) === String(cat.id))
                         .map((t) => t.id);
@@ -301,12 +314,13 @@ function CategoriesPage() {
                         await dispatch(removeTransactions(relatedTxIds)).unwrap();
                     }
 
-                    // 3. Delete category
+                    // 4. Delete category
                     await dispatch(removeCategory(cat.id)).unwrap();
                     showSuccess("Deleted Everything!", `Category "${cat.name}" and all related budgets and transactions were removed.`);
                 } catch (err) {
                     console.error("Cascade deletion failed:", err);
                 }
+
             } else if (result.isDenied) {
                 // Choice 2: Delete Category only (preserve transactions)
                 try {

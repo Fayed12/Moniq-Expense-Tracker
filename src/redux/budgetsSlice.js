@@ -17,7 +17,6 @@ export const loadBudgets = createAsyncThunk(
     },
 );
 
-
 export const saveBudget = createAsyncThunk(
     "budgets/upsert",
     async (payload, { rejectWithValue }) => {
@@ -29,7 +28,6 @@ export const saveBudget = createAsyncThunk(
     },
 );
 
-
 export const editBudget = createAsyncThunk(
     "budgets/edit",
     async ({ id, changes }, { rejectWithValue }) => {
@@ -40,7 +38,6 @@ export const editBudget = createAsyncThunk(
         }
     },
 );
-
 
 export const removeBudget = createAsyncThunk(
     "budgets/remove",
@@ -71,7 +68,7 @@ const budgetsSlice = createSlice({
         },
         rtInsertBudget(state, { payload }) {
             if (!state.items.find((b) => b.id === payload.id))
-                state.items.push(payload);
+                state.items.unshift(payload);
         },
         rtDeleteBudget(state, { payload }) {
             state.items = state.items.filter((b) => b.id !== payload.id);
@@ -93,7 +90,7 @@ const budgetsSlice = createSlice({
             .addCase(saveBudget.fulfilled, (s, { payload }) => {
                 const i = s.items.findIndex((b) => b.id === payload.id);
                 if (i !== -1) s.items[i] = payload;
-                else s.items.push(payload);
+                else s.items.unshift(payload);
             })
             .addCase(editBudget.fulfilled, (s, { payload }) => {
                 const i = s.items.findIndex((b) => b.id === payload.id);

@@ -25,7 +25,7 @@ const navItems = [
     { name: "Accounts", path: "/dashboard/accounts", icon: <RiBankLine /> },
     { name: "Transactions", path: "/dashboard/transactions", icon: <TbReceipt2 /> },
     { name: "Categories", path: "/dashboard/categories", icon: <MdCategory /> },
-    { name: "Budget", path: "/dashboard/budget", icon: <MdOutlineAccountBalanceWallet /> },
+    { name: "Budget", path: "/dashboard/budgets", icon: <MdOutlineAccountBalanceWallet /> },
     { name: "Goals", path: "/dashboard/goals", icon: <GoGoal /> },
     { name: "Recurring", path: "/dashboard/recurring", icon: <MdOutlineEventRepeat /> },
     { name: "Reports", path: "/dashboard/reports", icon: <HiOutlineChartBar /> },
