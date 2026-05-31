@@ -237,164 +237,192 @@ function TransactionsTable({
                         </TableRow>
                     </TableHead>
                     <TableBody ref={tbodyRef}>
-                        {transactions.map((txn) => (
-                            <TableRow
-                                key={txn.id}
-                                hover
-                                selected={selectedIds.has(txn.id)}
-                                aria-label={`${txn.title} — ${formatAmount(txn.amount, txn.type, currency)}`}
-                            >
-                                {/* Checkbox */}
-                                <TableCell padding="checkbox">
-                                    <Checkbox
-                                        checked={selectedIds.has(txn.id)}
-                                        onChange={() => handleSelectRow(txn.id)}
-                                        slotProps={{
-                                            input: {
-                                                "aria-label":
-                                                    "Select all transactions",
-                                            },
-                                        }}
-                                    />
-                                </TableCell>
+                        {transactions.map((txn) => {
+                            const isGoalRelated = txn.tags?.some(
+                                (tag) =>
+                                    tag === "goal" ||
+                                    tag === "refund" ||
+                                    tag.startsWith("goal:"),
+                            );
 
-                                {/* Date */}
-                                <TableCell>
-                                    <span className={styles.dateCell}>
-                                        {formatDate(txn.date)}
-                                    </span>
-                                </TableCell>
-
-                                {/* Transaction (icon + title + category) */}
-                                <TableCell>
-                                    <div className={styles.txnCell}>
-                                        <span
-                                            className={styles.txnIcon}
-                                            style={{
-                                                background: `${txn.category_color || "var(--color-primary)"}18`,
-                                                color:
-                                                    txn.category_color ||
-                                                    "var(--color-primary)",
+                            return (
+                                <TableRow
+                                    key={txn.id}
+                                    hover
+                                    selected={selectedIds.has(txn.id)}
+                                    aria-label={`${txn.title} — ${formatAmount(txn.amount, txn.type, currency)}`}
+                                >
+                                    {/* Checkbox */}
+                                    <TableCell padding="checkbox">
+                                        <Checkbox
+                                            checked={selectedIds.has(txn.id)}
+                                            onChange={() =>
+                                                handleSelectRow(txn.id)
+                                            }
+                                            slotProps={{
+                                                input: {
+                                                    "aria-label":
+                                                        "Select all transactions",
+                                                },
                                             }}
-                                            aria-hidden="true"
-                                        >
-                                            <DynamicIcon
-                                                name={txn.category_icon}
-                                            />
-                                        </span>
-                                        <div className={styles.txnInfo}>
-                                            <span className={styles.txnTitle}>
-                                                {txn.title}
-                                            </span>
-                                            <span
-                                                className={styles.txnCategory}
-                                            >
-                                                {txn.category_name || "—"}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </TableCell>
-
-                                {/* Type badge */}
-                                <TableCell>
-                                    <span
-                                        className={styles.typeBadge}
-                                        data-type={txn.type}
-                                    >
-                                        {txn.type}
-                                    </span>
-                                </TableCell>
-
-                                {/* Account */}
-                                <TableCell className={styles.accountCol}>
-                                    <div className={styles.accountCell}>
-                                        <span
-                                            className={styles.accountDot}
-                                            style={{
-                                                background:
-                                                    txn.type === "expense"
-                                                        ? "var(--color-expense)"
-                                                        : txn.type === "income"
-                                                          ? "var(--color-income)"
-                                                          : "var(--color-transfer)",
-                                            }}
-                                            aria-hidden="true"
                                         />
-                                        {txn.account_name || "—"}
-                                    </div>
-                                </TableCell>
+                                    </TableCell>
 
-                                {/* Tags */}
-                                <TableCell className={styles.tagsCol}>
-                                    <div className={styles.tagsCell}>
-                                        {txn.tags?.length > 0
-                                            ? txn.tags.map((tag) => (
-                                                  <span
-                                                      key={tag}
-                                                      className={styles.tag}
-                                                  >
-                                                      {tag}
-                                                  </span>
-                                              ))
-                                            : "—"}
-                                    </div>
-                                </TableCell>
+                                    {/* Date */}
+                                    <TableCell>
+                                        <span className={styles.dateCell}>
+                                            {formatDate(txn.date)}
+                                        </span>
+                                    </TableCell>
 
-                                {/* Amount */}
-                                <TableCell align="right">
-                                    <span
-                                        className={
-                                            txn.type === "income"
-                                                ? styles.amountIncome
-                                                : txn.type === "transfer"
-                                                  ? styles.amountTransfer
-                                                  : styles.amountExpense
-                                        }
-                                    >
-                                        {formatAmount(
-                                            txn.amount,
-                                            txn.type,
-                                            currency,
-                                        )}
-                                    </span>
-                                </TableCell>
+                                    {/* Transaction (icon + title + category) */}
+                                    <TableCell>
+                                        <div className={styles.txnCell}>
+                                            <span
+                                                className={styles.txnIcon}
+                                                style={{
+                                                    background: `${txn.category_color || "var(--color-primary)"}18`,
+                                                    color:
+                                                        txn.category_color ||
+                                                        "var(--color-primary)",
+                                                }}
+                                                aria-hidden="true"
+                                            >
+                                                <DynamicIcon
+                                                    name={txn.category_icon}
+                                                />
+                                            </span>
+                                            <div className={styles.txnInfo}>
+                                                <span
+                                                    className={styles.txnTitle}
+                                                >
+                                                    {txn.title}
+                                                </span>
+                                                <span
+                                                    className={
+                                                        styles.txnCategory
+                                                    }
+                                                >
+                                                    {txn.category_name || "—"}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </TableCell>
 
-                                {/* Actions */}
-                                <TableCell align="center">
-                                    <div className={styles.actionsCell}>
-                                        <button
-                                            className={styles.actionBtn}
-                                            data-action="info"
-                                            onClick={() => onInfoClick(txn)}
-                                            aria-label={`View details for ${txn.title}`}
-                                            title="View details"
-                                            type="button"
+                                    {/* Type badge */}
+                                    <TableCell>
+                                        <span
+                                            className={styles.typeBadge}
+                                            data-type={txn.type}
                                         >
-                                            <FiInfo />
-                                        </button>
-                                        <button
-                                            className={styles.actionBtn}
-                                            onClick={() => onEditClick(txn)}
-                                            aria-label={`Edit ${txn.title}`}
-                                            title="Edit transaction"
-                                            type="button"
+                                            {txn.type}
+                                        </span>
+                                    </TableCell>
+
+                                    {/* Account */}
+                                    <TableCell className={styles.accountCol}>
+                                        <div className={styles.accountCell}>
+                                            <span
+                                                className={styles.accountDot}
+                                                style={{
+                                                    background:
+                                                        txn.type === "expense"
+                                                            ? "var(--color-expense)"
+                                                            : txn.type ===
+                                                                "income"
+                                                              ? "var(--color-income)"
+                                                              : "var(--color-transfer)",
+                                                }}
+                                                aria-hidden="true"
+                                            />
+                                            {txn.account_name || "—"}
+                                        </div>
+                                    </TableCell>
+
+                                    {/* Tags */}
+                                    <TableCell className={styles.tagsCol}>
+                                        <div className={styles.tagsCell}>
+                                            {txn.tags?.length > 0
+                                                ? txn.tags.map((tag) => (
+                                                      <span
+                                                          key={tag}
+                                                          className={styles.tag}
+                                                      >
+                                                          {tag}
+                                                      </span>
+                                                  ))
+                                                : "—"}
+                                        </div>
+                                    </TableCell>
+
+                                    {/* Amount */}
+                                    <TableCell align="right">
+                                        <span
+                                            className={
+                                                txn.type === "income"
+                                                    ? styles.amountIncome
+                                                    : txn.type === "transfer"
+                                                      ? styles.amountTransfer
+                                                      : styles.amountExpense
+                                            }
                                         >
-                                            <FiEdit2 />
-                                        </button>
-                                        <button
-                                            className={styles.actionBtn}
-                                            data-action="delete"
-                                            onClick={() => onDeleteClick(txn)}
-                                            aria-label={`Delete ${txn.title}`}
-                                            title="Delete transaction"
-                                            type="button"
-                                        >
-                                            <FiTrash2 />
-                                        </button>
-                                    </div>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                                            {formatAmount(
+                                                txn.amount,
+                                                txn.type,
+                                                currency,
+                                            )}
+                                        </span>
+                                    </TableCell>
+
+                                    {/* Actions */}
+                                    <TableCell align="center">
+                                        <div className={styles.actionsCell}>
+                                            <button
+                                                className={styles.actionBtn}
+                                                data-action="info"
+                                                onClick={() => onInfoClick(txn)}
+                                                aria-label={`View details for ${txn.title}`}
+                                                title="View details"
+                                                type="button"
+                                            >
+                                                <FiInfo />
+                                            </button>
+                                            {!isGoalRelated && (
+                                                <>
+                                                    <button
+                                                        className={
+                                                            styles.actionBtn
+                                                        }
+                                                        onClick={() =>
+                                                            onEditClick(txn)
+                                                        }
+                                                        aria-label={`Edit ${txn.title}`}
+                                                        title="Edit transaction"
+                                                        type="button"
+                                                    >
+                                                        <FiEdit2 />
+                                                    </button>
+                                                    <button
+                                                        className={
+                                                            styles.actionBtn
+                                                        }
+                                                        data-action="delete"
+                                                        onClick={() =>
+                                                            onDeleteClick(txn)
+                                                        }
+                                                        aria-label={`Delete ${txn.title}`}
+                                                        title="Delete transaction"
+                                                        type="button"
+                                                    >
+                                                        <FiTrash2 />
+                                                    </button>
+                                                </>
+                                            )}
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })}
                     </TableBody>
                 </Table>
             </TableContainer>

@@ -112,6 +112,8 @@ export const insertContribution = async (payload) => {
             uid: payload.userId,
             goal_id: payload.goalId,
             amount: payload.amount,
+            transaction_id: payload.transactionId ?? null,
+            account_id: payload.accountId ?? null,
             note: payload.note ?? null,
             date: payload.date ?? new Date().toISOString(),
             created_at: new Date().toISOString(),
@@ -139,7 +141,8 @@ export const insertContribution = async (payload) => {
         .from("goals")
         .update({
             current_amount: newAmount,
-            total_contributions: Number(goal.total_contributions) + Number(payload.amount),
+            total_contributions:
+                Number(goal.total_contributions) + Number(payload.amount),
             contribution_count: Number(goal.contribution_count) + 1,
             is_completed: isCompleted,
             completed_at: isCompleted ? new Date().toISOString() : null,

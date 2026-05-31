@@ -929,3 +929,8 @@ button {
 .swal-moniq-icon {
     border-color: transparent !important;
 }
+
+/* Elevate SweetAlert2 container z-index globally above sliding panels and modals */
+.swal2-container {
+    z-index: 9999999 !important;
+}

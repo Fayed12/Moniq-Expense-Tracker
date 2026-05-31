@@ -1,0 +1,94 @@
+.tableTitle {
+    font-family: var(--font-sans) !important;
+    font-size: var(--text-md) !important;
+    font-weight: var(--weight-bold) !important;
+    color: var(--color-text-primary) !important;
+    margin-bottom: var(--space-3) !important;
+}
+
+.noContribs {
+    padding: var(--space-6);
+    background: var(--glass-bg-subtle);
+    border: 1px solid var(--glass-border-subtle);
+    border-radius: var(--radius-lg);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    text-align: center;
+    font-style: italic;
+}
+
+.tableContainer {
+    background: var(--glass-bg-subtle) !important;
+    border: 1px solid var(--glass-border-subtle) !important;
+    box-shadow: none !important;
+    border-radius: var(--radius-xl) !important;
+    overflow-x: auto !important;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary-light) transparent;
+}
+
+.tableContainer::-webkit-scrollbar {
+    height: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+    background: var(--color-primary-light);
+    border-radius: var(--radius-full);
+}
+
+.tableHead {
+    background: var(--color-primary-light) !important;
+}
+
+.headCell {
+    font-family: var(--font-sans) !important;
+    font-size: var(--text-xs) !important;
+    font-weight: var(--weight-bold) !important;
+    color: var(--color-text-primary) !important;
+    border-bottom: 1px solid var(--color-border-subtle) !important;
+    padding: var(--space-3) var(--space-4) !important;
+}
+
+.tableRow {
+    transition: var(--transition-base);
+}
+
+.tableRow:hover {
+    background: var(--glass-bg) !important;
+}
+
+.tableCell {
+    font-family: var(--font-sans) !important;
+    font-size: var(--text-sm) !important;
+    color: var(--color-text-secondary) !important;
+    border-bottom: 1px solid var(--color-border-subtle) !important;
+    padding: var(--space-2) var(--space-4) !important;
+}
+
+/* ── Edit Dialog ─────────────────────────────────────────────── */
+.dialogPaper {
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: var(--glass-shadow-lg) !important;
+    padding: var(--space-2) !important;
+}
+
+.dialogTitle {
+    font-family: var(--font-sans) !important;
+    font-weight: var(--weight-bold) !important;
+    color: var(--color-text-primary) !important;
+}
+
+.dialogError {
+    display: flex;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-danger-bg);
+    border: 1px solid var(--color-danger-border);
+    border-radius: var(--radius-lg);
+    color: var(--color-danger);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    margin-bottom: var(--space-4);
+}

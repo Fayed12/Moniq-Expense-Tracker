@@ -8,6 +8,9 @@ import { useHomePageData } from "../../../hooks/useHomePageData";
 // react
 import { useState, useEffect, useRef, useCallback } from "react";
 
+// react-router
+import { useNavigate } from "react-router";
+
 // react-datepicker
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -132,6 +135,9 @@ export default function HomePage() {
     const [selectedMonth, setSelectedMonth] = useState(new Date());
     const containerRef = useRef(null);
     const animRan = useRef(false);
+
+    // ── Navigation ──────────────────────────────────────────
+    const navigate = useNavigate();
 
     const {
         totalBalance,
@@ -495,8 +501,8 @@ export default function HomePage() {
                                                 tx.type === "income"
                                                     ? styles.txAmountIncome
                                                     : tx.type === "transfer"
-                                                    ? styles.txAmountTransfer
-                                                    : styles.txAmountExpense
+                                                      ? styles.txAmountTransfer
+                                                      : styles.txAmountExpense
                                             }
                                         >
                                             <span className={styles.txPrefix}>
@@ -622,6 +628,7 @@ export default function HomePage() {
                         size="sm"
                         className={styles.sectionAction}
                         title="Add new goal"
+                        clickEvent={() => navigate("/dashboard/goals")}
                     >
                         <FiPlus size={14} />
                         Add Goal
@@ -636,13 +643,13 @@ export default function HomePage() {
                         {activeGoals.map((goal) => {
                             const progress = goal.target_amount
                                 ? Math.min(
-                                    Math.round(
-                                        (Number(goal.current_amount) /
-                                            Number(goal.target_amount)) *
-                                            100,
-                                    ),
-                                    100,
-                                )
+                                      Math.round(
+                                          (Number(goal.current_amount) /
+                                              Number(goal.target_amount)) *
+                                              100,
+                                      ),
+                                      100,
+                                  )
                                 : 0;
 
                             return (
