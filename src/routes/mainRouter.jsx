@@ -56,6 +56,9 @@ const GoalsPage = lazy(
 const ProfilePage = lazy(
     () => import("../pages/dashboard-pages/profile-page/profilePage"),
 );
+const AnalysisPage = lazy(
+    () => import("../pages/dashboard-pages/analysis-page/analysisPage"),
+);
 
 // Onboarding pages
 const OnboardingLayout = lazy(
@@ -269,6 +272,14 @@ const router = createBrowserRouter([
                         element: (
                             <SuspenseWrapper>
                                 <ProfilePage />
+                            </SuspenseWrapper>
+                        ),
+                    },
+                    {
+                        path: "analytics",
+                        element: (
+                            <SuspenseWrapper>
+                                <AnalysisPage />
                             </SuspenseWrapper>
                         ),
                     },

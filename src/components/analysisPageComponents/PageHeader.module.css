@@ -1,0 +1,335 @@
+.headerContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-4) 0 var(--space-2) 0;
+    background: transparent;
+    border-bottom: none;
+    transition: var(--transition-base);
+}
+
+.titleSection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: var(--leading-tight);
+}
+
+.subtitle {
+    font-size: 13px;
+    font-family: var(--font-sans);
+    color: var(--color-text-secondary);
+}
+
+.controlsRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+
+/* Pill control */
+.segmentedControl {
+    display: flex;
+    align-items: center;
+    background: var(--color-bg-sunken);
+    padding: var(--space-1);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border-subtle);
+    overflow-x: auto;
+    max-width: 100%;
+    scrollbar-width: none; /* Firefox */
+}
+
+.segmentedControl::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
+.pillBtn {
+    padding: var(--space-1-5) var(--space-3);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    border-radius: var(--radius-full);
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    transition: var(--transition-color);
+}
+
+.pillBtn:hover {
+    color: var(--color-text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.activePill {
+    background: var(--color-primary) !important;
+    color: var(--color-text-inverse) !important;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Account Filter Dropdown button */
+.accountFilterWrapper {
+    position: relative;
+}
+
+.dropdownBtn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: var(--input-height-sm);
+    padding: 0 var(--space-4);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xs);
+    color: var(--color-text-primary);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.dropdownBtn:hover {
+    background: var(--card-bg-hover);
+    border-color: var(--color-border-strong);
+}
+
+.bankIcon {
+    color: var(--color-primary);
+}
+
+.btnLabel {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chevron {
+    transition: transform var(--duration-normal) var(--ease-out);
+    color: var(--color-text-muted);
+}
+
+.chevronOpen {
+    transform: rotate(180deg);
+}
+
+/* Checklist popover */
+.dropdownPopover {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    right: 0;
+    width: 280px;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-3);
+    z-index: var(--z-dropdown);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    animation: fadeInScale 200ms var(--ease-out);
+}
+
+.popoverHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding-bottom: var(--space-2);
+}
+
+.selectAllBtn {
+    color: var(--color-primary);
+    background: none;
+    border: none;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+}
+
+.selectAllBtn:hover {
+    text-decoration: underline;
+}
+
+.accountsChecklist {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: var(--space-1);
+}
+
+.checkboxItem {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-color);
+}
+
+.checkboxItem:hover {
+    background: var(--color-bg-sunken);
+}
+
+.hiddenCheckbox {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.customCheckbox {
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--color-border-strong);
+    border-radius: var(--radius-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-inverse);
+    background: transparent;
+    transition: var(--transition-base);
+}
+
+.checked {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.colorDot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+}
+
+.accountName {
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.accountBalance {
+    font-size: var(--text-xs);
+    font-family: var(--font-mono);
+    color: var(--color-text-muted);
+}
+
+/* Custom Date slidepicker */
+.customDateSlider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--glass-shadow-sm);
+    margin-top: var(--space-2);
+    animation: fadeIn var(--duration-normal) var(--ease-out);
+}
+
+.pickerField {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    flex-grow: 1;
+}
+
+.dateLabel {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-secondary);
+}
+
+.datePickerInputWrap {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-sunken);
+    padding: 0 var(--space-3);
+    height: var(--input-height-sm);
+    color: var(--color-text-primary);
+}
+
+.datePickerInputWrap:focus-within {
+    border-color: var(--color-primary);
+}
+
+.calendarIcon {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+}
+
+.dateInput {
+    width: 100%;
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .headerContainer {
+        position: relative;
+        padding: var(--space-2) 0;
+    }
+    
+    .controlsRow {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-3);
+    }
+    
+    .segmentedControl {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    .dropdownBtn {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .dropdownPopover {
+        width: 100%;
+        right: auto;
+        left: 0;
+    }
+    
+    .customDateSlider {
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+    
+    .pickerField {
+        width: 100%;
+    }
+}

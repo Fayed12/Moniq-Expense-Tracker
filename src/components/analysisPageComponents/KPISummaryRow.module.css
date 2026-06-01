@@ -1,0 +1,232 @@
+.rowGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+    width: 100%;
+}
+
+.kpiCard {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    padding: var(--card-padding-sm) var(--card-padding);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 140px;
+    transition: var(--transition-base);
+}
+
+.kpiCard:hover {
+    background: var(--card-bg-hover);
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
+}
+
+.iconBg {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.greenBg {
+    background: rgba(61, 140, 90, 0.12);
+}
+
+.greenIcon {
+    color: var(--color-income);
+}
+
+.redBg {
+    background: rgba(192, 57, 43, 0.12);
+}
+
+.redIcon {
+    color: var(--color-expense);
+}
+
+.violetBg {
+    background: rgba(123, 104, 238, 0.12);
+}
+
+.violetIcon {
+    color: var(--color-transfer);
+}
+
+.amberBg {
+    background: rgba(176, 125, 26, 0.12);
+}
+
+.amberIcon {
+    color: var(--color-warning);
+}
+
+.cardLabel {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: var(--weight-bold);
+    color: var(--color-text-secondary);
+}
+
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.bigNumber {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: var(--leading-tight);
+}
+
+.positiveText {
+    color: var(--color-income);
+}
+
+.negativeText {
+    color: var(--color-expense);
+}
+
+.trendRow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.trendBadge {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    padding: var(--space-0-5) var(--space-1-5);
+    border-radius: var(--radius-xs);
+    display: flex;
+    align-items: center;
+    gap: var(--space-px);
+}
+
+.trendUp {
+    background: var(--color-success-bg);
+    color: var(--color-income);
+}
+
+.trendDown {
+    background: var(--color-danger-bg);
+    color: var(--color-expense);
+}
+
+.subtext {
+    font-size: 11px;
+    color: var(--color-text-muted);
+}
+
+/* Donut rate card layout */
+.donutCardBody {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.numberWithDonut {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ringContainer {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progressRing {
+    transform: rotate(-90deg);
+}
+
+.ringTrack {
+    stroke: var(--color-border-subtle);
+}
+
+.ringFill {
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.8s var(--ease-spring);
+}
+
+.benchmarkWrapper {
+    display: flex;
+}
+
+.benchmarkText {
+    font-size: 11px;
+    font-weight: var(--weight-medium);
+    color: var(--color-text-secondary);
+}
+
+/* Bottom Accents */
+.bottomAccent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    border-bottom-left-radius: var(--card-radius);
+    border-bottom-right-radius: var(--card-radius);
+}
+
+.greenAccent {
+    background: linear-gradient(90deg, var(--color-income), rgba(61, 140, 90, 0.4));
+}
+
+.redAccent {
+    background: linear-gradient(90deg, var(--color-expense), rgba(192, 57, 43, 0.4));
+}
+
+.violetAccent {
+    background: linear-gradient(90deg, var(--color-transfer), rgba(123, 104, 238, 0.4));
+}
+
+.amberAccent {
+    background: linear-gradient(90deg, var(--color-warning), rgba(176, 125, 26, 0.4));
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .rowGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .rowGrid {
+        grid-template-columns: 1fr;
+    }
+    .kpiCard {
+        min-height: 125px;
+        padding: var(--space-4);
+    }
+}

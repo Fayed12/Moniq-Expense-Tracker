@@ -1,0 +1,118 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding-bottom: var(--space-12);
+    min-height: 100%;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+.contentGrid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    width: 100%;
+}
+
+/* Skeleton Loading Shimmering Styles */
+.skeletonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    width: 100%;
+    padding-top: var(--space-4);
+}
+
+.shimmer {
+    background: linear-gradient(
+        90deg,
+        var(--color-border-subtle) 25%,
+        var(--color-border-default) 50%,
+        var(--color-border-subtle) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: var(--radius-lg);
+}
+
+.skeletonHeader {
+    height: 60px;
+    width: 250px;
+}
+
+.skeletonKpiGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+    width: 100%;
+}
+
+.skeletonKpiCard {
+    height: 140px;
+    border-radius: var(--card-radius);
+}
+
+.skeletonChart {
+    height: 340px;
+    width: 100%;
+    border-radius: var(--card-radius);
+}
+
+.skeletonDoubleCol {
+    display: grid;
+    grid-template-columns: 5.5fr 4.5fr;
+    gap: var(--space-4);
+    width: 100%;
+}
+
+.skeletonColLeft {
+    height: 400px;
+    border-radius: var(--card-radius);
+}
+
+.skeletonColRight {
+    height: 400px;
+    border-radius: var(--card-radius);
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .skeletonKpiGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .skeletonDoubleCol {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 var(--space-3) var(--space-10) var(--space-3);
+        gap: var(--space-4);
+    }
+    .contentGrid {
+        gap: var(--space-4);
+    }
+}
+
+@media (max-width: 480px) {
+    .skeletonKpiGrid {
+        grid-template-columns: 1fr;
+    }
+    .skeletonKpiCard {
+        height: 120px;
+    }
+}
