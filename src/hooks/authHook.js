@@ -6,7 +6,7 @@ import {
     setProfile,
     setSession,
 } from "../redux/auth/authSlice";
-import { fetchUserProfile } from "../services/users/auth";
+import { fetchUserProfile, updateUserProfile } from "../services/users/auth";
 
 // react
 import { useEffect } from "react";
@@ -30,15 +30,30 @@ export const useAuth = () => {
         const {
             data: { subscription },
         } = supabase.auth.onAuthStateChange(async (event, session) => {
-
             switch (event) {
                 case "SIGNED_IN":
                 case "TOKEN_REFRESHED":
                 case "USER_UPDATED": {
                     dispatch(setSession({ session }));
                     if (session?.user) {
-                        const profile = await fetchUserProfile(session.user.id);
-                        dispatch(setProfile(profile));
+                        let profileData = await fetchUserProfile(
+                            session.user.id,
+                        );
+
+                        // Self-healing synchronization: update public table when auth email changes are confirmed
+                        if (
+                            session.user.email &&
+                            profileData &&
+                            session.user.email.toLowerCase() !==
+                                profileData.email?.toLowerCase()
+                        ) {
+                            profileData = await updateUserProfile(
+                                session.user.id,
+                                { email: session.user.email },
+                            );
+                        }
+
+                        dispatch(setProfile(profileData));
                     }
                     break;
                 }

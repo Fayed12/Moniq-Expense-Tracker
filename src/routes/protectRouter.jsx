@@ -8,11 +8,21 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
 
 function ProtectRouter({ children }) {
-
-    // i used user instead of profile and session, because i need to check if the user is logged in or not, the session only contain the current session but not contain user and profile may contain null data when no user exist in database
     const { user, loading } = useSelector((state) => state.auth);
 
-    if (loading) return <LoadingPage />;
+    // Detect if the URL contains active Supabase authentication redirect parameters
+    // (such as a PKCE exchange code or implicit flow hash tokens)
+    const hasAuthParams = 
+        window.location.search.includes("code=") || 
+        window.location.hash.includes("access_token=") ||
+        window.location.search.includes("type=") ||
+        window.location.hash.includes("type=");
+
+    // If session is loading or if we have pending auth redirect parameters and no user yet,
+    // display a loading page and preserve the URL so the Supabase client can process the tokens.
+    if (loading || (hasAuthParams && !user)) {
+        return <LoadingPage />;
+    }
 
     if (!user) return <Navigate to="/login" replace />;
 

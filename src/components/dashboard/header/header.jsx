@@ -113,6 +113,8 @@ function Header({ setIsSidebarOpen }) {
                 {/* Avatar — opens profile modal */}
                 <Avatar
                     onClick={() => setIsProfileOpen(true)}
+                    src={profile?.photo_url}
+                    alt={profile?.display_name}
                     sx={{
                         width: 38,
                         height: 38,
@@ -136,6 +138,8 @@ function Header({ setIsSidebarOpen }) {
             >
                 <Box className={styles.profileModal}>
                     <Avatar
+                        src={profile?.photo_url}
+                        alt={profile?.display_name}
                         sx={{
                             width: 80,
                             height: 80,

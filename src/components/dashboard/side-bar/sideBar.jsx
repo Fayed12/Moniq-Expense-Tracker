@@ -13,12 +13,12 @@ import gsap from "gsap";
 
 // react icons
 import { MdCategory, MdDashboard, MdOutlineAccountBalanceWallet, MdOutlineEventRepeat } from "react-icons/md";
-import { RiBankLine } from "react-icons/ri";
+import { RiBankLine, RiUserSettingsFill } from "react-icons/ri";
 import { TbReceipt2 } from "react-icons/tb";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import { GoGoal } from "react-icons/go";
 import { HiOutlineChartBar } from "react-icons/hi";
-import { FiSettings, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const navItems = [
     { name: "Home", path: "/dashboard/home", icon: <MdDashboard /> },
@@ -27,10 +27,10 @@ const navItems = [
     { name: "Categories", path: "/dashboard/categories", icon: <MdCategory /> },
     { name: "Budget", path: "/dashboard/budgets", icon: <MdOutlineAccountBalanceWallet /> },
     { name: "Goals", path: "/dashboard/goals", icon: <GoGoal /> },
-    { name: "Recurring", path: "/dashboard/recurring", icon: <MdOutlineEventRepeat /> },
+    // { name: "Recurring", path: "/dashboard/recurring", icon: <MdOutlineEventRepeat /> },
     { name: "Reports", path: "/dashboard/reports", icon: <HiOutlineChartBar /> },
     { name: "Analytics", path: "/dashboard/analytics", icon: <IoAnalyticsOutline /> },
-    { name: "Settings", path: "/dashboard/settings", icon: <FiSettings /> },
+    { name: "Profile", path: "/dashboard/profile", icon: <RiUserSettingsFill /> },
 ];
 
 function SideBar({ isSidebarOpen, setIsSidebarOpen, isSidebarCollapsed, setIsSidebarCollapsed }) {

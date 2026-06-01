@@ -89,7 +89,8 @@ function AddContributionModal({
             .filter(
                 (c) =>
                     !c.is_archived &&
-                    (c.type === "expense" || c.type === "both"),
+                    (c.type === "expense" || c.type === "both") &&
+                    c?.is_default,
             )
             .map((c) => ({
                 value: c.id,
