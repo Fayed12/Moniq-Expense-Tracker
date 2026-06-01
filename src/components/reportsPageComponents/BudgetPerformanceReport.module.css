@@ -1,0 +1,393 @@
+.reportWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    width: 100%;
+}
+
+/* Split Top Section */
+.topSplitRow {
+    display: grid;
+    grid-template-columns: 360px 1-slice;
+    gap: var(--space-6);
+    width: 100%;
+}
+
+@media (max-width: 900px) {
+    .topSplitRow {
+        grid-template-columns: 1fr;
+    }
+}
+
+.healthDialCard {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--card-radius);
+    padding: var(--card-padding);
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cardTitle {
+    font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-5) 0;
+    width: 100%;
+    text-align: left;
+}
+
+.gaugeContainer {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin-bottom: var(--space-4);
+}
+
+.gaugeSvg {
+    transform: rotate(-90deg);
+}
+
+.gaugeTrack {
+    fill: none;
+    stroke: var(--color-bg-sunken);
+}
+
+.gaugeIndicator {
+    fill: none;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s var(--ease-spring);
+}
+
+.gaugeValueBlock {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gaugeScore {
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    line-height: 1;
+}
+
+.gaugeMax {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    margin-top: var(--space-0-5);
+}
+
+.gaugeLabel {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    color: var(--color-text-secondary);
+    font-weight: var(--weight-medium);
+    margin-top: var(--space-1);
+}
+
+.healthStatusBlock {
+    margin-top: var(--space-2);
+}
+
+.statusLabel {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-1) 0;
+}
+
+.statusDesc {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-normal);
+    margin: 0;
+    max-width: 280px;
+}
+
+/* Right Stats card */
+.rightStatsCol {
+    display: flex;
+    flex-direction: column;
+}
+
+.summaryInfoCard {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--card-radius);
+    padding: var(--card-padding);
+    box-shadow: var(--card-shadow);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.summaryDesc {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    margin: 0 0 var(--space-6) 0;
+}
+
+.microStatsBox {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-bg-sunken);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-6);
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+}
+
+.mStat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.mLabel {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    font-weight: var(--weight-medium);
+}
+
+.mValue {
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.mDivider {
+    width: 1px;
+    height: 32px;
+    background-color: var(--color-border-default);
+}
+
+@media (max-width: 520px) {
+    .mDivider {
+        display: none;
+    }
+    
+    .microStatsBox {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Cards Progressive grid */
+.sectionCard {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--card-radius);
+    padding: var(--card-padding);
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+}
+
+.sectionTitle {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.sectionSubtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin: var(--space-1) 0 var(--space-6) 0;
+}
+
+.budgetsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .budgetsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .budgetsGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.budgetProgressCard {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    transition: var(--transition-base);
+    cursor: pointer;
+}
+
+.budgetProgressCard:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.bCardTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.categoryInfo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.iconCircle {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categoryName {
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+}
+
+.pctValue {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    font-family: var(--font-mono);
+}
+
+.valueGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+}
+
+.vBlock {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-0-5);
+}
+
+.vLabel {
+    font-size: 10px;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+}
+
+.vVal {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+    font-family: var(--font-mono);
+}
+
+.vValMuted {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+}
+
+.horizontalTrack {
+    height: 6px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg-sunken);
+    overflow: hidden;
+    width: 100%;
+}
+
+.horizontalFill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    transition: width 0.8s var(--ease-spring);
+}
+
+.bCardBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--space-1);
+    font-size: var(--text-xs);
+}
+
+.remainingText {
+    font-weight: var(--weight-medium);
+    font-family: var(--font-mono);
+}
+
+.rolloverBadge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: 9px;
+    background-color: rgba(160, 82, 45, 0.08);
+    color: var(--color-primary);
+    padding: 1px var(--space-1-5);
+    border-radius: var(--radius-xs);
+    font-weight: var(--weight-medium);
+}
+
+.rotateIcon {
+    animation: rot 8s linear infinite;
+}
+
+@keyframes rot {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+.emptyBudgets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-10) 0;
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+.emptyIcon {
+    margin-bottom: var(--space-2);
+    opacity: 0.6;
+}
+
+.emptyText {
+    font-size: var(--text-sm);
+    max-width: 400px;
+    line-height: var(--leading-normal);
+}
+
+/* Semi-semantic progress colors */
+.greenText { color: var(--color-success); }
+.amberText { color: var(--color-warning); }
+.redText { color: var(--color-danger); }
+
+/* Trend Chart */
+.chartWrapper {
+    height: 280px;
+    width: 100%;
+    margin-top: var(--space-4);
+    cursor: pointer;
+}

@@ -1,0 +1,174 @@
+.bannerCard {
+    width: 100%;
+    padding: var(--space-5) var(--card-padding);
+    background: linear-gradient(135deg, rgba(84, 40, 172, 0.85) 0%, rgba(19, 24, 53, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="light"] .bannerCard {
+    background: linear-gradient(135deg, rgba(160, 82, 45, 0.85) 0%, rgba(107, 50, 24, 0.95) 100%);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.bannerCard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.06), transparent 50%);
+    pointer-events: none;
+}
+
+.bannerGrid {
+    display: grid;
+    grid-template-columns: 5fr 4fr 3fr;
+    align-items: center;
+    gap: var(--space-4);
+    position: relative;
+    z-index: 1;
+}
+
+.leftCol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.reportTypeBadge {
+    font-size: 9px;
+    font-weight: var(--weight-bold);
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--space-0-5) var(--space-2);
+    border-radius: var(--radius-full);
+    align-self: flex-start;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.reportTitle {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-text-inverse);
+    line-height: var(--leading-tight);
+}
+
+.periodDesc {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: var(--weight-medium);
+}
+
+.timestamp {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Middle Stats */
+.middleCol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+}
+
+.microStat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-0-5);
+    text-align: center;
+}
+
+.statVal {
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-inverse);
+}
+
+.statLabel {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.statDivider {
+    width: 1px;
+    height: 28px;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* User avatar profile */
+.rightCol {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.userProfileGroup {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.userName {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-inverse);
+}
+
+.userLabel {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .bannerGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-5);
+        align-items: stretch;
+    }
+    
+    .middleCol {
+        justify-content: flex-start;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: var(--space-3) 0;
+    }
+    
+    .rightCol {
+        justify-content: flex-start;
+    }
+    
+    .userInfo {
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+/* Hover contrast conflict override - lock original premium background */
+.bannerCard:hover {
+    background: linear-gradient(135deg, rgba(84, 40, 172, 0.85) 0%, rgba(19, 24, 53, 0.9) 100%) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: var(--shadow-xl) !important;
+    transform: none !important;
+}
+
+[data-theme="light"] .bannerCard:hover {
+    background: linear-gradient(135deg, rgba(160, 82, 45, 0.85) 0%, rgba(107, 50, 24, 0.95) 100%) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}

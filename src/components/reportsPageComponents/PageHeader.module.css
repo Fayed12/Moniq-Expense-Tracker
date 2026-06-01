@@ -3,19 +3,11 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-    padding: var(--space-4) 0;
-    position: sticky;
-    top: 0;
-    z-index: var(--z-sticky);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    background: rgba(26, 15, 7, 0.4);
-    border-bottom: 1px solid var(--color-border-subtle);
+    padding: var(--space-4) 0 var(--space-2) 0;
+    background: transparent;
     transition: var(--transition-base);
-}
-
-[data-theme="light"] .headerContainer {
-    background: rgba(245, 236, 224, 0.4);
+    position: relative;
+    z-index: 100;
 }
 
 .titleSection {
@@ -46,6 +38,113 @@
     gap: var(--space-4);
 }
 
+/* Custom select dropdown */
+.dropdownSelectorWrap {
+    position: relative;
+    width: 220px;
+}
+
+.dropdownBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: var(--input-height-sm);
+    padding: 0 var(--space-4);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xs);
+    color: var(--color-text-primary);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.dropdownBtn:hover {
+    background: var(--card-bg-hover);
+    border-color: var(--color-border-strong);
+}
+
+.dropdownLabel {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chevron {
+    transition: transform var(--duration-normal) var(--ease-out);
+    color: var(--color-text-muted);
+}
+
+.chevronOpen {
+    transform: rotate(180deg);
+}
+
+.dropdownPopover {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    left: 0;
+    width: 320px;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-2);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    animation: fadeInScale 200ms var(--ease-out);
+}
+
+.popoverItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-align: left;
+    transition: var(--transition-color);
+}
+
+.popoverItem:hover {
+    background: var(--color-bg-sunken);
+}
+
+.activePopoverItem {
+    background: var(--color-primary-light);
+}
+
+.itemMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.itemLabel {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.itemDesc {
+    font-size: 10px;
+    color: var(--color-text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.checkIcon {
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
 /* Pill control */
 .segmentedControl {
     display: flex;
@@ -56,11 +155,11 @@
     border: 1px solid var(--color-border-subtle);
     overflow-x: auto;
     max-width: 100%;
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none;
 }
 
 .segmentedControl::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
+    display: none;
 }
 
 .pillBtn {
@@ -84,166 +183,77 @@
     box-shadow: var(--shadow-sm);
 }
 
-/* Account Filter Dropdown button */
-.accountFilterWrapper {
-    position: relative;
-}
-
-.dropdownBtn {
+/* Export button */
+.exportBtn {
     display: flex;
     align-items: center;
     gap: var(--space-2);
     height: var(--input-height-sm);
-    padding: 0 var(--space-4);
+}
+
+.excelIcon {
+    color: #1d6f42; /* Excel green accent */
+}
+
+/* Account selector statement */
+.accountSelectorBox {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-xs);
-    color: var(--color-text-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--glass-shadow-sm);
+    margin-top: var(--space-1);
+    animation: fadeIn var(--duration-normal) var(--ease-out);
+    flex-wrap: wrap;
+}
+
+.accountSelectLabel {
     font-size: var(--text-sm);
     font-weight: var(--weight-medium);
+    color: var(--color-text-secondary);
+}
+
+.selectWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    max-width: 320px;
+}
+
+.bankSelectIcon {
+    position: absolute;
+    left: var(--space-3);
+    color: var(--color-primary);
+    pointer-events: none;
+}
+
+.accountSelectEl {
+    appearance: none;
+    background: var(--color-bg-sunken);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    height: var(--input-height-sm);
+    padding: 0 var(--space-7) 0 var(--space-8);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-primary);
+    width: 100%;
     cursor: pointer;
     transition: var(--transition-base);
 }
 
-.dropdownBtn:hover {
-    background: var(--card-bg-hover);
+.accountSelectEl:hover {
     border-color: var(--color-border-strong);
 }
 
-.bankIcon {
-    color: var(--color-primary);
-}
-
-.btnLabel {
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.chevron {
-    transition: transform var(--duration-normal) var(--ease-out);
-    color: var(--color-text-muted);
-}
-
-.chevronOpen {
-    transform: rotate(180deg);
-}
-
-/* Checklist popover */
-.dropdownPopover {
+.selectChevron {
     position: absolute;
-    top: calc(100% + var(--space-2));
-    right: 0;
-    width: 280px;
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    padding: var(--space-3);
-    z-index: var(--z-dropdown);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    animation: fadeInScale 200ms var(--ease-out);
-}
-
-.popoverHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: var(--text-xs);
-    font-weight: var(--weight-semibold);
-    color: var(--color-text-secondary);
-    border-bottom: 1px solid var(--color-border-subtle);
-    padding-bottom: var(--space-2);
-}
-
-.selectAllBtn {
-    color: var(--color-primary);
-    background: none;
-    border: none;
-    font-size: var(--text-xs);
-    font-weight: var(--weight-semibold);
-    cursor: pointer;
-}
-
-.selectAllBtn:hover {
-    text-decoration: underline;
-}
-
-.accountsChecklist {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    max-height: 200px;
-    overflow-y: auto;
-    padding-right: var(--space-1);
-}
-
-.checkboxItem {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: var(--transition-color);
-}
-
-.checkboxItem:hover {
-    background: var(--color-bg-sunken);
-}
-
-.hiddenCheckbox {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
-
-.customCheckbox {
-    width: 14px;
-    height: 14px;
-    border: 1.5px solid var(--color-border-strong);
-    border-radius: var(--radius-xs);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-inverse);
-    background: transparent;
-    transition: var(--transition-base);
-}
-
-.checked {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-}
-
-.colorDot {
-    width: 8px;
-    height: 8px;
-    border-radius: var(--radius-full);
-    flex-shrink: 0;
-}
-
-.accountName {
-    font-size: var(--text-sm);
-    color: var(--color-text-primary);
-    flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.accountBalance {
-    font-size: var(--text-xs);
-    font-family: var(--font-mono);
+    right: var(--space-2-5);
+    pointer-events: none;
     color: var(--color-text-muted);
 }
 
@@ -259,6 +269,8 @@
     box-shadow: var(--glass-shadow-sm);
     margin-top: var(--space-2);
     animation: fadeIn var(--duration-normal) var(--ease-out);
+    position: relative;
+    z-index: 105;
 }
 
 .pickerField {
@@ -305,12 +317,16 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 1024px) {
+    .controlsRow {
+        gap: var(--space-3);
+    }
+}
+
 @media (max-width: 768px) {
     .headerContainer {
         position: relative;
-        backdrop-filter: none;
-        background: transparent;
-        border-bottom: none;
+        padding: var(--space-2) 0;
     }
     
     .controlsRow {
@@ -319,20 +335,27 @@
         gap: var(--space-3);
     }
     
+    .dropdownSelectorWrap {
+        width: 100%;
+    }
+    
     .segmentedControl {
         width: 100%;
         justify-content: flex-start;
     }
     
-    .dropdownBtn {
+    .exportBtn {
         width: 100%;
-        justify-content: space-between;
+        justify-content: center;
     }
     
-    .dropdownPopover {
-        width: 100%;
-        right: auto;
-        left: 0;
+    .accountSelectorBox {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .selectWrapper {
+        max-width: 100%;
     }
     
     .customDateSlider {
@@ -343,4 +366,9 @@
     .pickerField {
         width: 100%;
     }
+}
+
+/* React Select container scaling */
+.reactSelectContainer {
+    width: 100%;
 }
