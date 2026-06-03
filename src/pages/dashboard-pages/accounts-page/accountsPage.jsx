@@ -306,6 +306,7 @@ function AccountsPage() {
                     {/* Add Account Button */}
                     {!showArchived && (
                         <MainButton
+                            id="tour-accounts-add"
                             action="primary"
                             size="md"
                             title="Add new account"
@@ -321,6 +322,7 @@ function AccountsPage() {
 
             {/* ═══ ACCOUNTS GRID ═══ */}
             <section
+                id="tour-accounts-list"
                 className={styles.accountsGrid}
                 aria-label={
                     showArchived ? "Archived accounts" : "Active accounts"
@@ -556,12 +558,14 @@ function AccountsPage() {
 
             {/* ═══ TRANSFER SECTION (only in active view) ═══ */}
             {!showArchived && (
-                <TransferSection
-                    accounts={accounts}
-                    userId={userId}
-                    currency={currency}
-                    transferCategory={transferCategory}
-                />
+                <div id="tour-accounts-transfer">
+                    <TransferSection
+                        accounts={accounts}
+                        userId={userId}
+                        currency={currency}
+                        transferCategory={transferCategory}
+                    />
+                </div>
             )}
 
             {/* ═══ ACCOUNT MODAL (shared add/edit) ═══ */}

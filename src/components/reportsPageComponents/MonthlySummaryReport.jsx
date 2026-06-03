@@ -6,7 +6,6 @@ import { useState } from "react";
 
 // react icons
 import { FiArrowUpRight, FiArrowDownRight, FiInbox } from "react-icons/fi";
-import { FaScaleBalanced } from "react-icons/fa6";
 
 // recharts
 import {
@@ -45,6 +44,7 @@ import {
     FaShieldAlt,
     FaLaptop,
 } from "react-icons/fa";
+import { FaScaleBalanced } from "react-icons/fa6";
 
 const ICON_MAP = {
     FaWallet,

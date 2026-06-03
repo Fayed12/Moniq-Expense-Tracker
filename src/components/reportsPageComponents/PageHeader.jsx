@@ -183,6 +183,7 @@ export default function PageHeader({
                 {/* 1. Report Type Custom Selector Dropdown */}
                 <div className={styles.dropdownSelectorWrap} ref={dropdownRef}>
                     <button
+                        id="tour-reports-typebtn"
                         type="button"
                         onClick={() => setIsReportDropdownOpen(!isReportDropdownOpen)}
                         className={styles.dropdownBtn}
@@ -217,7 +218,7 @@ export default function PageHeader({
                 </div>
 
                 {/* 2. Period Selector Pills */}
-                <div className={styles.segmentedControl} role="tablist" aria-label="Select report timeframe">
+                <div id="tour-reports-periodpills" className={styles.segmentedControl} role="tablist" aria-label="Select report timeframe">
                     {periodOptions.map((opt) => (
                         <button
                             key={opt.value}
@@ -234,6 +235,7 @@ export default function PageHeader({
 
                 {/* 3. Export XLSX Action */}
                 <MainButton
+                    id="tour-reports-exportbtn"
                     action="glass"
                     size="sm"
                     className={styles.exportBtn}
@@ -248,7 +250,7 @@ export default function PageHeader({
 
             {/* Custom Account Selector (Only shown for Account Statement Report) */}
             {selectedReportType === "account-statement" && accountsList.length > 0 && (
-                <div className={styles.accountSelectorBox} data-anim="custom-date-picker">
+                <div id="tour-reports-accountselect" className={styles.accountSelectorBox} data-anim="custom-date-picker">
                     <label className={styles.accountSelectLabel} htmlFor="statement-account-select">Select Account for Ledger:</label>
                     <div className={styles.selectWrapper}>
                         <FaUniversity className={styles.bankSelectIcon} />
@@ -276,7 +278,7 @@ export default function PageHeader({
 
             {/* Custom Date Picker slide-down */}
             {selectedPeriod === "custom" && (
-                <div className={styles.customDateSlider} data-anim="custom-date-picker">
+                <div id="tour-reports-customdates" className={styles.customDateSlider} data-anim="custom-date-picker">
                     <div className={styles.pickerField}>
                         <label className={styles.dateLabel} htmlFor="custom-from-date">From</label>
                         <div className={styles.datePickerInputWrap}>

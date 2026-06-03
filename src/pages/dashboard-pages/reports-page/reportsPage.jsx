@@ -220,7 +220,7 @@ export default function ReportsPage() {
                 />
             </div>
 
-            <main className={styles.reportContent} data-anim="report-content">
+            <main id="tour-reports-content" className={styles.reportContent} data-anim="report-content">
                 {renderActiveReport()}
             </main>
         </div>

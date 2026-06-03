@@ -15,6 +15,7 @@ import PropTypes from "prop-types";
 
 // ── Budget Health Doughnut Component ────────────────────────
 export default function BudgetHealthChart({
+    id,
     usedPercent = 0,
     remaining = 0,
     currency = "EGP",
@@ -73,6 +74,7 @@ export default function BudgetHealthChart({
 
     return (
         <section
+            id={id}
             className={styles.container}
             ref={containerRef}
             aria-label={`Budget Health - ${usedPercent}% of budget used, ${formatCurrency(remaining)} remaining`}

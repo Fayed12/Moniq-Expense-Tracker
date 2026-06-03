@@ -165,37 +165,51 @@ function AnalysisPage() {
             {/* Content Body Grid Wrapper */}
             <div className={styles.contentGrid}>
                 {/* 1. KPI Stats Summary Row */}
-                <KPISummaryRow kpis={kpis} currency={currency} />
+                <div id="tour-analysis-kpi">
+                    <KPISummaryRow kpis={kpis} currency={currency} />
+                </div>
 
                 {/* 2. Main Cash Flow Income vs Expense Chart */}
-                <CashFlowComparisonChart data={cashFlowData} currency={currency} />
+                <div id="tour-analysis-cashflow">
+                    <CashFlowComparisonChart data={cashFlowData} currency={currency} />
+                </div>
 
                 {/* 3. Category Breakdown Double Cards */}
-                <CategoryDonutAndRankings
-                    categoryBreakdown={categoryBreakdown}
-                    rankedCategories={rankedCategories}
-                    currency={currency}
-                />
+                <div id="tour-analysis-categories">
+                    <CategoryDonutAndRankings
+                        categoryBreakdown={categoryBreakdown}
+                        rankedCategories={rankedCategories}
+                        currency={currency}
+                    />
+                </div>
 
                 {/* 4. Daily Spending Heatmap */}
-                <DailySpendingHeatmap dailyHeatmap={dailyHeatmap} currency={currency} />
+                <div id="tour-analysis-heatmap">
+                    <DailySpendingHeatmap dailyHeatmap={dailyHeatmap} currency={currency} />
+                </div>
 
                 {/* 5. Income Sources and time clocks */}
-                <IncomeAndPatterns
-                    incomeSources={incomeSources}
-                    spendingTimePattern={spendingTimePattern}
-                    currency={currency}
-                />
+                <div id="tour-analysis-patterns">
+                    <IncomeAndPatterns
+                        incomeSources={incomeSources}
+                        spendingTimePattern={spendingTimePattern}
+                        currency={currency}
+                    />
+                </div>
 
                 {/* 6. Account Performance Ledger Sparklines */}
-                <AccountPerformanceList accountPerformance={accountPerformance} currency={currency} />
+                <div id="tour-analysis-accounts">
+                    <AccountPerformanceList accountPerformance={accountPerformance} currency={currency} />
+                </div>
 
                 {/* 7. Tags Cloud and Period Highlights */}
-                <TagsAndHighlights
-                    tagAnalysis={tagAnalysis}
-                    periodHighlights={periodHighlights}
-                    currency={currency}
-                />
+                <div id="tour-analysis-tags">
+                    <TagsAndHighlights
+                        tagAnalysis={tagAnalysis}
+                        periodHighlights={periodHighlights}
+                        currency={currency}
+                    />
+                </div>
             </div>
         </main>
     );

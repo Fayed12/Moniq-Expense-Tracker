@@ -546,6 +546,7 @@ function ProfilePage() {
 
             {/* Profile Summary Card (Modern Flat Glassmorphic Card) */}
             <div
+                id="tour-profile-summary"
                 className={`${styles.profileSummaryCard} glass-card`}
                 ref={headerCardRef}
             >
@@ -615,7 +616,7 @@ function ProfilePage() {
             </div>
 
             {/* Tab selection menu */}
-            <div className={styles.tabsContainer} ref={tabsRef}>
+            <div id="tour-profile-tabs" className={styles.tabsContainer} ref={tabsRef}>
                 <button
                     className={`${styles.tabButton} glass-subtle ${activeTab === "personal" ? styles.activeTab : ""}`}
                     onClick={() => handleTabChange("personal")}
@@ -640,7 +641,7 @@ function ProfilePage() {
             </div>
 
             {/* Dynamic settings panel area */}
-            <div className={styles.contentArea} ref={contentRef}>
+            <div id="tour-profile-content" className={styles.contentArea} ref={contentRef}>
                 {/* ── TAB 1: Personal Settings */}
                 {activeTab === "personal" && (
                     <div className={`${styles.sectionCard} glass-card`}>

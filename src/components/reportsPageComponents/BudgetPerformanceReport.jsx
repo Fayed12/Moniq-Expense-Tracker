@@ -3,7 +3,6 @@ import styles from "./BudgetPerformanceReport.module.css";
 
 // react icons
 import { FiInfo } from "react-icons/fi";
-import { FaRotateLeft } from "react-icons/fa6";
 
 // recharts
 import {
@@ -18,7 +17,7 @@ import {
 } from "recharts";
 
 // Dynamic Icon helper
-import { FaEllipsisH } from "react-icons/fa";
+import { FaEllipsisH, FaUndoAlt } from "react-icons/fa";
 import {
     FaWallet,
     FaShoppingBag,
@@ -328,7 +327,7 @@ export default function BudgetPerformanceReport({ data, currency }) {
                                                 className={styles.rolloverBadge}
                                                 title="Carry over remaining funds to next month"
                                             >
-                                                <FaRotateLeft
+                                                <FaUndoAlt
                                                     size={10}
                                                     className={
                                                         styles.rotateIcon

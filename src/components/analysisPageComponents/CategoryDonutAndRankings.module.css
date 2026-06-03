@@ -91,6 +91,7 @@
     height: 220px;
     position: relative;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .centerText {

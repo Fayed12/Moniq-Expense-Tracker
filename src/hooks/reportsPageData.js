@@ -36,6 +36,11 @@ export const useReportsPageData = (
         return profile?.currency || "EGP";
     }, [accounts, profile]);
 
+    // Memoize accountsList to ensure stable references across renders
+    const accountsList = useMemo(() => {
+        return accounts.filter((a) => !a.is_archived);
+    }, [accounts]);
+
     // ── Date Range Calculation ───────────────────────────────
     const dateRanges = useMemo(() => {
         const now = new Date();
@@ -872,6 +877,6 @@ export const useReportsPageData = (
         goalsProgress,
         incomeExpenseReport,
         rawFilteredTransactions: filteredTx,
-        accountsList: accounts.filter((a) => !a.is_archived),
+        accountsList,
     };
 };

@@ -3,6 +3,7 @@ import styles from "./header.module.css";
 import useGetLocationPathValue from "../../../hooks/getLocationPathValue";
 import { themeSelector, toggleTheme } from "../../../redux/theme/themeSlice";
 import MainButton from "../../ui/button/MainButton";
+import { startDashboardTour } from "../../../utils/guidedTour";
 
 // react
 import { useState, useEffect, useRef } from "react";
@@ -52,6 +53,10 @@ function Header({ setIsSidebarOpen }) {
         return () => ctx.revert();
     }, []);
 
+    const handleHelpClick = () => {
+        startDashboardTour();
+    };
+
     return (
         <header className={styles.header} ref={headerRef}>
             <div className={styles.leftSection}>
@@ -65,7 +70,7 @@ function Header({ setIsSidebarOpen }) {
                     <FiMenu size={22} />
                 </MainButton>
 
-                <h1 className={styles.title}>
+                <h1 className={styles.title} id="tour-header-location">
                     dashboard/
                     <span className={styles.locationValue}>
                         {locationValue}
@@ -76,6 +81,7 @@ function Header({ setIsSidebarOpen }) {
             <div className={styles.rightSection}>
                 {/* Theme toggle */}
                 <MainButton
+                    id="tour-header-theme"
                     action="ghost"
                     className={styles.iconBtn}
                     clickEvent={() => dispatch(toggleTheme())}
@@ -94,6 +100,7 @@ function Header({ setIsSidebarOpen }) {
 
                 {/* Notifications */}
                 <MainButton
+                    id="tour-header-notifications"
                     action="ghost"
                     className={styles.iconBtn}
                     title="Notifications"
@@ -103,30 +110,34 @@ function Header({ setIsSidebarOpen }) {
 
                 {/* Help */}
                 <MainButton
+                    id="tour-header-help"
                     action="ghost"
                     className={styles.iconBtn}
                     title="Help"
+                    clickEvent={handleHelpClick}
                 >
                     <FiHelpCircle size={19} />
                 </MainButton>
 
                 {/* Avatar — opens profile modal */}
-                <Avatar
-                    onClick={() => setIsProfileOpen(true)}
-                    src={profile?.photo_url}
-                    alt={profile?.display_name}
-                    sx={{
-                        width: 38,
-                        height: 38,
-                        cursor: "pointer",
-                        bgcolor: "var(--color-primary)",
-                        fontSize: "14px",
-                        fontFamily: "var(--font-sans)",
-                        fontWeight: 600,
-                    }}
-                >
-                    {avatarName}
-                </Avatar>
+                <div id="tour-header-avatar" style={{ display: "inline-flex" }}>
+                    <Avatar
+                        onClick={() => setIsProfileOpen(true)}
+                        src={profile?.photo_url}
+                        alt={profile?.display_name}
+                        sx={{
+                            width: 38,
+                            height: 38,
+                            cursor: "pointer",
+                            bgcolor: "var(--color-primary)",
+                            fontSize: "14px",
+                            fontFamily: "var(--font-sans)",
+                            fontWeight: 600,
+                        }}
+                    >
+                        {avatarName}
+                    </Avatar>
+                </div>
             </div>
 
             {/* Profile Modal */}

@@ -83,6 +83,7 @@ function SideBar({ isSidebarOpen, setIsSidebarOpen, isSidebarCollapsed, setIsSid
                 {navItems.map((item) => (
                     <NavLink
                         key={item.name}
+                        id={`tour-sidebar-${item.name.toLowerCase()}`}
                         to={item.path}
                         onClick={handleNavClick}
                         className={({ isActive }) => isActive ? styles.activeLink : styles.navLink}
@@ -98,6 +99,7 @@ function SideBar({ isSidebarOpen, setIsSidebarOpen, isSidebarCollapsed, setIsSid
             <div className={styles.footerActions}>
                 {/* Collapse toggle — hidden on mobile via CSS */}
                 <button
+                    id="tour-sidebar-collapse"
                     className={styles.collapseBtn}
                     onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
                     aria-label="Toggle Sidebar"
@@ -115,7 +117,9 @@ function SideBar({ isSidebarOpen, setIsSidebarOpen, isSidebarCollapsed, setIsSid
                     {!isSidebarCollapsed && <span>Logout</span>}
                 </MainButton> */}
 
-                <LogoutButton collapse={isSidebarCollapsed}/>
+                <div id="tour-sidebar-logout" style={{ width: "100%" }}>
+                    <LogoutButton collapse={isSidebarCollapsed}/>
+                </div>
             </div>
         </aside>
     );

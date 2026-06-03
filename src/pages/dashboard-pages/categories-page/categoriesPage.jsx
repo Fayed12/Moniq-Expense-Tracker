@@ -380,7 +380,7 @@ function CategoriesPage() {
             aria-label="Categories page"
         >
             {/* ═══ REDIRECT ADVICE BANNER ═══ */}
-            <div className={styles.budgetHint} data-anim="hint" role="note">
+            <div id="tour-cat-hint" className={styles.budgetHint} data-anim="hint" role="note">
                 <FaLightbulb className={styles.hintIcon} aria-hidden="true" />
                 <p className={styles.hintText}>
                     Adding new categories? Remember to go to your **Budgets** section to define monthly spending allocations for each new active category.
@@ -397,7 +397,7 @@ function CategoriesPage() {
             </div>
 
             {/* ═══ TAB SEGMENTED SWITCHER ═══ */}
-            <div className={styles.toggleContainer} data-anim="toggles">
+            <div id="tour-cat-toggles" className={styles.toggleContainer} data-anim="toggles">
                 <div className={styles.toggleSwitch}>
                     <button
                         className={`${styles.toggleBtn} ${!showArchived ? styles.toggleBtnActive : ""}`}
@@ -437,6 +437,7 @@ function CategoriesPage() {
                 <div className={styles.headerActions}>
                     {/* Export Button */}
                     <MainButton
+                        id="tour-cat-export"
                         action="outline"
                         size="md"
                         title="Export to Excel"
@@ -450,6 +451,7 @@ function CategoriesPage() {
                     {/* Add Category Button */}
                     {!showArchived && (
                         <MainButton
+                            id="tour-cat-add"
                             action="primary"
                             size="md"
                             title="Add new category"
@@ -466,7 +468,7 @@ function CategoriesPage() {
             </header>
 
             {/* ═══ FILTER BAR ═══ */}
-            <section className={styles.filterSection}>
+            <section id="tour-cat-filters" className={styles.filterSection}>
                 <FilterBar
                     search={search}
                     onSearchChange={handleSearchChange}
@@ -477,7 +479,7 @@ function CategoriesPage() {
             </section>
 
             {/* ═══ CATEGORIES TABLE ═══ */}
-            <section className={styles.tableSection}>
+            <section id="tour-cat-table" className={styles.tableSection}>
                 <CategoriesTable
                     key={`table-${showArchived}-${page}`}
                     categories={paginatedCategories}

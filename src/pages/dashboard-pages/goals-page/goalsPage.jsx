@@ -196,6 +196,7 @@ function GoalsPage() {
                     </p>
                 </div>
                 <MainButton
+                    id="tour-goals-add"
                     action="primary"
                     size="md"
                     title="Add New Goal"
@@ -243,6 +244,7 @@ function GoalsPage() {
                     <div className={styles.mainColumn}>
                         {/* Overall Accumulated Card */}
                         <section
+                            id="tour-goals-overall"
                             className={`${styles.accumulatedCard} ${styles.animateItem} glass-card`}
                         >
                             <div className={styles.accLeft}>
@@ -279,7 +281,7 @@ function GoalsPage() {
                         </section>
 
                         {/* Staggered Goals Cards List */}
-                        <div className={styles.goalsList}>
+                        <div id="tour-goals-list" className={styles.goalsList}>
                             {goals.length === 0 ? (
                                 <div
                                     className={`${styles.emptyState} ${styles.animateItem} glass-card`}
@@ -552,6 +554,7 @@ function GoalsPage() {
                     <aside className={styles.sidebarColumn}>
                         {/* Smart Suggestions Card */}
                         <section
+                            id="tour-goals-suggestions"
                             className={`${styles.widgetCard} ${styles.animateItem} glass-card`}
                         >
                             <header className={styles.widgetHeader}>
@@ -589,6 +592,7 @@ function GoalsPage() {
 
                         {/* Recent Milestones Card */}
                         <section
+                            id="tour-goals-milestones"
                             className={`${styles.widgetCard} ${styles.animateItem} glass-card`}
                         >
                             <header className={styles.widgetHeader}>

@@ -382,6 +382,7 @@ function BudgetsPage() {
                 </div>
                 <div className={styles.headerActions}>
                     <MainButton
+                        id="tour-budgets-export"
                         action="outline"
                         size="sm"
                         title="Export to Excel"
@@ -392,6 +393,7 @@ function BudgetsPage() {
                         Export
                     </MainButton>
                     <MainButton
+                        id="tour-budgets-add"
                         action="primary"
                         size="sm"
                         title="Add a new budget"
@@ -405,6 +407,7 @@ function BudgetsPage() {
 
             {/* ═══ MONTH NAVIGATOR ═══ */}
             <nav
+                id="tour-budgets-monthnav"
                 className={styles.monthNav}
                 data-anim="month-nav"
                 aria-label="Month navigation"
@@ -440,7 +443,7 @@ function BudgetsPage() {
             </nav>
 
             {/* ═══ OVERVIEW STATS ═══ */}
-            <div className={styles.overviewRow} data-anim="overview">
+            <div id="tour-budgets-overview" className={styles.overviewRow} data-anim="overview">
                 <div className={styles.overviewCard}>
                     <span
                         className={styles.overviewIconWrap}
@@ -533,7 +536,7 @@ function BudgetsPage() {
 
             {/* ═══ TOTAL PROGRESS BAR ═══ */}
             {enrichedBudgets.length > 0 && (
-                <div className={styles.summaryProgress} data-anim="progress">
+                <div id="tour-budgets-progress" className={styles.summaryProgress} data-anim="progress">
                     <div className={styles.summaryLabelRow}>
                         <span className={styles.summaryLabelText}>
                             Overall Budget Usage
@@ -574,6 +577,7 @@ function BudgetsPage() {
 
             {/* ═══ FILTER BAR ═══ */}
             <div
+                id="tour-budgets-filters"
                 className={styles.filterBar}
                 data-anim="filter-bar"
                 role="search"
@@ -636,7 +640,7 @@ function BudgetsPage() {
                     >
                         Active Budgets ({filteredBudgets.length})
                     </h2>
-                    <div className={styles.cardGrid}>
+                    <div id="tour-budgets-grid" className={styles.cardGrid}>
                         {pagedBudgets.map((budget, i) => (
                             <div
                                 key={budget.id}

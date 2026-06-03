@@ -14,7 +14,6 @@ import {
     FiChevronRight,
     FiCreditCard,
 } from "react-icons/fi";
-import { FaScaleBalanced } from "react-icons/fa6";
 import { FaUniversity } from "react-icons/fa";
 
 // components

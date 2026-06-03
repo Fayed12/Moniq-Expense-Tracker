@@ -71,6 +71,7 @@
     width: 100%;
     height: 300px;
     position: relative;
+    cursor: pointer;
 }
 
 /* Custom Tooltip styling */

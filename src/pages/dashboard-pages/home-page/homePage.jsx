@@ -427,8 +427,9 @@ export default function HomePage() {
                 aria-label="Financial charts"
                 data-anim="charts-row"
             >
-                <CashFlowChart data={cashFlowData} currency={currency} />
+                <CashFlowChart id="tour-home-cashflow" data={cashFlowData} currency={currency} />
                 <BudgetHealthChart
+                    id="tour-home-budgethealth"
                     usedPercent={budgetUsedPercent}
                     remaining={budgetRemaining}
                     currency={currency}

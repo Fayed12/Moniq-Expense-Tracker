@@ -51,7 +51,7 @@ CustomTooltip.propTypes = {
 };
 
 // ── Cash Flow Chart Component ───────────────────────────────
-export default function CashFlowChart({ data = [], currency = "EGP" }) {
+export default function CashFlowChart({ id, data = [], currency = "EGP" }) {
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -82,6 +82,7 @@ export default function CashFlowChart({ data = [], currency = "EGP" }) {
 
     return (
         <section
+            id={id}
             className={styles.container}
             ref={containerRef}
             aria-label="Cash Flow Chart - Weekly income and expenses comparison"

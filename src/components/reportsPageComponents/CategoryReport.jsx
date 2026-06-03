@@ -7,7 +7,6 @@ import { useState } from "react";
 
 // react icons
 import { FiTrendingUp, FiTrendingDown, FiFolder, FiChevronDown, FiChevronUp, FiInbox } from "react-icons/fi";
-import { FaScaleBalanced } from "react-icons/fa6";
 
 // recharts
 import {
@@ -22,7 +21,7 @@ import {
 } from "recharts";
 
 // Dynamic Icon rendering helper
-import { FaEllipsisH } from "react-icons/fa";
+import { FaEllipsisH, FaBalanceScale } from "react-icons/fa";
 import {
     FaWallet,
     FaShoppingBag,
@@ -148,7 +147,7 @@ export default function CategoryReport({ data, currency }) {
                     <div className={styles.cardHeader}>
                         <span className={styles.cardLabel}>Average Category Spent</span>
                         <div className={`${styles.iconBg} ${styles.violetBg}`}>
-                            <FaScaleBalanced className={styles.violetIcon} size={16} />
+                            <FaBalanceScale className={styles.violetIcon} size={16} />
                         </div>
                     </div>
                     <p className={styles.cardVal}>{formatMoney(kpis.avgSpent)}</p>

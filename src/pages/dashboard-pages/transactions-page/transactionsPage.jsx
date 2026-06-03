@@ -312,7 +312,7 @@ function TransactionsPage() {
             aria-label="Transactions page"
         >
             {/* ═══ DEFAULT ACCOUNT HINT ═══ */}
-            <div className={styles.accountHint} data-anim="hint" role="note">
+            <div id="tour-txn-hint" className={styles.accountHint} data-anim="hint" role="note">
                 <FaLightbulb className={styles.hintIcon} aria-hidden="true" />
                 <p className={styles.hintText}>
                     {defaultAccount ? (
@@ -361,6 +361,7 @@ function TransactionsPage() {
                 <div className={styles.headerActions}>
                     {/* Export button */}
                     <MainButton
+                        id="tour-txn-export"
                         action="outline"
                         size="md"
                         title="Export to Excel"
@@ -373,6 +374,7 @@ function TransactionsPage() {
 
                     {/* Add Transaction button */}
                     <MainButton
+                        id="tour-txn-add"
                         action="primary"
                         size="md"
                         title="Add new transaction"
@@ -388,7 +390,7 @@ function TransactionsPage() {
             </header>
 
             {/* ═══ FILTER BAR ═══ */}
-            <section className={styles.filterSection}>
+            <section id="tour-txn-filters" className={styles.filterSection}>
                 <FilterBar
                     search={search}
                     onSearchChange={handleSearchChange}
@@ -407,7 +409,7 @@ function TransactionsPage() {
             </section>
 
             {/* ═══ TRANSACTIONS TABLE ═══ */}
-            <section className={styles.tableSection}>
+            <section id="tour-txn-table" className={styles.tableSection}>
                 <TransactionsTable
                     transactions={paginatedTransactions}
                     currency={currency}

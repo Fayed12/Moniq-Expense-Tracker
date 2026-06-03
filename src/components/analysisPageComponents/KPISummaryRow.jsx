@@ -3,7 +3,7 @@ import styles from "./KPISummaryRow.module.css";
 
 // react icons
 import { FiArrowUpRight, FiArrowDownRight, FiTarget } from "react-icons/fi";
-import { FaScaleBalanced } from "react-icons/fa6";
+import { FaBalanceScale } from "react-icons/fa";
 
 // Formatter helper
 function formatFullAmount(value, currency = "EGP") {
@@ -61,7 +61,7 @@ export default function KPISummaryRow({ kpis, currency }) {
             <article className={styles.kpiCard} data-anim="overview-card" style={{ "--card-accent": "var(--color-transfer)" }}>
                 <div className={styles.cardHeader}>
                     <div className={`${styles.iconBg} ${styles.violetBg}`}>
-                        <FaScaleBalanced className={styles.violetIcon} size={18} />
+                        <FaBalanceScale className={styles.violetIcon} size={18} />
                     </div>
                     <span className={styles.cardLabel}>Net Balance</span>
                 </div>

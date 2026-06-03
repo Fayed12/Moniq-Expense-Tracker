@@ -8,7 +8,7 @@ import {
     FiPercent,
     FiInbox,
 } from "react-icons/fi";
-import { FaScaleBalanced } from "react-icons/fa6";
+import { FaBalanceScale } from "react-icons/fa";
 
 // recharts imports
 import {
@@ -81,7 +81,7 @@ export default function IncomeExpenseReport({ data, currency }) {
                     style={{ "--accent": "var(--color-transfer)" }}
                 >
                     <div className={styles.stripMeta}>
-                        <FaScaleBalanced
+                        <FaBalanceScale
                             className={styles.violetIcon}
                             size={14}
                         />
