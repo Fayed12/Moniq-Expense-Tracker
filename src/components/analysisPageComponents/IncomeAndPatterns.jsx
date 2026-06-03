@@ -1,4 +1,7 @@
-import React from "react";
+// local
+import styles from "./IncomeAndPatterns.module.css";
+
+// react icons
 import { FaEllipsisH } from "react-icons/fa";
 import {
     FaWallet,
@@ -24,8 +27,7 @@ import {
     FaShieldAlt,
     FaLaptop,
 } from "react-icons/fa";
-import { FiClock, FiActivity } from "react-icons/fi";
-import styles from "./IncomeAndPatterns.module.css";
+import { FiClock } from "react-icons/fi";
 
 const ICON_MAP = {
     FaWallet,
@@ -120,7 +122,7 @@ export default function IncomeAndPatterns({ incomeSources, spendingTimePattern, 
                 <div className={styles.clockGrid}>
                     {spendingTimePattern.map((bucket) => {
                         // Icon mapping based on block name
-                        let bucketColor = "var(--color-info)";
+                        let bucketColor;
                         if (bucket.label.includes("Morning")) bucketColor = "var(--color-warning)";
                         else if (bucket.label.includes("Afternoon")) bucketColor = "var(--color-primary)";
                         else if (bucket.label.includes("Evening")) bucketColor = "var(--color-transfer)";

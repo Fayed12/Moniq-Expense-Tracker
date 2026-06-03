@@ -1,7 +1,9 @@
-import React from "react";
-import { FiArrowUpRight, FiArrowDownRight, FiActivity, FiTarget } from "react-icons/fi";
-import { FaScaleBalanced } from "react-icons/fa6"; // Standard fontawesome6 balance scale
+// local
 import styles from "./KPISummaryRow.module.css";
+
+// react icons
+import { FiArrowUpRight, FiArrowDownRight, FiTarget } from "react-icons/fi";
+import { FaScaleBalanced } from "react-icons/fa6";
 
 // Formatter helper
 function formatFullAmount(value, currency = "EGP") {

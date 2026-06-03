@@ -1,19 +1,16 @@
+// react
 import { useMemo } from "react";
+
+// react-redux
 import { useSelector } from "react-redux";
 
-/**
- * Custom hook that consolidates and recomputes all required financial analysis metrics
- * client-side from the Redux store.
- * 
- * Supports dynamic period filtering and account multi-select filtering.
- */
-export const useAnalysisPageData = (selectedPeriod = "this-month", customRange = { from: null, to: null }, selectedAccountIds = []) => {
+const EMPTY_ARRAY = [];
+
+export const useAnalysisPageData = (selectedPeriod = "this-month", customRange = { from: null, to: null }, selectedAccountIds = EMPTY_ARRAY) => {
     // ── Raw Redux Selectors ──────────────────────────────────
-    const accounts = useSelector((s) => s.accounts.items) || [];
-    const transactions = useSelector((s) => s.transactions.items) || [];
-    const categories = useSelector((s) => s.categories.items) || [];
+    const accounts = useSelector((s) => s.accounts.items) || EMPTY_ARRAY;
+    const transactions = useSelector((s) => s.transactions.items) || EMPTY_ARRAY;
     const profile = useSelector((s) => s.auth.profile) || null;
-    const user = useSelector((s) => s.auth.user) || null;
 
     const isLoadingAccounts = useSelector((s) => s.accounts.loading);
     const isLoadingTransactions = useSelector((s) => s.transactions.loading);
@@ -529,7 +526,6 @@ export const useAnalysisPageData = (selectedPeriod = "this-month", customRange =
 
             // Compute sparkline daily balance trend
             const sparklinePoints = [];
-            let currentTempBalance = Number(a.balance) || 0;
 
             // In order to plot cumulative daily change, first map all transactions for this account sorted DESC
             const sortedAccTx = [...transactions]
@@ -548,7 +544,6 @@ export const useAnalysisPageData = (selectedPeriod = "this-month", customRange =
             // We want to find daily closing balances for each day inside the period.
             // A precise and simple sparkline is to step through the days in period and aggregate cumulative net change.
             let openingBalance = Number(a.balance) || 0;
-            const now = new Date();
 
             // Subtract all net changes from now to the start of the period to get opening balance
             sortedAccTx.forEach((tx) => {

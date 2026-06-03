@@ -1,11 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import gsap from "gsap";
+// local
 import styles from "./analysisPage.module.css";
-
-// Hooks
 import { useAnalysisPageData } from "../../../hooks/analysisPageData";
-
-// Components
 import PageHeader from "../../../components/analysisPageComponents/PageHeader";
 import KPISummaryRow from "../../../components/analysisPageComponents/KPISummaryRow";
 import CashFlowComparisonChart from "../../../components/analysisPageComponents/CashFlowComparisonChart";
@@ -14,6 +9,12 @@ import DailySpendingHeatmap from "../../../components/analysisPageComponents/Dai
 import IncomeAndPatterns from "../../../components/analysisPageComponents/IncomeAndPatterns";
 import AccountPerformanceList from "../../../components/analysisPageComponents/AccountPerformanceList";
 import TagsAndHighlights from "../../../components/analysisPageComponents/TagsAndHighlights";
+
+// react
+import { useState, useEffect, useRef } from "react";
+
+// gsap
+import gsap from "gsap";
 
 // Skeleton Shimmer Loader
 function SkeletonLoader() {
@@ -132,7 +133,7 @@ function AnalysisPage() {
                 { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out", stagger: 0.05 }
             );
         }
-    }, [selectedPeriod, selectedAccountIds, customRange]);
+    }, [selectedPeriod, selectedAccountIds, customRange, isAppLoading]);
 
     if (isAppLoading) {
         return (

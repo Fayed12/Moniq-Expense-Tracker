@@ -1,4 +1,4 @@
-import React from "react";
+// local
 import styles from "./DailySpendingHeatmap.module.css";
 
 export default function DailySpendingHeatmap({ dailyHeatmap, currency }) {

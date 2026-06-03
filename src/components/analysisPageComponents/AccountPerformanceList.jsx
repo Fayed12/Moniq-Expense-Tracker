@@ -1,4 +1,7 @@
-import React from "react";
+// local
+import styles from "./AccountPerformanceList.module.css";
+
+// react icons
 import { FaEllipsisH } from "react-icons/fa";
 import {
     FaWallet,
@@ -25,7 +28,6 @@ import {
     FaLaptop,
 } from "react-icons/fa";
 import { FiTrendingUp, FiTrendingDown } from "react-icons/fi";
-import styles from "./AccountPerformanceList.module.css";
 
 const ICON_MAP = {
     FaWallet,

@@ -1,5 +1,13 @@
-import React, { useState } from "react";
+// local
+import styles from "./CategoryDonutAndRankings.module.css";
+
+// react
+import { useState } from "react";
+
+// recharts
 import { PieChart, Pie, Cell, ResponsiveContainer, Sector } from "recharts";
+
+// react icons
 import { FiChevronDown, FiPlus, FiMinus } from "react-icons/fi";
 import { FaEllipsisH } from "react-icons/fa";
 import {
@@ -26,7 +34,6 @@ import {
     FaShieldAlt,
     FaLaptop,
 } from "react-icons/fa";
-import styles from "./CategoryDonutAndRankings.module.css";
 
 const ICON_MAP = {
     FaWallet,

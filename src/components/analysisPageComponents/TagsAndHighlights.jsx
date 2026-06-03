@@ -1,6 +1,11 @@
-import React, { useState } from "react";
-import { FiTag, FiTrendingUp, FiTrendingDown, FiCalendar, FiDollarSign } from "react-icons/fi";
+// local
 import styles from "./TagsAndHighlights.module.css";
+
+// react
+import { useState } from "react";
+
+// react icons
+import { FiTag, FiTrendingUp, FiTrendingDown, FiCalendar, FiDollarSign } from "react-icons/fi";
 
 export default function TagsAndHighlights({ tagAnalysis, periodHighlights, currency }) {
     const [avgType, setAvgType] = useState("expense"); // "expense" | "income"

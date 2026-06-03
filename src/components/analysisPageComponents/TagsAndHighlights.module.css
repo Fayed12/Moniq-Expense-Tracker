@@ -144,6 +144,7 @@
     padding: var(--space-2);
     border-radius: var(--radius-lg);
     background: var(--color-bg-sunken);
+    cursor: pointer;
     transition: var(--transition-base);
 }
 

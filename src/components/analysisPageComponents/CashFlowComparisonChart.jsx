@@ -1,4 +1,10 @@
-import React, { useState } from "react";
+// local
+import styles from "./CashFlowComparisonChart.module.css";
+
+// react
+import { useState } from "react";
+
+// recharts
 import {
     ResponsiveContainer,
     BarChart,
@@ -11,8 +17,9 @@ import {
     AreaChart,
     Area,
 } from "recharts";
+
+// react icons
 import { FiBarChart2, FiActivity } from "react-icons/fi";
-import styles from "./CashFlowComparisonChart.module.css";
 
 // Premium custom tooltip component
 const CustomTooltip = ({ active, payload, label, currency }) => {

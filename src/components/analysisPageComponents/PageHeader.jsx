@@ -1,10 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
+// local
+import styles from "./PageHeader.module.css";
+
+// react
+import { useState, useRef, useEffect } from "react";
+
+// react-datepicker
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FiCalendar, FiChevronDown, FiFilter } from "react-icons/fi";
+
+// react icons
+import { FiCalendar, FiChevronDown } from "react-icons/fi";
 import { FaUniversity, FaCheck } from "react-icons/fa";
-import styles from "./PageHeader.module.css";
-import MainButton from "../ui/button/MainButton";
 
 export default function PageHeader({
     selectedPeriod,
@@ -114,7 +120,6 @@ export default function PageHeader({
                             </div>
                             <div className={styles.accountsChecklist}>
                                 {accountsList.map((acc) => {
-                                    const isChecked = selectedAccountIds.includes(acc.id) || selectedAccountIds.length === 0;
                                     return (
                                         <label key={acc.id} className={styles.checkboxItem} htmlFor={`account-chk-${acc.id}`}>
                                             <input

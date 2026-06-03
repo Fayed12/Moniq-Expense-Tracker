@@ -558,6 +558,7 @@ button {
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     box-shadow: var(--card-shadow);
+    cursor: pointer;
     transition:
         box-shadow var(--duration-normal) var(--ease-out),
         background var(--duration-normal) var(--ease-out),
