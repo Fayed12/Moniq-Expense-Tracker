@@ -26,7 +26,7 @@ function Footer() {
     return (
         <footer className={styles.footer} ref={footerRef}>
             <p>
-                Copyright © {new Date().getFullYear()} Moniq, All rights reserved. by <span className={styles.highlight}>Mohamed Fayed</span>
+                Copyright © {new Date().getFullYear()} Moniq, All rights reserved. by <a href="https://mohamed-fayed-porfile.vercel.app/" target="_blank" className={styles.highlight}>Mohamed Fayed</a>
             </p>
         </footer>
     );
