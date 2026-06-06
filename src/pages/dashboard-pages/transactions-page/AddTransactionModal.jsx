@@ -3,6 +3,7 @@ import styles from "./AddTransactionModal.module.css";
 import MainButton from "../../../components/ui/button/MainButton";
 import MainInput from "../../../components/ui/input/MainInput";
 import { getSelectStyles } from "../../../utils/reactSelectStyles";
+import { checkBudgetAlert, checkLowBalance } from "../../../services/Notifications/NotificationTriggers";
 
 // react
 import { useState, useEffect, useRef, useCallback, useMemo, forwardRef } from "react";
@@ -433,6 +434,32 @@ function AddTransactionModal({
                             rollover_amount: Number(oldBudget.rollover_amount || 0) + Number(transactionToEdit.amount)
                         }
                     })).unwrap();
+                }
+            }
+
+            // Trigger Notifications (budget alerts and low balance checks)
+            if (type.value === "expense") {
+                if (category?.value) {
+                    const budget = budgetByCategory[category.value];
+                    if (budget) {
+                        const isSameCategory = isEdit && transactionToEdit.category_id === category.value;
+                        const diff = isSameCategory ? (Number(amount) - Number(transactionToEdit.amount)) : Number(amount);
+                        const finalSpent = Number(budget.spent || 0) + diff;
+                        checkBudgetAlert(userId, {
+                            id: budget.id,
+                            limit_amount: budget.limit_amount,
+                            spent: finalSpent,
+                            category_name: category.label,
+                        }, profile);
+                    }
+                }
+                if (defaultAccount) {
+                    checkLowBalance(userId, {
+                        id: defaultAccount.id,
+                        name: defaultAccount.name,
+                        balance: newBalance,
+                        currency: defaultAccount.currency,
+                    });
                 }
             }
 

@@ -10,6 +10,7 @@ import { useBudgets } from "./hooks/useBudgets";
 import { useCategories } from "./hooks/useCategories";
 import { useAccounts } from "./hooks/useAccounts";
 import { useGoals } from "./hooks/useGoals";
+import { checkWeeklyDigest } from "./services/Notifications/NotificationTriggers";
 
 // react
 import { useEffect, useState, lazy, Suspense } from "react";
@@ -78,6 +79,12 @@ function App() {
     useCategories(userId);
     useAccounts(userId);
     useGoals(userId);
+
+    const profile = useSelector((s) => s.auth.profile);
+    useEffect(() => {
+        if (!userId || !profile) return;
+        checkWeeklyDigest(userId, profile);
+    }, [userId, profile]);
 
     if (openWelcome) {
         return (

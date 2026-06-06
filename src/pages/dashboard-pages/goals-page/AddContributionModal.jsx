@@ -2,6 +2,7 @@
 import styles from "./AddContributionModal.module.css";
 import MainButton from "../../../components/ui/button/MainButton";
 import MainInput from "../../../components/ui/input/MainInput";
+import { checkGoalNotifications } from "../../../services/Notifications/NotificationTriggers";
 
 // react
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
@@ -379,6 +380,16 @@ function AddContributionModal({
             };
 
             await dispatch(addContribution(contributionPayload)).unwrap();
+
+            // Trigger Goal Notifications Check (Milestones & Goal Completion)
+            const prevAmount = Number(goal.current_amount || 0);
+            const updatedGoal = {
+                id: goal.id,
+                name: goal.name,
+                target_amount: Number(goal.target_amount || 0),
+                current_amount: prevAmount + amtVal,
+            };
+            checkGoalNotifications(userId, updatedGoal, prevAmount, profile);
 
             // Reload accounts to ensure balance synchronicity
             await dispatch(loadAccounts(userId));

@@ -4,6 +4,7 @@ import useGetLocationPathValue from "../../../hooks/getLocationPathValue";
 import { themeSelector, toggleTheme } from "../../../redux/theme/themeSlice";
 import MainButton from "../../ui/button/MainButton";
 import { startDashboardTour } from "../../../utils/guidedTour";
+import NotificationBell from "../../notifications/NotificationBell";
 
 // react
 import { useState, useEffect, useRef } from "react";
@@ -16,7 +17,7 @@ import gsap from "gsap";
 
 // react icons
 import { FaSun, FaMoon } from "react-icons/fa";
-import { FiBell, FiHelpCircle, FiMenu } from "react-icons/fi";
+import { FiHelpCircle, FiMenu } from "react-icons/fi";
 
 // MUI
 import { Modal, Box, Avatar, Typography } from "@mui/material";
@@ -99,14 +100,7 @@ function Header({ setIsSidebarOpen }) {
                 </MainButton>
 
                 {/* Notifications */}
-                <MainButton
-                    id="tour-header-notifications"
-                    action="ghost"
-                    className={styles.iconBtn}
-                    title="Notifications"
-                >
-                    <FiBell size={19} />
-                </MainButton>
+                <NotificationBell />
 
                 {/* Help */}
                 <MainButton

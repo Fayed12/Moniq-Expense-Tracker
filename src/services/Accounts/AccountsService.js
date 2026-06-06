@@ -1,4 +1,5 @@
 import { supabase } from "../../config/supabase";
+import { notifyTransferComplete } from "../Notifications/NotificationTriggers";
 
 // ==============================================================
 // fetch accounts with is_archived = false
@@ -165,5 +166,17 @@ export const transferBetweenAccounts = async ({
     });
 
     if (rpcError) throw rpcError;
+
+    // Trigger Notification
+    try {
+        const { data: fromAcc } = await supabase.from("accounts").select("*").eq("id", accountId).single();
+        const { data: toAcc } = await supabase.from("accounts").select("*").eq("id", toAccountId).single();
+        if (fromAcc && toAcc) {
+            await notifyTransferComplete(userId, fromAcc, toAcc, amount);
+        }
+    } catch (err) {
+        console.error("[AccountsService] Failed to send transfer complete notification:", err.message);
+    }
+
     return tx;
 };
