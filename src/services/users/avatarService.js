@@ -32,6 +32,13 @@ export async function uploadAvatar(uid, file) {
 
     if (dbError) throw dbError;
 
+    // Sync avatar_url to auth metadata (fire-and-forget)
+    supabase.auth
+        .updateUser({ data: { avatar_url: publicUrl } })
+        .catch((err) =>
+            console.warn("[uploadAvatar] auth metadata sync failed:", err),
+        );
+
     return { publicUrl };
 }
 
@@ -60,6 +67,13 @@ export async function deleteAvatar(uid) {
         .eq("uid", uid);
 
     if (dbError) throw dbError;
+
+    // Clear avatar_url from auth metadata (fire-and-forget)
+    supabase.auth
+        .updateUser({ data: { avatar_url: null } })
+        .catch((err) =>
+            console.warn("[deleteAvatar] auth metadata sync failed:", err),
+        );
 }
 
 // ===========================================================================

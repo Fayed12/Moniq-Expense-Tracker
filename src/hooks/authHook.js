@@ -6,7 +6,7 @@ import {
     setProfile,
     setSession,
 } from "../redux/auth/authSlice";
-import { fetchUserProfile, updateUserProfile } from "../services/users/auth";
+import { fetchUserProfile, updateUserTable } from "../services/users/auth";
 
 // react
 import { useEffect } from "react";
@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export const useAuth = () => {
     const dispatch = useDispatch();
-    const { user, profile, session, loading, error, emailConfirmSent } =
+    const { user, profile, session, loading, error } =
         useSelector((s) => s.auth);
 
     // ── Boot: load existing session from localStorage ──────
@@ -40,17 +40,36 @@ export const useAuth = () => {
                             session.user.id,
                         );
 
-                        // Self-healing synchronization: update public table when auth email changes are confirmed
-                        if (
-                            session.user.email &&
-                            profileData &&
-                            session.user.email.toLowerCase() !==
-                                profileData.email?.toLowerCase()
-                        ) {
-                            profileData = await updateUserProfile(
-                                session.user.id,
-                                { email: session.user.email },
-                            );
+                        // Self-healing synchronization: update public table
+                        // when auth data changes (e.g. email confirmed, name
+                        // changed via OAuth). Uses table-only update to avoid
+                        // re-triggering auth calls and infinite loops.
+                        if (profileData) {
+                            const syncChanges = {};
+
+                            // Sync display_name from auth metadata → table
+                            const authName =
+                                session.user.user_metadata?.full_name;
+                            if (
+                                authName &&
+                                authName !== profileData.display_name
+                            ) {
+                                syncChanges.display_name = authName;
+                            }
+
+                            if (Object.keys(syncChanges).length > 0) {
+                                try {
+                                    profileData = await updateUserTable(
+                                        session.user.id,
+                                        syncChanges,
+                                    );
+                                } catch (syncErr) {
+                                    console.warn(
+                                        "[useAuth] self-healing sync failed:",
+                                        syncErr.message,
+                                    );
+                                }
+                            }
                         }
 
                         dispatch(setProfile(profileData));
@@ -105,5 +124,5 @@ export const useAuth = () => {
         };
     }, [user?.id, dispatch]);
 
-    return { user, profile, session, loading, error, emailConfirmSent };
+    return { user, profile, session, loading, error };
 };

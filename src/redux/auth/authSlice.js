@@ -89,7 +89,6 @@ const authSlice = createSlice({
         session: null,
         loading: true,
         error: null,
-        emailConfirmSent: false,
     },
     reducers: {
         // Called by onAuthStateChange listener
@@ -137,7 +136,6 @@ const authSlice = createSlice({
             })
             .addCase(registerUser.fulfilled, (s) => {
                 s.loading = false;
-                s.emailConfirmSent = true; // show "check your email" screen
             })
             .addCase(registerUser.rejected, (s, a) => {
                 s.loading = false;

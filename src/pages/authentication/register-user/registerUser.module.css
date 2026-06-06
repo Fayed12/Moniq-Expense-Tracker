@@ -251,3 +251,14 @@
         margin-bottom: var(--space-3);
     }
 }
+
+/* Email immutable hint */
+.emailHint {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    color: var(--color-warning);
+    margin-top: 4px;
+}

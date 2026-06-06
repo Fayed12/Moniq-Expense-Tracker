@@ -38,6 +38,7 @@ import {
     FiEdit3,
     FiX,
     FiLock,
+    FiAlertTriangle,
 } from "react-icons/fi";
 import { FaSun, FaMoon } from "react-icons/fa";
 
@@ -234,7 +235,6 @@ function ProfilePage() {
         mode: "onTouched",
         defaultValues: {
             display_name: profile?.display_name || "",
-            email: profile?.email || "",
             currency: profile?.currency || "EGP",
             monthly_budget_limit: profile?.monthly_budget_limit || "",
             default_account_id: profile?.default_account_id || "",
@@ -248,7 +248,6 @@ function ProfilePage() {
         if (profile) {
             reset({
                 display_name: profile.display_name || "",
-                email: profile.email || "",
                 currency: profile.currency || "EGP",
                 monthly_budget_limit: profile.monthly_budget_limit || "",
                 default_account_id: profile.default_account_id || "",
@@ -408,17 +407,44 @@ function ProfilePage() {
         const loadingToast = toast.loading("Saving personal details...");
 
         try {
-            await updateProfile({
-                display_name: data.display_name,
-                email: data.email,
-                currency: data.currency,
-                monthly_budget_limit: data.monthly_budget_limit
-                    ? Number(data.monthly_budget_limit)
-                    : null,
-                default_account_id: data.default_account_id || null,
-                locale: data.locale,
-                date_format: data.date_format,
-            });
+            // Build changes object — only include fields that actually changed
+            const changes = {};
+
+            if (data.display_name !== profile?.display_name)
+                changes.display_name = data.display_name;
+
+            if (data.currency !== profile?.currency)
+                changes.currency = data.currency;
+
+            const newBudget = data.monthly_budget_limit
+                ? Number(data.monthly_budget_limit)
+                : null;
+            if (newBudget !== profile?.monthly_budget_limit)
+                changes.monthly_budget_limit = newBudget;
+
+            const newDefaultAccount = data.default_account_id || null;
+            if (newDefaultAccount !== profile?.default_account_id)
+                changes.default_account_id = newDefaultAccount;
+
+            if (data.locale !== profile?.locale)
+                changes.locale = data.locale;
+
+            if (data.date_format !== profile?.date_format)
+                changes.date_format = data.date_format;
+
+            // If nothing changed, just close edit mode
+            if (Object.keys(changes).length === 0) {
+                toast.update(loadingToast, {
+                    render: "No changes detected.",
+                    type: "info",
+                    isLoading: false,
+                    autoClose: 1500,
+                });
+                setIsEditing(false);
+                return;
+            }
+
+            await updateProfile(changes);
 
             toast.update(loadingToast, {
                 render: "Profile updated successfully!",
@@ -767,26 +793,21 @@ function ProfilePage() {
                                         />
                                     </div>
 
-                                    {/* Editable Email */}
+                                    {/* Email (Fixed — cannot be changed) */}
                                     <div className={styles.formItem}>
-                                        <MainInput
-                                            type="email"
-                                            name="email"
-                                            title="Email Address"
-                                            placeholder="jane.doe@example.com"
-                                            icon={<FiMail />}
-                                            register={register("email", {
-                                                required:
-                                                    "Email address is required",
-                                                pattern: {
-                                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                                    message:
-                                                        "Invalid email address format",
-                                                },
-                                            })}
-                                            hasError={!!errors.email}
-                                            errorMsg={errors.email?.message}
-                                        />
+                                        <div className={styles.fixedFieldBlock}>
+                                            <span className={styles.fixedFieldLabel}>
+                                                <FiMail size={14} />
+                                                Email Address
+                                            </span>
+                                            <span className={styles.fixedFieldValue}>
+                                                {profile?.email || "Not set"}
+                                            </span>
+                                            <span className={styles.emailWarning}>
+                                                <FiAlertTriangle size={13} />
+                                                Email cannot be changed after registration
+                                            </span>
+                                        </div>
                                     </div>
 
                                     {/* React Select: Currency */}

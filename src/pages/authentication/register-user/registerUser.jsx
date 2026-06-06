@@ -22,7 +22,7 @@ import gsap from "gsap";
 import { toast } from "react-toastify";
 
 // react icons
-import { FiUser, FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiAlertTriangle } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 
 // react router
@@ -310,6 +310,10 @@ function RegisterUser() {
                             hasError={!!errors.email}
                             errorMsg={errors.email?.message}
                         />
+                        <span className={styles.emailHint}>
+                            <FiAlertTriangle size={12} />
+                            This email cannot be changed after registration
+                        </span>
                     </div>
 
                     <div className="formItem">
