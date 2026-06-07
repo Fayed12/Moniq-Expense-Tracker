@@ -1,5 +1,5 @@
 // local
-import styles from "./landingNavBar.module.css";
+import styles from "./LandingNavBar.module.css";
 import MainButton from "../ui/button/MainButton";
 import { themeSelector } from "../../redux/theme/themeSlice";
 import { toggleTheme } from "../../redux/theme/themeSlice";

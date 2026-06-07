@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 // services
-import { subscribeToTransactions } from "../services/Transactions/transactionsRealtime";
+import { subscribeToTransactions } from "../services/Transactions/TransactionsRealtime";
 
 // slice actions
 import {
