@@ -6,7 +6,7 @@ import {
     setProfile,
     setSession,
 } from "../redux/auth/authSlice";
-import { fetchUserProfile, updateUserTable } from "../services/users/auth";
+import { fetchUserProfile, updateUserTable, createUserProfile } from "../services/users/auth";
 
 // react
 import { useEffect } from "react";
@@ -36,9 +36,33 @@ export const useAuth = () => {
                 case "USER_UPDATED": {
                     dispatch(setSession({ session }));
                     if (session?.user) {
-                        let profileData = await fetchUserProfile(
-                            session.user.id,
-                        );
+                        let profileData = null;
+                        try {
+                            profileData = await fetchUserProfile(
+                                session.user.id,
+                            );
+                        } catch (err) {
+                            console.warn(
+                                "[useAuth] Profile not found, attempting to recreate profile for user:",
+                                session.user.id,
+                                err.message
+                            );
+                            try {
+                                profileData = await createUserProfile({
+                                    uid: session.user.id,
+                                    email: session.user.email,
+                                    display_name: session.user.user_metadata?.full_name || "User",
+                                    currency: "EGP",
+                                    monthly_budget_limit: null,
+                                    onboarding_completed: false,
+                                });
+                            } catch (createErr) {
+                                console.error(
+                                    "[useAuth] Critical: Failed to recreate profile during sign-in:",
+                                    createErr.message
+                                );
+                            }
+                        }
 
                         // Self-healing synchronization: update public table
                         // when auth data changes (e.g. email confirmed, name

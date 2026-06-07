@@ -1,334 +1,179 @@
 # Moniq — Personal Finance & Expense Tracking Platform
 
-> A modern, free personal finance application. Track income, expenses, accounts, and goals — with powerful analytics, smart insights, and a stunning glass UI.
+> **Moniq** is a premium, modern, personal finance and wealth management platform. Built with a stunning glassmorphic UI, real-time database synchronization, and deep analytical capabilities, Moniq provides users with clear, interactive financial control. Fully free and open-source.
+
+
+> ## By [Mohamed Fayed](https://github.com/Fayed12)
+---
+
+## 📖 Table of Contents
+1. [Overview & Core Vision](#-overview--core-vision)
+2. [Key Features (A to Z)](#-key-features-a-to-z)
+3. [Technology Stack](#-technology-stack)
+4. [Architecture & Folder Structure](#-architecture--folder-structure)
+5. [Database & Real-time Synchronization](#-database--real-time-synchronization)
+6. [Security & Robustness Actions](#-security--robustness-actions)
+7. [Installation & Local Setup](#-installation--local-setup)
+8. [License](#-license)
 
 ---
 
-## Vision
+## 🎯 Overview & Core Vision
 
-Moniq empowers anyone to take control of their financial life. From students tracking monthly expenses to freelancers managing variable income — the platform delivers clarity, not complexity. Every design decision prioritizes speed, trust, and genuine usefulness. **Moniq is fully free for all users.**
-
----
-
-## Pages & Screens
-
-### 1. Landing Page
-Public-facing marketing page that converts visitors into users.
-
-- Hero section with animated dashboard preview (GSAP)
-- Feature highlights with scroll-triggered reveal animations
-- Testimonials / social proof
-- FAQ accordion
-- CTA → Sign Up / Log In
-- Footer with links
+Moniq is designed to dismantle the complexity of personal budgeting. From students tracking simple allowances to freelancers managing multi-account cash flows, Moniq delivers visual, trustable, and lightning-fast financial indicators. By using custom-tailored Sienna HSL palettes, smooth micro-animations (GSAP), and responsive layouts, the application stands out as a state-of-the-art Web App that makes managing money feel premium.
 
 ---
 
-### 2. Auth Pages
-- **Sign Up** — email + password, Google OAuth (Firebase Auth)
-- **Log In** — with "Remember me", forgot password flow
-- **Onboarding Wizard** — 3-step flow after first login:
-  - Step 1: Set your display name and base currency
-  - Step 2: Create your first accounts (Bank, Cash, Credit Card)
-  - Step 3: Set initial balances and optional monthly budget limit
+## 🚀 Key Features (A to Z)
+
+*   **Accounts Command Center**: Create, edit, and archive custom financial accounts (Cash, Bank, Credit Card, Savings). Customize accounts with harmonious colors and icons, count transaction volumes, and execute internal transfers safely.
+*   **Analytics Deep-Dive**: Visual charts (Bar, Line, Donut, Area charts) tracking category spending breakdowns, monthly cash flows, daily heatmaps, top category ranking, and savings rate percentages.
+*   **Auth & Self-Healing Profile**: Secure user registrations and Google OAuth login flows with auto-recovery mechanisms to self-heal missing database records or schema interruptions.
+*   **Budgeting Suite**: Set monthly limits per category with warning threshold badges (At-Risk >= 85%, Over Budget > 100%), rollover budget logic, and overall global warnings limit.
+*   **Categories Manager**: Flexible creation, editing, and archiving of category badges (Expense, Income, or Transfer categories) complete with semantic coloring and custom icon sets.
+*   **Financial Reports**: Generate customized statements for specific accounts, category-focused summaries, and monthly budget progress reviews. Export compiled statistics directly as formatted PDF reports or raw Excel sheets.
+*   **Guided Interactive Tour**: Integration with `driver.js` providing step-by-step walkthrough hints across the primary interface screens to onboard users gracefully.
+*   **In-App Alerts & Weekly Digest**: Dynamic background notification processor triggering warnings for low account balances, milestones on savings targets (25%, 50%, 75%), budget overruns, and a weekly financial recap.
+*   **Onboarding Wizard**: A step-by-step startup flow enabling first-time users to set preferred display names, configure default base currency, establish primary accounts, and configure initial balances.
+*   **Savings Goals**: Create progress trackers for personal financial goals (e.g. Emergency Fund, Travel, Gadgets). Set deadlines, link accounts, log contributions, and celebrate milestones with animated UI effects.
+*   **Transactions Ledger**: Virtualized list capable of rendering thousands of entries smoothly. Advanced search filters (by category, account, tag, note, date, or amount type) and bulk actions (bulk delete).
+*   **User Preferences**: Custom preferences including dark/light theme options, local date formatting standards, and notification toggle controls.
 
 ---
 
-### 3. Dashboard
-The command center. A single glance shows where you stand.
+## 🛠 Technology Stack
 
-- Net worth card (all accounts combined)
-- Income / Expenses / Savings summary cards for current month
-- Spending trend sparkline (last 30 days)
-- Budget health bar (% of monthly budget used)
-- Recent 5 transactions with quick-edit
-- Top 3 spending categories this month
-- Active goals with progress rings
-- Upcoming recurring transactions (next 7 days)
-- Floating action button → Add Transaction
+### Frontend Core
+*   **React 19**: Utilizing modern hooks, lazy loading, Suspense, and state transitions.
+*   **Vite 6**: Super-fast bundle builder and hot-module reloading.
+*   **Redux Toolkit (RTK)**: Centralized state manager for handling asynchronous thunks, theme toggling, accounts, transactions, budgets, goals, and notification items.
+*   **React Router v7**: Declarative routing system with client-side guarding.
+*   **React Hook Form**: Performant form handlers with built-in client-side validation rules.
 
----
+### Design, Charts & Motion
+*   **CSS Modules**: Component-scoped styling preventing style leakage.
+*   **GSAP (GreenSock Animation Platform) 3**: Custom micro-animations and smooth transition entrance states.
+*   **Recharts 2**: Interactive SVG data chart rendering.
+*   **Material UI (MUI v9)**: Premium layout scaffolding, avatars, dropdown components, and modals.
+*   **SweetAlert2**: Customized Sienna/glassmorphic notification dialogues.
 
-### 4. Accounts Page
-Manage multiple financial accounts separately.
-
-- List of accounts: Bank, Cash, Credit Card, Savings
-- Per-account balance, type icon, and transaction count
-- Add / Edit / Archive accounts
-- Transfer between accounts (does not count as income or expense)
-- Account color and icon customization
+### Database Backend
+*   **Supabase (PostgreSQL)**: Reliable cloud database storing transactional ledgers, user profiles, goals, and categories.
+*   **Supabase Auth**: Secure authentication engine featuring Email/Password credentials, password reset processes, and Google OAuth redirect listeners.
+*   **Supabase Storage**: Secure file hosting for transaction receipt attachments.
 
 ---
 
-### 5. Transactions Page
-Full transaction management with search, filter, and bulk actions.
-
-- Virtualized list (handles large datasets smoothly)
-- Search by title, note, or amount
-- Filters: Category, Type (Income / Expense / Transfer), Account, Date range, Tags
-- Sort by: Date, Amount, Category
-- Bulk actions: delete, re-categorize, export selection
-- Inline edit on row click
-- CSV / PDF export of filtered view
-- Transaction detail drawer (with receipt attachment preview)
-
----
-
-### 6. Add / Edit Transaction
-Available as a modal dialog or dedicated page.
-
-**Fields:**
-- Title (required)
-- Amount (required)
-- Type: Income / Expense / Transfer
-- Category (built-in + custom)
-- Account (from user's account list)
-- Date & Time (defaults to now)
-- Tags (free-form, multi-select chips)
-- Note (optional)
-- Receipt attachment (image upload, max 5MB)
-- Recurring toggle: None / Daily / Weekly / Monthly / Yearly
-  - If recurring: optional end date
-
----
-
-### 7. Analytics Page
-Deep-dive financial intelligence with interactive charts.
-
-- Date range selector (this week / month / quarter / year / custom)
-- Income vs Expenses comparison (grouped bar chart)
-- Spending by category (donut chart with drill-down)
-- Monthly cash flow trend (line chart, 12 months)
-- Day-of-week spending heatmap
-- Top spending categories ranked
-- Savings rate over time (area chart)
-- Smart insights: plain-language summaries (e.g. "You spent 23% more on food this month")
-
----
-
-### 8. Budget Page
-Set limits, track spending, stay in control.
-
-- Monthly budget by category with animated progress bars
-- Overspend alert badges
-- Rollover budget option
-- Overall monthly spending limit card
-- Budget vs actual comparison chart
-- Historical budget performance
-- Quick-copy last month's budget
-
----
-
-### 9. Goals Page
-Save toward what matters.
-
-- Create named savings goals (Emergency fund, New laptop, Trip…)
-- Target amount + optional deadline
-- Linked account (optional)
-- Contribution history timeline
-- Progress visualization with filled ring + milestone celebrations (GSAP confetti)
-- Projected completion date based on current savings rate
-- Pause / archive goals
-
----
-
-### 10. Recurring Transactions Page
-Automate predictable money flows.
-
-- List of all active recurring rules
-- Next scheduled date and amount
-- Enable / disable / delete rules
-- Auto-log toggle (log automatically vs prompt to confirm)
-- Calendar view for next 30 days of upcoming entries
-- Overdue alerts for recurring income not received
-
----
-
-### 11. Reports Page
-Generate and export financial summaries.
-
-- Monthly report: income, expenses, net savings, top categories
-- Annual summary with month-by-month breakdown
-- Custom date range report
-- Export as PDF (formatted) or CSV (raw data)
-
----
-
-### 12. Settings Page
-
-**Tabs:**
-- **Profile** — display name, avatar, email
-- **Accounts** — manage financial accounts
-- **Categories** — create, rename, reorder, delete categories
-- **Currency & Locale** — base currency, date format, number format
-- **Notifications** — budget alerts, recurring reminders, weekly digest
-- **Appearance** — dark / light / system theme, accent color
-- **Data** — export all data (JSON), import from CSV, reset app data
-
----
-
-## Feature Specification
-
-### Core (MVP — Free)
-- User authentication (email + Google OAuth)
-- Add / edit / delete transactions
-- Income, expense, and transfer tracking
-- Multi-account balance management
-- Custom category management
-- Full-text search across transactions
-- Advanced filtering and sorting
-- Budget creation and tracking per category
-- Financial goals with progress tracking
-- Recurring transactions with auto-log
-- Interactive charts: Pie, Bar, Line, Area
-- Receipt image attachments
-- Tags on transactions
-- Data persistence via Firestore
-- Offline support (localStorage cache)
-- Responsive design (mobile-first)
-- Dark / light mode
-- PWA (installable, push notifications)
-
-### Enhanced (Free — Post-MVP)
-- Smart insights (plain-language summaries)
-- Spending heatmaps
-- Monthly and annual reports with PDF/CSV export
-- In-app notifications (budget overspend, goal reached, recurring due)
-- Onboarding wizard
-- Import transactions from CSV (bank statement)
-- Bulk transaction actions
-- Currency converter for travel
-- WCAG 2.1 AA accessibility
-
-### Future
-- AI-powered category auto-detection
-- Bank integration (Plaid)
-- Shared wallets (couples, families)
-- Multi-currency with live exchange rates
-- Financial health score
-
----
-
-## Tech Stack
-
-### Frontend
-| Concern | Library | Version |
-|---|---|---|
-| Framework | React | 19 |
-| Language | JavaScript (ES2022+) | — |
-| Build Tool | Vite | 6 |
-| UI Components | MUI (Material UI) | v6 |
-| Styling | CSS Modules | — |
-| Global Styles | index.css (CSS variables) | — |
-| Routing | React Router | v7 |
-| Animation | GSAP | 3 |
-| Charts | Recharts | 2 |
-| Icons | react-icons | 5 |
-
-### State & Data
-| Concern | Library |
-|---|---|
-| Global state | Redux Toolkit |
-| Async / thunks | Redux Toolkit (createAsyncThunk) |
-| Forms | React Hook Form |
-| Dates | date-fns |
-
-### Backend (Firebase — Free Tier)
-| Service | Usage |
-|---|---|
-| Firebase Auth | Email/password + Google OAuth |
-| Firestore | All user data |
-| Firebase Storage | Receipt images |
-| Firebase Cloud Messaging | Push notifications (PWA) |
-| Firebase Hosting | Deployment |
-
-### Testing
-| Layer | Tool |
-|---|---|
-| Unit tests | Vitest |
-| Component tests | React Testing Library |
-| E2E | Playwright |
-
----
-
-## Redux Store Structure
+## 📂 Architecture & Folder Structure
 
 ```
-store/
-├── slices/
-│   ├── authSlice.js          → user, loading, error
-│   ├── accountsSlice.js      → accounts[], loading, selected
-│   ├── transactionsSlice.js  → transactions[], filters, pagination
-│   ├── categoriesSlice.js    → categories[]
-│   ├── budgetsSlice.js       → budgets[], currentMonth
-│   ├── goalsSlice.js         → goals[]
-│   ├── recurringSlice.js     → recurringRules[]
-│   ├── analyticsSlice.js     → derived stats, date range
-│   ├── notificationsSlice.js → notifications[], unreadCount
-│   └── uiSlice.js            → theme, sidebar open, modal state
-└── store.js                  → configureStore, persistReducer
+Moniq/
+├── src/
+│   ├── components/            # Reusable UI & Page Subsections
+│   │   ├── common/            # Custom buttons, glass panels, and input frames
+│   │   ├── charts/            # CashFlowChart and BudgetHealthChart wrappers
+│   │   ├── dashboard/         # Sidebar navigation, header bars, and footers
+│   │   ├── analysisPageComponents/ # Detailed graphs, rankings, and heatmap panels
+│   │   └── reportsPageComponents/  # Account statement tables and progress charts
+│   ├── config/                # Global configurations
+│   │   ├── supabase.js        # Supabase Client connection pool
+│   │   └── theme.js           # MUI color overrides and overrides
+│   ├── hooks/                 # Custom Hooks & Page Controllers
+│   │   ├── authHook.js        # Auth state listener and self-healing engine
+│   │   ├── analysisPageData.js# Analysis indicators compiler
+│   │   ├── reportsPageData.js # Statement formatting aggregator
+│   │   └── use[Model].js      # Real-time event subscribers for Redux items
+│   ├── layout/                # Root containers
+│   │   └── dashboardLayout.js # Main dashboard layout grid
+│   ├── pages/                 # Full Screen Pages
+│   │   ├── Landing/           # Marketing screen
+│   │   ├── Onboarding/        # Start wizard
+│   │   ├── Auth/              # Login, register, forgot/reset password
+│   │   └── dashboard-pages/   # Home, accounts, budgets, goals, reports, profile...
+│   ├── redux/                 # Redux Toolkit Slices
+│   │   ├── store.js           # Store configuration
+│   │   └── slices/            # Slices (auth, user, accounts, transactions, budgets, etc.)
+│   ├── services/              # Supabase database query layers
+│   │   ├── Accounts/          # Account reads/writes & transfers (RPC)
+│   │   ├── Budgets/           # Budget limits and rollover handlers
+│   │   ├── Transactions/      # Ledger queries & receipt attachments
+│   │   └── users/             # Profile fetch & avatar upload services
+│   ├── utils/                 # Utility files
+│   │   ├── guidedTour.js      # Walkthrough steps configurations
+│   │   └── reactSelectStyles.js# Sienna glass theme styles for React-Select
+│   ├── App.jsx                # Main wrapper initializing listeners
+│   ├── main.jsx               # React DOM root entrypoint
+│   └── index.css              # Glass design system tokens & resets
 ```
 
 ---
 
-## Project Structure
+## 🔄 Database & Real-time Synchronization
 
+Moniq keeps your web interface synchronized with database changes across multiple open tabs or servers. It sets up dedicated **Supabase Realtime Channel listeners** (`postgres_changes`) that fire alerts to Redux slices on inserts, updates, or deletes.
+
+Real-time hooks in the code include:
+*   `useAccounts(userId)`
+*   `useTransactions(userId)`
+*   `useBudgets(userId)`
+*   `useCategories(userId)`
+*   `useGoals(userId)`
+*   `useNotifications(userId)`
+
+If you edit a transaction or add a savings contribution on one tab, the rest of the application (balances, progress rings, budget health percentages) immediately updates without page refreshes.
+
+---
+
+## 🔒 Security & Robustness Actions
+
+1.  **Row Level Security (RLS)**: The database is secured via PostgreSQL Row Level Security. Users can only query, insert, update, or delete records that match their authenticated `auth.uid()`, preventing unauthorized data access.
+2.  **Self-Healing Profile Sync**: If a user creates an account and logs in but a network error fails to write their public user profile row, Moniq detects the missing database row during the session initialization, catches the error, and automatically creates the profile row with default settings (`onboarding_completed: false`) on-the-fly.
+3.  **Environment Isolation**: Supabase endpoint credentials and publishable API keys are isolated in standard `.env` configuration structures.
+4.  **No Hardcoded Secrets**: Secrets are read exclusively from `import.meta.env` keys.
+5.  **Client-Side Guards**: All routes under `/dashboard` and `/onboarding` are guarded using Redux session verification. Unauthenticated requests are immediately redirected back to the `/login` portal.
+
+---
+
+## ⚙️ Installation & Local Setup
+
+### Prerequisites
+*   [Node.js](https://nodejs.org/) (v18 or higher recommended)
+*   [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+
+### Step 1: Clone & Install
+```bash
+# Clone the repository
+git clone https://github.com/Fayed12/Moniq-Expense-Tracker.git
+cd Moniq-Expense-Tracker
+
+# Install dependencies
+npm install
 ```
-src/
-├── assets/
-│   └── images/
-├── components/
-│   ├── common/          # Button, Input, Card, Modal, Badge, Chip…
-│   ├── charts/          # BarChart, PieChart, LineChart, AreaChart wrappers
-│   ├── forms/           # TransactionForm, BudgetForm, GoalForm
-│   ├── layout/          # AppLayout, Sidebar, TopBar, PageWrapper
-│   └── animations/      # GSAP wrapper components
-├── pages/
-│   ├── Landing/
-│   ├── Auth/            # Login, Register, Onboarding
-│   ├── Dashboard/
-│   ├── Accounts/
-│   ├── Transactions/
-│   ├── Analytics/
-│   ├── Budget/
-│   ├── Goals/
-│   ├── Recurring/
-│   ├── Reports/
-│   └── Settings/
-├── store/               # Redux slices + store config
-├── services/            # Firebase API abstraction layer
-│   ├── auth.service.js
-│   ├── transactions.service.js
-│   ├── accounts.service.js
-│   ├── budgets.service.js
-│   ├── goals.service.js
-│   └── storage.service.js
-├── hooks/               # useAuth, useTransactions, useTheme, useDebounce…
-├── utils/               # formatCurrency, calcBalance, calcSavingsRate…
-├── constants/           # DEFAULT_CATEGORIES, CURRENCIES, ICONS_MAP
-├── config/              # firebase.js, theme.js (MUI theme), routes.js
-├── styles/              # index.css (CSS variables, global resets, glass)
-└── main.jsx
+
+### Step 2: Configure Environment Variables
+Create a file named `.env` in the root folder (or copy `ex.env` to `.env`):
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
+```
+
+### Step 3: Run Dev Server
+```bash
+# Launch Vite development server
+npm run dev
+```
+Open your browser and navigate to `http://localhost:5173`.
+
+### Step 4: Build for Production
+```bash
+# Build production bundle
+npm run build
+
+# Preview build locally
+npm run preview
 ```
 
 ---
 
-## Target Audience
-
-| User | Key Pain Point | Features That Help |
-|---|---|---|
-| Students | Tracking vs fixed allowance | Budget page, category breakdown |
-| Salaried employees | Savings habits, monthly review | Dashboard, goals, reports |
-| Freelancers | Variable income, tax data | Income tracking, tags, CSV export |
-| General users | Understanding where money goes | Analytics, smart insights |
-
----
-
-## Project Goals
-
-1. Help users understand spending habits through honest, visual data
-2. Make adding a transaction as fast as unlocking a phone
-3. Deliver numbers users can fully trust (tested calculation utils)
-4. Ship a polished, production-ready free product
-5. Build a foundation ready for future monetization without tech debt
-
+## 📄 License
+This project is licensed under the MIT License. See the LICENSE file for details.

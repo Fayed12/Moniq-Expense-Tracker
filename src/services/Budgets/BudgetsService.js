@@ -17,27 +17,7 @@ export const fetchBudgets = async (userId, month = null) => {
     return data;
 };
 
-// ============================================================================
-// FETCH BUDGETS HISTORY data 
-// ============================================================================
-export const fetchBudgetHistory = async (userId, monthsBack = 6) => {
-    const months = [];
-    for (let i = 0; i < monthsBack; i++) {
-        const d = new Date();
-        d.setMonth(d.getMonth() - i);
-        months.push(d.toISOString().slice(0, 7));
-    }
 
-    const { data, error } = await supabase
-        .from("budgets")
-        .select("*")
-        .eq("uid", userId)
-        .in("month", months)
-        .order("month", { ascending: false });
-
-    if (error) throw error;
-    return data;
-};
 
 // ============================================================================
 // UPSERT BUDGETS data 

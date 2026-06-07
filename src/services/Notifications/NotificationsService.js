@@ -15,19 +15,7 @@ export const fetchNotifications = async (userId, limit = 30) => {
     return data;
 };
 
-// ==============================================================================
-// Fetch Unread Count
-// ==============================================================================
-export const fetchUnreadCount = async (userId) => {
-    const { count, error } = await supabase
-        .from("notifications")
-        .select("*", { count: "exact", head: true })
-        .eq("uid", userId)
-        .eq("is_read", false);
 
-    if (error) throw error;
-    return count;
-};
 
 // ==============================================================================
 // Insert Notification

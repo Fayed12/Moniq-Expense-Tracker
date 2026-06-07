@@ -122,6 +122,7 @@ function AddCategoryModal({
     // ── Animation Refs ──────────────────────────────────────
     const overlayRef = useRef(null);
     const modalRef = useRef(null);
+    const nameInputRef = useRef(null);
 
     // ── GSAP Entrance Animation ─────────────────────────────
     useEffect(() => {
@@ -132,7 +133,10 @@ function AddCategoryModal({
         const prefersReduced = window.matchMedia(
             "(prefers-reduced-motion: reduce)",
         ).matches;
-        if (prefersReduced) return;
+        if (prefersReduced) {
+            if (nameInputRef.current) nameInputRef.current.focus();
+            return;
+        }
 
         const ctx = gsap.context(() => {
             gsap.from(overlay, {
@@ -149,6 +153,11 @@ function AddCategoryModal({
                 delay: 0.05,
             });
         });
+
+        // Focus field
+        if (nameInputRef.current) {
+            nameInputRef.current.focus();
+        }
 
         // Scroll lock
         document.body.style.overflow = "hidden";
@@ -303,6 +312,15 @@ function AddCategoryModal({
 
                 {/* Form */}
                 <form className={styles.form} onSubmit={handleSubmit}>
+                    {!isEdit && (
+                        <div className={styles.warningBanner} role="note">
+                            <FiAlertTriangle className={styles.warningIcon} />
+                            <span className={styles.warningText}>
+                                <strong>Important:</strong> After creating this category, go to the <strong>Budgets</strong> page to assign it a monthly limit. To activate and set it default for new transactions, click the star icon on the list.
+                            </span>
+                        </div>
+                    )}
+
                     {errorMsg && (
                         <div className={styles.errorBanner} role="alert">
                             <FiAlertTriangle className={styles.errorIcon} />
@@ -314,6 +332,7 @@ function AddCategoryModal({
                         {/* Name input */}
                         <div className={styles.formGroup}>
                             <MainInput
+                                ref={nameInputRef}
                                 name="categoryName"
                                 title="Category Name"
                                 placeholder="e.g. Shopping"

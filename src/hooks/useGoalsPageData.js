@@ -29,8 +29,7 @@ export const useGoalsPageData = () => {
 
     // ── Currency ────────────────────────────────────────────
     const currency = useMemo(() => {
-        if (accounts.length > 0) return accounts[0].currency || "EGP";
-        return profile?.currency || "EGP";
+        return profile?.currency || (accounts.length > 0 ? accounts[0].currency : "EGP");
     }, [accounts, profile]);
 
     // ── Default Account ─────────────────────────────────────

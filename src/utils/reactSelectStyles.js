@@ -82,7 +82,7 @@ export const getSelectStyles = () => ({
         borderRadius: get("--radius-xl") || "16px",
         boxShadow: get("--glass-shadow-lg"),
         overflow: "hidden",
-        zIndex: 100000,
+        zIndex: 300000,
         backdropFilter: get("--glass-blur"),
         WebkitBackdropFilter: get("--glass-blur"),
         marginTop: "6px",
@@ -153,7 +153,7 @@ export const getSelectStyles = () => ({
 
     menuPortal: (base) => ({
         ...base,
-        zIndex: 100000,
+        zIndex: 300000,
     }),
 });
 

@@ -192,6 +192,7 @@ function AddContributionModal({
     // ── Animation Refs ──────────────────────────────────────
     const overlayRef = useRef(null);
     const modalRef = useRef(null);
+    const amountInputRef = useRef(null);
 
     // ── GSAP Entrance Animation ─────────────────────────────
     useEffect(() => {
@@ -202,7 +203,10 @@ function AddContributionModal({
         const prefersReduced = window.matchMedia(
             "(prefers-reduced-motion: reduce)",
         ).matches;
-        if (prefersReduced) return;
+        if (prefersReduced) {
+            if (amountInputRef.current) amountInputRef.current.focus();
+            return;
+        }
 
         const ctx = gsap.context(() => {
             gsap.from(overlay, {
@@ -219,6 +223,10 @@ function AddContributionModal({
                 delay: 0.05,
             });
         });
+
+        if (amountInputRef.current) {
+            amountInputRef.current.focus();
+        }
 
         // Scroll lock
         document.body.style.overflow = "hidden";
@@ -476,6 +484,7 @@ function AddContributionModal({
                     <div className={styles.row}>
                         <div className={styles.formGroup}>
                             <MainInput
+                                ref={amountInputRef}
                                 type="number"
                                 name="contribAmount"
                                 title="Contribution Amount"

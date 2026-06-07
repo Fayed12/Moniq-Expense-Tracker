@@ -48,6 +48,16 @@ function LandingPage() {
                 ease: "power3.out",
             });
 
+            gsap.from(".hero-image-anim", {
+                scale: 0.85,
+                rotationX: 15,
+                rotationY: -25,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power4.out",
+                delay: 0.3,
+            });
+
             gsap.to(".hero-float", {
                 y: -15,
                 duration: 2.5,
@@ -173,14 +183,12 @@ function LandingPage() {
                     </div>
 
                     <div className="hero-float">
-                        <div className={styles.heroGraphic}>
-                            <div className={styles.heroCard}>
-                                <div className={styles.cardSkeletonLine}></div>
-                                <div className={styles.cardSkeletonLine}></div>
-                                <div className={styles.cardSkeletonLine}></div>
-                                <div className={styles.cardSkeletonLine}></div>
-                                <div className={styles.cardSkeletonLine}></div>
-                            </div>
+                        <div className={`${styles.heroGraphicContainer} hero-image-anim`}>
+                            <img
+                                src="/accounts.png"
+                                className={styles.heroImage}
+                                alt="Moniq Accounts Dashboard"
+                            />
                         </div>
                     </div>
                 </div>
@@ -301,43 +309,11 @@ function LandingPage() {
                             className={`${styles.browserDot} ${styles.dotGreen}`}
                         ></div>
                     </div>
-                    <div className={styles.browserContent}>
-                        {/* Placeholder for the dashboard preview UI */}
-                        <div
-                            className={styles.cardSkeletonLine}
-                            style={{ width: "200px", marginBottom: "24px" }}
-                        ></div>
-                        <div style={{ display: "flex", gap: "16px" }}>
-                            <div
-                                className={styles.cardSkeletonLine}
-                                style={{ flex: 1, height: "100px" }}
-                            ></div>
-                            <div
-                                className={styles.cardSkeletonLine}
-                                style={{ flex: 1, height: "100px" }}
-                            ></div>
-                            <div
-                                className={styles.cardSkeletonLine}
-                                style={{ flex: 1, height: "100px" }}
-                            ></div>
-                        </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                gap: "16px",
-                                marginTop: "16px",
-                            }}
-                        >
-                            <div
-                                className={styles.cardSkeletonLine}
-                                style={{ flex: 2, height: "200px" }}
-                            ></div>
-                            <div
-                                className={styles.cardSkeletonLine}
-                                style={{ flex: 1, height: "200px" }}
-                            ></div>
-                        </div>
-                    </div>
+                    <img
+                        src="/home.png"
+                        className={styles.previewImage}
+                        alt="Moniq Dashboard Preview"
+                    />
                 </div>
             </section>
 

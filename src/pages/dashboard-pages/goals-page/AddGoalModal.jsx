@@ -144,6 +144,7 @@ function AddGoalModal({
     // ── Animation Refs ──────────────────────────────────────
     const overlayRef = useRef(null);
     const modalRef = useRef(null);
+    const nameInputRef = useRef(null);
 
     // ── GSAP Entrance Animation ─────────────────────────────
     useEffect(() => {
@@ -154,7 +155,10 @@ function AddGoalModal({
         const prefersReduced = window.matchMedia(
             "(prefers-reduced-motion: reduce)",
         ).matches;
-        if (prefersReduced) return;
+        if (prefersReduced) {
+            if (nameInputRef.current) nameInputRef.current.focus();
+            return;
+        }
 
         const ctx = gsap.context(() => {
             gsap.from(overlay, {
@@ -171,6 +175,10 @@ function AddGoalModal({
                 delay: 0.05,
             });
         });
+
+        if (nameInputRef.current) {
+            nameInputRef.current.focus();
+        }
 
         // Scroll lock
         document.body.style.overflow = "hidden";
@@ -355,6 +363,7 @@ function AddGoalModal({
                     {/* Name */}
                     <div className={styles.formGroup}>
                         <MainInput
+                            ref={nameInputRef}
                             type="text"
                             name="goalName"
                             title="Goal Name"

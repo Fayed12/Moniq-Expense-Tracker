@@ -196,10 +196,10 @@
     --z-dropdown: 100;
     --z-sticky: 200;
     --z-overlay: 300;
-    --z-modal: 400;
-    --z-toast: 500;
-    --z-tooltip: 600;
-    --z-max: 100000;
+    --z-modal: 200000; /* Raised high enough to sit above driver.js tour overlay (100000) */
+    --z-toast: 200100;
+    --z-tooltip: 200200;
+    --z-max: 500000;
 
     /* TRANSITIONS & ANIMATION */
     --duration-fast: 120ms;
@@ -1059,7 +1059,7 @@ button {
     z-index: 100010 !important;
 }
 
-#tour-cat-toggles {
+.driver-active-element#tour-cat-toggles {
     z-index: 100005 !important;
     backdrop-filter: none !important;
 }

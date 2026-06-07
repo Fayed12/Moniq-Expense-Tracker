@@ -96,44 +96,44 @@
     gap: var(--space-2);
 }
 
-/* Abstract 3D Dashboard representation for Hero Right */
-.heroGraphic {
+/* Premium 3D Dashboard mockup representation for Hero Right */
+.heroGraphicContainer {
     position: relative;
     width: 100%;
-    height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
-    perspective: 1000px;
+    perspective: 1200px;
+    transform-style: preserve-3d;
 }
 
-.heroCard {
-    width: 80%;
-    height: 300px;
-    background: var(--glass-bg-subtle);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--glass-border-subtle);
+.heroImage {
+    width: 90%;
+    max-width: 480px;
+    height: auto;
     border-radius: var(--radius-2xl);
-    box-shadow: var(--shadow-xl);
-    transform: rotateX(8deg) rotateY(-12deg);
-    padding: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.4),
+        0 0 1px 1px rgba(255, 255, 255, 0.15) inset,
+        0 0 35px rgba(160, 82, 45, 0.2);
+    transform: rotateX(8deg) rotateY(-12deg) rotateZ(2deg);
+    transition: 
+        transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 0.6s ease;
+    display: block;
 }
 
-.cardSkeletonLine {
-    height: 20px;
-    background: var(--glass-bg-subtle);
-    border-radius: var(--radius-full);
+.heroImage:hover {
+    transform: rotateX(4deg) rotateY(-6deg) rotateZ(1deg) scale(1.03);
+    box-shadow: 
+        0 30px 70px rgba(0, 0, 0, 0.5),
+        0 0 1px 1px rgba(255, 255, 255, 0.2) inset,
+        0 0 45px rgba(160, 82, 45, 0.3);
 }
-
-.cardSkeletonLine:nth-child(1) { width: 40%; height: 32px; margin-bottom: var(--space-4); }
-.cardSkeletonLine:nth-child(2) { width: 100%; }
-.cardSkeletonLine:nth-child(3) { width: 80%; }
-.cardSkeletonLine:nth-child(4) { width: 90%; }
-.cardSkeletonLine:nth-child(5) { width: 60%; }
 
 /* ── Section 2: Stats Bar ─────────────────────────────────── */
 .statsBar {
@@ -231,14 +231,14 @@
     padding: var(--space-8);
     display: flex;
     flex-direction: column;
+    box-shadow: var(--glass-shadow);
     gap: var(--space-4);
     transition: transform var(--duration-normal), box-shadow var(--duration-normal);
     cursor: pointer;
 }
 
 .featureCard:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--glass-shadow-lg);
+    box-shadow: var(--glass-shadow-hover);
     background: var(--glass-bg-strong);
 }
 
@@ -295,12 +295,25 @@
 .browserMockup {
     width: 100%;
     max-width: 1000px;
-    background: var(--color-text-inverse);
+    background: var(--color-bg-app);
     border-radius: var(--radius-2xl);
     overflow: hidden;
-    box-shadow: var(--shadow-xl);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(160, 82, 45, 0.1);
     position: relative;
     z-index: var(--z-base);
+    transition: 
+        transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 0.5s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.browserMockup:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 
+        0 30px 70px rgba(0, 0, 0, 0.6),
+        0 0 60px rgba(160, 82, 45, 0.2);
 }
 
 .browserChrome {
@@ -310,6 +323,7 @@
     align-items: center;
     padding: 0 var(--space-4);
     gap: var(--space-2);
+    border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .browserDot {
@@ -321,14 +335,12 @@
 .dotYellow { background: var(--color-warning); }
 .dotGreen { background: var(--color-success); }
 
-.browserContent {
+.previewImage {
     width: 100%;
-    height: 500px;
-    background: var(--color-bg-app);
-    padding: var(--space-8);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
+    height: auto;
+    display: block;
+    border-bottom-left-radius: var(--radius-2xl);
+    border-bottom-right-radius: var(--radius-2xl);
 }
 
 /* ── Section 5: How It Works ──────────────────────────────── */
@@ -425,8 +437,15 @@
         justify-content: center;
     }
     
-    .heroGraphic {
-        height: 300px;
+    .heroImage {
+        transform: none;
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto;
+    }
+
+    .heroImage:hover {
+        transform: scale(1.02);
     }
     
     .heroSubtitle {
@@ -464,10 +483,6 @@
     
     .featuresGrid {
         grid-template-columns: 1fr;
-    }
-    
-    .browserContent {
-        height: 300px;
     }
     
     .ctaTitle {

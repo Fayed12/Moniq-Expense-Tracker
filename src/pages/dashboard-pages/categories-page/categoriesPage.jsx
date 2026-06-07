@@ -383,7 +383,7 @@ function CategoriesPage() {
             <div id="tour-cat-hint" className={styles.budgetHint} data-anim="hint" role="note">
                 <FaLightbulb className={styles.hintIcon} aria-hidden="true" />
                 <p className={styles.hintText}>
-                    Adding new categories? Remember to go to your **Budgets** section to define monthly spending allocations for each new active category.
+                    Adding new categories? Remember to go to your **Budgets** section to create a monthly budget limit, then activate the category and make it default using the star icon.
                 </p>
                 <MainButton
                     action="outline"

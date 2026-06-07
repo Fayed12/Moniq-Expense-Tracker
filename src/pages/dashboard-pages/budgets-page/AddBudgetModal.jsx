@@ -153,6 +153,7 @@ function AddBudgetModal({
     // ── Animation Refs ──────────────────────────────────────
     const overlayRef = useRef(null);
     const modalRef = useRef(null);
+    const limitInputRef = useRef(null);
 
     // ── GSAP Entrance Animation ─────────────────────────────
     useEffect(() => {
@@ -163,7 +164,10 @@ function AddBudgetModal({
         const prefersReduced = window.matchMedia(
             "(prefers-reduced-motion: reduce)",
         ).matches;
-        if (prefersReduced) return;
+        if (prefersReduced) {
+            if (limitInputRef.current) limitInputRef.current.focus();
+            return;
+        }
 
         const ctx = gsap.context(() => {
             gsap.from(overlay, {
@@ -180,6 +184,10 @@ function AddBudgetModal({
                 delay: 0.05,
             });
         });
+
+        if (limitInputRef.current) {
+            limitInputRef.current.focus();
+        }
 
         // Scroll lock
         document.body.style.overflow = "hidden";
@@ -446,6 +454,7 @@ function AddBudgetModal({
                             </div>
                             <div className={styles.formGroup}>
                                 <MainInput
+                                    ref={limitInputRef}
                                     type="number"
                                     name="budgetLimit"
                                     title="Budget Limit"

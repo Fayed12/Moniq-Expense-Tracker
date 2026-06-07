@@ -191,12 +191,17 @@ function AddTransactionModal({
         return null;
     }, [type, amount, defaultAccount, currency]);
 
-    // ── GSAP entrance ───────────────────────────────────────
+    const titleInputRef = useRef(null);
+
+    // ── GSAP entrance & Autofocus ───────────────────────────
     useEffect(() => {
         const prefersReduced = window.matchMedia(
             "(prefers-reduced-motion: reduce)",
         ).matches;
-        if (prefersReduced) return;
+        if (prefersReduced) {
+            if (titleInputRef.current) titleInputRef.current.focus();
+            return;
+        }
 
         const ctx = gsap.context(() => {
             gsap.from(overlayRef.current, {
@@ -213,6 +218,10 @@ function AddTransactionModal({
                 delay: 0.05,
             });
         });
+
+        if (titleInputRef.current) {
+            titleInputRef.current.focus();
+        }
 
         return () => ctx.revert();
     }, []);
@@ -516,6 +525,7 @@ function AddTransactionModal({
                 >
                     {/* Title */}
                     <MainInput
+                        ref={titleInputRef}
                         name="txnTitle"
                         title="Title"
                         placeholder="e.g. Whole Foods Market"

@@ -119,7 +119,7 @@ const reactSelectCustomStyles = () => ({
         border: "1px solid var(--glass-border)",
         borderRadius: "var(--radius-lg)",
         boxShadow: "var(--glass-shadow-lg)",
-        zIndex: 9999,
+        zIndex: 300000,
     }),
     option: (base, state) => ({
         ...base,

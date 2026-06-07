@@ -14,19 +14,7 @@ export const fetchGoals = async (userId) => {
     return data;
 };
 
-// =========================================================================
-// fetch Goal by Id
-// =========================================================================
-export const fetchGoalById = async (id) => {
-    const { data, error } = await supabase
-        .from("goals")
-        .select("*")
-        .eq("id", id)
-        .single();
 
-    if (error) throw error;
-    return data;
-};
 
 // =========================================================================
 // insert Goal

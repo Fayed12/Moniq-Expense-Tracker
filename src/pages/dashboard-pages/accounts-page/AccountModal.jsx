@@ -111,13 +111,17 @@ function AccountModal({ mode = "add", account = null, onClose }) {
     // ── Refs ────────────────────────────────────────────────
     const overlayRef = useRef(null);
     const modalRef = useRef(null);
+    const nameInputRef = useRef(null);
 
     // ── GSAP entrance animation ─────────────────────────────
     useEffect(() => {
         const prefersReduced = window.matchMedia(
             "(prefers-reduced-motion: reduce)",
         ).matches;
-        if (prefersReduced) return;
+        if (prefersReduced) {
+            if (nameInputRef.current) nameInputRef.current.focus();
+            return;
+        }
 
         const ctx = gsap.context(() => {
             gsap.from(overlayRef.current, {
@@ -134,6 +138,10 @@ function AccountModal({ mode = "add", account = null, onClose }) {
                 delay: 0.05,
             });
         });
+
+        if (nameInputRef.current) {
+            nameInputRef.current.focus();
+        }
 
         return () => ctx.revert();
     }, []);
@@ -256,6 +264,7 @@ function AccountModal({ mode = "add", account = null, onClose }) {
                 >
                     {/* Account Name */}
                     <MainInput
+                        ref={nameInputRef}
                         name="accountName"
                         title="Account Name"
                         placeholder="e.g. Main Bank"

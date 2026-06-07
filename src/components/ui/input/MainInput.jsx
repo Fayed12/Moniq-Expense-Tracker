@@ -1,11 +1,11 @@
-// local
+import React from "react";
 import styles from "./MainInput.module.css";
 
 // prop-types
 import PropTypes from "prop-types";
 
 // component
-function MainInput({
+const MainInput = React.forwardRef(({
     type = "text",
     name,
     placeholder,
@@ -17,7 +17,7 @@ function MainInput({
     hasSuccess = false,
     register,
     className = "",
-}) {
+}, ref) => {
     return (
         <div className={styles.wrapper}>
             {title && (
@@ -30,6 +30,7 @@ function MainInput({
                 {icon && <span className={styles.inputIcon}>{icon}</span>}
                 <input
                     id={name}
+                    ref={ref}
                     className={`${styles.input} ${className}`.trim()}
                     type={type}
                     name={name}
@@ -49,7 +50,9 @@ function MainInput({
             )}
         </div>
     );
-}
+});
+
+MainInput.displayName = "MainInput";
 
 MainInput.propTypes = {
     type: PropTypes.string,

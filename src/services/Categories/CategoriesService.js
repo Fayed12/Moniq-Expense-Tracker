@@ -89,26 +89,5 @@ export const deleteCategory = async (id) => {
     return id;
 };
 
-// ===========================================================================
-// REORDER — categories
-// ===========================================================================
-export const reorderCategories = async (orderedIds) => {
-    const updates = orderedIds.map((id, index) =>
-        supabase
-            .from("categories")
-            .update({
-                sort_order: index + 1,
-                updated_at: new Date().toISOString(),
-            })
-            .eq("id", id),
-    );
 
-    const results = await Promise.all(updates);
-
-    const error = results.find((r) => r.error);
-
-    if (error) throw error.error;
-
-    return updates;
-};
 

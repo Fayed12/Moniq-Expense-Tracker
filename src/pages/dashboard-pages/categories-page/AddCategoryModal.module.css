@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
     padding: var(--space-4);
-    z-index: 9999;
+    z-index: var(--z-modal);
 }
 
 /* ── Modal Window ────────────────────────────────────────────── */
@@ -230,6 +230,38 @@
     color: var(--color-danger);
     font-size: var(--text-sm);
     font-weight: var(--weight-medium);
+}
+
+/* ── Warning Banner ──────────────────────────────────────────── */
+.warningBanner {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-warning-bg);
+    border: 1px solid var(--color-warning-border);
+    border-radius: var(--radius-lg);
+    color: var(--color-warning);
+    margin-bottom: var(--space-2);
+}
+
+.warningIcon {
+    color: var(--color-warning);
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.warningText {
+    color: var(--color-warning);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-snug);
+}
+
+.warningText strong {
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
 }
 
 /* ================================================================

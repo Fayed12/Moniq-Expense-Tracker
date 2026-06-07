@@ -30,19 +30,7 @@ export const fetchAllAccounts = async (userId) => {
     return data;
 };
 
-// ==============================================================
-// fetch account by id
-// ==============================================================
-export const fetchAccountById = async (id) => {
-    const { data, error } = await supabase
-        .from("accounts")
-        .select("*")
-        .eq("id", id)
-        .single();
 
-    if (error) throw error;
-    return data;
-};
 
 // ==============================================================
 // insert account
