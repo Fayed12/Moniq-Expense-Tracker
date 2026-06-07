@@ -80,9 +80,7 @@
     --glass-bg-subtle: rgba(255, 255, 255, 0.4);
     --glass-border: rgba(255, 255, 255, 0.7);
     --glass-border-subtle: rgba(255, 255, 255, 0.45);
-    --glass-blur: blur(20px);
-    --glass-blur-sm: blur(12px);
-    --glass-blur-lg: blur(32px);
+
     --glass-shadow:
         0 8px 32px rgba(107, 50, 24, 0.12), 0 2px 8px rgba(107, 50, 24, 0.08);
     --glass-shadow-sm:
@@ -553,8 +551,8 @@ button {
 /* Glass card — the primary surface in the app */
 .glass-card {
     background: var(--glass-bg);
-    -webkit-backdrop-filter: var(--glass-blur);
-    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     box-shadow: var(--card-shadow);
@@ -572,8 +570,8 @@ button {
 /* Strong glass — sidebar, topbar */
 .glass-strong {
     background: var(--glass-bg-strong);
-    -webkit-backdrop-filter: var(--glass-blur-lg);
-    backdrop-filter: var(--glass-blur-lg);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-lg);
 }
@@ -581,16 +579,16 @@ button {
 /* Subtle glass — hover states, tags */
 .glass-subtle {
     background: var(--glass-bg-subtle);
-    -webkit-backdrop-filter: var(--glass-blur-sm);
-    backdrop-filter: var(--glass-blur-sm);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border-subtle);
 }
 
 /* Brown-tinted glass — active nav items, selected states */
 .glass-brown {
     background: var(--glass-brown-bg);
-    -webkit-backdrop-filter: var(--glass-blur-sm);
-    backdrop-filter: var(--glass-blur-sm);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
     border: 1px solid var(--glass-brown-border);
 }
 
@@ -820,8 +818,8 @@ button {
 /* Ensure MUI Paper respects glass design */
 .MuiPaper-root {
     background: var(--glass-bg) !important;
-    -webkit-backdrop-filter: var(--glass-blur) !important;
-    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    backdrop-filter: blur(6px) !important;
     box-shadow: var(--glass-shadow) !important;
     border: 1px solid var(--glass-border) !important;
 }
@@ -847,8 +845,8 @@ button {
     background: var(--glass-bg-strong) !important;
     color: var(--color-text-primary) !important;
     border: 1px solid var(--glass-border) !important;
-    -webkit-backdrop-filter: var(--glass-blur-sm) !important;
-    backdrop-filter: var(--glass-blur-sm) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    backdrop-filter: blur(6px) !important;
     font-size: var(--text-xs) !important;
     font-weight: var(--weight-medium) !important;
 }
@@ -861,8 +859,8 @@ button {
     border-radius: var(--radius-2xl) !important;
     border: 1px solid var(--glass-border) !important;
     background: var(--color-bg-elevated) !important;
-    backdrop-filter: var(--glass-blur) !important;
-    -webkit-backdrop-filter: var(--glass-blur) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
     box-shadow: var(--glass-shadow-lg) !important;
     padding: var(--space-8) var(--space-6) var(--space-6) !important;
 }
@@ -946,8 +944,8 @@ button {
     font-family: var(--font-sans) !important;
     padding: var(--space-5) !important;
     max-width: 340px !important;
-    backdrop-filter: var(--glass-blur) !important;
-    -webkit-backdrop-filter: var(--glass-blur) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
 }
 
 .moniq-tour-popover .driver-popover-title {

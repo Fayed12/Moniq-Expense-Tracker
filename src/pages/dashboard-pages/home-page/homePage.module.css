@@ -49,8 +49,8 @@
     padding: var(--space-2) var(--space-4);
     border-radius: var(--radius-lg);
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur-sm);
-    -webkit-backdrop-filter: var(--glass-blur-sm);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     font-size: var(--text-sm);
     font-weight: var(--weight-semibold);
@@ -76,7 +76,7 @@
     border: 1px solid var(--glass-border) !important;
     border-radius: var(--radius-xl) !important;
     background: var(--glass-bg-strong) !important;
-    backdrop-filter: var(--glass-blur) !important;
+    backdrop-filter: blur(6px) !important;
     box-shadow: var(--glass-shadow-lg) !important;
     overflow: hidden;
 }
@@ -134,8 +134,8 @@
     padding: var(--space-5);
     border-radius: var(--card-radius);
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-sm);
     transition:
@@ -156,8 +156,8 @@
     padding: var(--space-5);
     border-radius: var(--card-radius);
     background: var(--color-primary);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid transparent;
     box-shadow: var(--glass-shadow-sm);
     transition:
@@ -396,8 +396,8 @@
     padding: var(--space-6);
     border-radius: var(--card-radius);
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-sm);
 }
@@ -470,8 +470,8 @@
     gap: var(--space-3);
     padding: var(--space-3);
     border-radius: var(--card-radius);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid transparent;
     box-shadow: var(--glass-shadow-sm);
     transition: all var(--duration-fast) var(--ease-in-out);
@@ -622,8 +622,8 @@
     padding: var(--space-6);
     border-radius: var(--card-radius);
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-sm);
     width: 100%;
@@ -675,8 +675,8 @@
     padding: var(--space-4);
     background: var(--glass-bg-subtle);
     border-radius: var(--card-radius);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid transparent;
     box-shadow: var(--glass-shadow-sm);
     transition:

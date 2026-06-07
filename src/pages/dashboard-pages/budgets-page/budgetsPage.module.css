@@ -64,8 +64,8 @@
     gap: var(--space-2);
     padding: var(--space-3) var(--space-4);
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     box-shadow: var(--glass-shadow-sm);
@@ -137,8 +137,8 @@
     gap: var(--space-3);
     padding: var(--space-4);
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-xl);
     box-shadow: var(--glass-shadow-sm);
@@ -184,8 +184,8 @@
     gap: var(--space-2);
     padding: var(--space-4);
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-xl);
     box-shadow: var(--glass-shadow-sm);
@@ -252,8 +252,8 @@
     flex-wrap: wrap;
     padding: var(--space-4);
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     box-shadow: var(--glass-shadow-sm);
@@ -372,8 +372,8 @@
     padding: var(--space-12) var(--space-6);
     text-align: center;
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 2px dashed var(--color-border-default);
     border-radius: var(--radius-xl);
     position: relative;
@@ -410,8 +410,8 @@
     justify-content: space-between;
     padding: var(--space-3) var(--space-4);
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur-sm);
-    -webkit-backdrop-filter: var(--glass-blur-sm);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     position: relative;

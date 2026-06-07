@@ -63,8 +63,8 @@
 
 .infoCard {
     background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-2xl);
     padding: var(--space-6);
@@ -117,8 +117,8 @@
 /* ── Right: Form Card ─────────────────────────────────────── */
 .formCard {
     background: var(--glass-bg-strong);
-    backdrop-filter: var(--glass-blur-lg);
-    -webkit-backdrop-filter: var(--glass-blur-lg);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-3xl);
     padding: var(--space-10);

@@ -2,7 +2,6 @@
 .overlay {
     position: fixed;
     inset: 0;
-    background: var(--color-bg-overlay);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     z-index: var(--z-modal);
@@ -22,8 +21,8 @@
     overflow-y: auto;
     overflow-x: hidden;
     background: var(--glass-bg-strong);
-    backdrop-filter: var(--glass-blur-lg);
-    -webkit-backdrop-filter: var(--glass-blur-lg);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-2xl);
     box-shadow: var(--glass-shadow-lg);

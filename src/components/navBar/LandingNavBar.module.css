@@ -121,8 +121,8 @@
     position: fixed;
     inset: 0;
     background: var(--glass-bg-strong);
-    backdrop-filter: var(--glass-blur-lg);
-    -webkit-backdrop-filter: var(--glass-blur-lg);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     z-index: var(--z-overlay);
     display: flex;
     flex-direction: column;

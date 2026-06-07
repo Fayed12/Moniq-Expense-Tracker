@@ -142,7 +142,7 @@
     background: var(--glass-bg);
     color: var(--color-text-primary);
     border: 1px solid var(--glass-border);
-    backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
     box-shadow: var(--glass-shadow-sm);
 }
 .btn[data-variant="glass"]:hover {

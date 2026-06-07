@@ -2,7 +2,8 @@
 .overlay {
     position: fixed;
     inset: 0;
-    background: var(--color-bg-overlay);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     z-index: var(--z-modal);
     display: flex;
     align-items: stretch;
@@ -18,8 +19,8 @@
     background: var(--color-bg-elevated);
     border-left: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-lg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     display: flex;
     flex-direction: column;
     scrollbar-width: thin;

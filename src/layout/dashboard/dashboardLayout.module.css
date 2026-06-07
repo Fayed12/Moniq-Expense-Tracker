@@ -32,7 +32,6 @@
 .overlay {
     position: fixed;
     inset: 0;
-    background: var(--color-bg-overlay);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     z-index: calc(var(--z-overlay) - 1);

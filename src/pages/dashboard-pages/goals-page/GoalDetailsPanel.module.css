@@ -17,8 +17,8 @@
     max-width: var(--modal-max-width-lg); /* wide layout for the MUI table */
     height: 100vh;
     background: var(--glass-bg-strong);
-    backdrop-filter: var(--glass-blur-lg);
-    -webkit-backdrop-filter: var(--glass-blur-lg);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border-left: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-lg);
     display: flex;
