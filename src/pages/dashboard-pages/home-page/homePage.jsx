@@ -180,70 +180,75 @@ export default function HomePage() {
             });
 
             // Welcome header slides in from top
-            tl.from("[data-anim='welcome']", {
-                y: -30,
-                opacity: 0,
-            });
+            tl.fromTo("[data-anim='welcome']",
+                { y: -30, opacity: 0 },
+                { y: 0, opacity: 1 }
+            );
 
             // Overview cards stagger up with bounce
-            tl.from(
+            tl.fromTo(
                 "[data-anim='overview-card']",
+                { y: 50, opacity: 0 },
                 {
-                    y: 50,
-                    opacity: 0,
+                    y: 0,
+                    opacity: 1,
                     duration: 0.5,
                     stagger: 0.1,
                     ease: "back.out(1.4)",
                 },
-                "-=0.3",
+                "-=0.3"
             );
 
             // Charts row fades up
-            tl.from(
+            tl.fromTo(
                 "[data-anim='charts-row']",
+                { y: 40, opacity: 0 },
                 {
-                    y: 40,
-                    opacity: 0,
+                    y: 0,
+                    opacity: 1,
                 },
-                "-=0.2",
+                "-=0.2"
             );
 
             // Middle row cards stagger
-            tl.from(
+            tl.fromTo(
                 "[data-anim='middle-card']",
+                { y: 35, opacity: 0 },
                 {
-                    y: 35,
-                    opacity: 0,
+                    y: 0,
+                    opacity: 1,
                     duration: 0.5,
                     stagger: 0.15,
                     ease: "back.out(1.2)",
                 },
-                "-=0.3",
+                "-=0.3"
             );
 
             // Footer goals section
-            tl.from(
+            tl.fromTo(
                 "[data-anim='goals-section']",
+                { y: 30, opacity: 0 },
                 {
-                    y: 30,
-                    opacity: 0,
+                    y: 0,
+                    opacity: 1,
                     duration: 0.5,
                     ease: "back.out(1.2)",
                 },
-                "-=0.2",
+                "-=0.2"
             );
 
             // Goal cards scale-in with bounce
-            tl.from(
+            tl.fromTo(
                 "[data-anim='goal-card']",
+                { scale: 0.85, opacity: 0 },
                 {
-                    scale: 0.85,
-                    opacity: 0,
+                    scale: 1,
+                    opacity: 1,
                     duration: 0.4,
                     stagger: 0.08,
                     ease: "back.out(1.7)",
                 },
-                "-=0.1",
+                "-=0.1"
             );
         }, containerRef);
 
