@@ -62,9 +62,7 @@
 }
 
 .infoCard {
-    background: var(--glass-bg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-surface);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-2xl);
     padding: var(--space-6);
@@ -78,8 +76,19 @@
 
 .infoCard:hover {
     transform: translateY(-4px);
-    background: var(--glass-bg-strong);
+    background: var(--color-bg-surface);
     box-shadow: var(--glass-shadow-lg);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .infoCard {
+        background: var(--glass-bg);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
+    .infoCard:hover {
+        background: var(--glass-bg-strong);
+    }
 }
 
 .infoIconBox {
@@ -116,13 +125,19 @@
 
 /* ── Right: Form Card ─────────────────────────────────────── */
 .formCard {
-    background: var(--glass-bg-strong);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-elevated);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-3xl);
     padding: var(--space-10);
     box-shadow: var(--glass-shadow-lg);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .formCard {
+        background: var(--glass-bg-strong);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
 }
 
 .formTitle {

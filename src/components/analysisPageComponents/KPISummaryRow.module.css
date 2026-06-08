@@ -6,9 +6,7 @@
 }
 
 .kpiCard {
-    background: var(--glass-bg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-surface);
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     box-shadow: var(--card-shadow);
@@ -24,9 +22,20 @@
 }
 
 .kpiCard:hover {
-    background: var(--card-bg-hover);
+    background: var(--color-bg-surface);
     box-shadow: var(--card-shadow-hover);
     transform: translateY(-2px);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .kpiCard {
+        background: var(--glass-bg);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
+    .kpiCard:hover {
+        background: var(--card-bg-hover);
+    }
 }
 
 .cardHeader {

@@ -2,13 +2,19 @@
 .overlay {
     position: fixed;
     inset: 0;
+    background: var(--color-bg-overlay);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: var(--z-modal);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     padding: var(--space-4);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .overlay {
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 /* ── Modal Panel ─────────────────────────────────────────────── */
@@ -21,10 +27,16 @@
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-2xl);
     box-shadow: var(--glass-shadow-lg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     display: flex;
     flex-direction: column;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .modal {
+        background: var(--glass-bg-strong);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 /* ── Header ──────────────────────────────────────────────────── */

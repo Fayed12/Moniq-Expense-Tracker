@@ -48,9 +48,7 @@
     gap: var(--space-2);
     padding: var(--space-2) var(--space-4);
     border-radius: var(--radius-lg);
-    background: var(--glass-bg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-surface);
     border: 1px solid var(--glass-border);
     font-size: var(--text-sm);
     font-weight: var(--weight-semibold);
@@ -59,6 +57,14 @@
     transition: var(--transition-base);
     white-space: nowrap;
     font-family: var(--font-sans);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .monthPickerBtn {
+        background: var(--glass-bg);
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+    }
 }
 
 .monthPickerBtn:hover {
@@ -75,10 +81,17 @@
     font-family: var(--font-sans) !important;
     border: 1px solid var(--glass-border) !important;
     border-radius: var(--radius-xl) !important;
-    background: var(--glass-bg-strong) !important;
-    backdrop-filter: blur(6px) !important;
+    background: var(--color-bg-elevated) !important;
     box-shadow: var(--glass-shadow-lg) !important;
     overflow: hidden;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .monthPicker :global(.react-datepicker) {
+        background: var(--glass-bg-strong) !important;
+        -webkit-backdrop-filter: blur(6px) !important;
+        backdrop-filter: blur(6px) !important;
+    }
 }
 
 .monthPicker :global(.react-datepicker__header) {
@@ -133,15 +146,21 @@
     overflow: hidden;
     padding: var(--space-5);
     border-radius: var(--card-radius);
-    background: var(--glass-bg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-surface);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-sm);
     transition:
         transform var(--duration-normal) var(--ease-spring),
         box-shadow var(--duration-normal) var(--ease-out);
     cursor: pointer;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .overviewCard {
+        background: var(--glass-bg);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 .overviewCard:hover {
@@ -156,14 +175,19 @@
     padding: var(--space-5);
     border-radius: var(--card-radius);
     background: var(--color-primary);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     border: 1px solid transparent;
     box-shadow: var(--glass-shadow-sm);
     transition:
         transform var(--duration-normal) var(--ease-spring),
         box-shadow var(--duration-normal) var(--ease-out);
     cursor: pointer;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .overviewCardPrimary {
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 .overviewCardPrimary:hover {
@@ -395,11 +419,17 @@
     overflow: hidden;
     padding: var(--space-6);
     border-radius: var(--card-radius);
-    background: var(--glass-bg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-surface);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-sm);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .sectionCard {
+        background: var(--glass-bg);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 .sectionCard::before {
@@ -470,12 +500,17 @@
     gap: var(--space-3);
     padding: var(--space-3);
     border-radius: var(--card-radius);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     border: 1px solid transparent;
     box-shadow: var(--glass-shadow-sm);
     transition: all var(--duration-fast) var(--ease-in-out);
     cursor: pointer;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .txItem {
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 .txItem:hover {
@@ -621,12 +656,18 @@
     overflow: hidden;
     padding: var(--space-6);
     border-radius: var(--card-radius);
-    background: var(--glass-bg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-surface);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-sm);
     width: 100%;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .goalsSection {
+        background: var(--glass-bg);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 .goalsSection::before {
@@ -673,16 +714,22 @@
     position: relative;
     overflow: hidden;
     padding: var(--space-4);
-    background: var(--glass-bg-subtle);
+    background: var(--color-bg-surface);
     border-radius: var(--card-radius);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     border: 1px solid transparent;
     box-shadow: var(--glass-shadow-sm);
     transition:
         transform var(--duration-normal) var(--ease-spring),
         box-shadow var(--duration-normal) var(--ease-out);
     cursor: pointer;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .goalCard {
+        background: var(--glass-bg-subtle);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 .goalCard:hover {

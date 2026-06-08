@@ -94,8 +94,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background: var(--color-bg-elevated) !important;
-    backdrop-filter: blur(6px) !important;
-    -webkit-backdrop-filter: blur(6px) !important;
     border: 1px solid var(--glass-border) !important;
     box-shadow: var(--glass-shadow-lg) !important;
     border-radius: var(--radius-2xl) !important;
@@ -106,6 +104,14 @@
     gap: var(--space-2);
     outline: none;
     min-width: 280px;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .profileModal {
+        background: var(--glass-bg-strong) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        backdrop-filter: blur(12px) !important;
+    }
 }
 
 .modalCloseBtn {

@@ -1,14 +1,19 @@
-/* ── Transfer Card ────────────────────────────────────────── */
 .transferCard {
     position: relative;
     overflow: hidden;
     padding: var(--space-6);
     border-radius: var(--card-radius);
-    background: var(--glass-bg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-surface);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-sm);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .transferCard {
+        background: var(--glass-bg);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 /* ── Circle Decorations ──────────────────────────────────── */

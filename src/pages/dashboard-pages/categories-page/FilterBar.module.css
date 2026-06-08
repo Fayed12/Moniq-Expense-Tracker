@@ -5,12 +5,18 @@
     gap: var(--space-3);
     flex-wrap: wrap;
     padding: var(--space-4);
-    background: var(--glass-bg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-surface);
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     box-shadow: var(--glass-shadow-sm);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .filterBar {
+        background: var(--glass-bg);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 /* ── Search Wrapper ──────────────────────────────────────────── */

@@ -113,9 +113,7 @@
     height: auto;
     border-radius: var(--radius-2xl);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.08);
     box-shadow: 
         0 20px 50px rgba(0, 0, 0, 0.4),
         0 0 1px 1px rgba(255, 255, 255, 0.15) inset,
@@ -125,6 +123,14 @@
         transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
         box-shadow 0.6s ease;
     display: block;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .heroImage {
+        background: rgba(255, 255, 255, 0.03);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
 }
 
 .heroImage:hover {

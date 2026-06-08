@@ -3,12 +3,17 @@
     position: fixed;
     inset: 0;
     background: var(--color-bg-overlay);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     display: flex;
     justify-content: flex-end; /* aligns to the right side */
     padding: 0;
     z-index: var(--z-modal);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .overlay {
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 /* ── Sliding Panel ───────────────────────────────────────────── */
@@ -16,15 +21,21 @@
     width: 100%;
     max-width: var(--modal-max-width-lg); /* wide layout for the MUI table */
     height: 100vh;
-    background: var(--glass-bg-strong);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-elevated);
     border-left: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-lg);
     display: flex;
     flex-direction: column;
     position: relative;
     z-index: 100;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .panel {
+        background: var(--glass-bg-strong);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
 }
 
 /* ── Panel Header ────────────────────────────────────────────── */

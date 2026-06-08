@@ -1,12 +1,17 @@
-/* ── Table Wrapper (glass card) ───────────────────────────────── */
 .tableWrap {
-    background: var(--glass-bg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-surface);
     border: 1px solid var(--glass-border);
     border-radius: var(--card-radius);
     box-shadow: var(--glass-shadow-sm);
     overflow: hidden;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .tableWrap {
+        background: var(--glass-bg);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 /* ── MUI Table Overrides ─────────────────────────────────────── */

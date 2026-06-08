@@ -2,8 +2,7 @@
 .overlay {
     position: fixed;
     inset: 0;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-overlay);
     z-index: var(--z-modal);
     display: flex;
     align-items: stretch;
@@ -19,12 +18,18 @@
     background: var(--color-bg-elevated);
     border-left: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-lg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     display: flex;
     flex-direction: column;
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary-light) transparent;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .drawer {
+        background: var(--glass-bg-strong);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 .drawer::-webkit-scrollbar {

@@ -66,12 +66,18 @@
     align-items: center;
     text-align: center;
     gap: var(--space-6);
-    background: var(--glass-bg-strong);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-elevated);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-3xl);
     box-shadow: var(--glass-shadow-lg);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .content {
+        background: var(--glass-bg-strong);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
 }
 
 .iconWrap {

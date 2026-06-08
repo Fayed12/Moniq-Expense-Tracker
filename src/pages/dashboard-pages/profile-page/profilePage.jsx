@@ -115,8 +115,8 @@ const reactSelectCustomStyles = () => ({
     menu: (base) => ({
         ...base,
         background: "var(--color-bg-surface)",
-        backdropFilter: "blur(6px)",
         WebkitBackdropFilter: "blur(6px)",
+        backdropFilter: "blur(6px)",
         border: "1px solid var(--glass-border)",
         borderRadius: "var(--radius-lg)",
         boxShadow: "var(--glass-shadow-lg)",

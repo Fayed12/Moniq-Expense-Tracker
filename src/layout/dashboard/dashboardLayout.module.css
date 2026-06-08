@@ -32,10 +32,16 @@
 .overlay {
     position: fixed;
     inset: 0;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background: var(--color-bg-overlay);
     z-index: calc(var(--z-overlay) - 1);
     animation: fadeIn var(--duration-fast) var(--ease-out);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .overlay {
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+    }
 }
 
 /* ── Responsive ───────────────────────────────────────────── */

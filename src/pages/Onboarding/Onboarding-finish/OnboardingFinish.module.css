@@ -2,9 +2,7 @@
     border-radius: var(--radius-2xl);
     padding: var(--space-10) var(--space-6);
     box-shadow: var(--glass-shadow-lg);
-    background: var(--glass-bg-strong);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    background: var(--color-bg-elevated);
     border: 1px solid var(--glass-border);
     display: flex;
     flex-direction: column;
@@ -13,6 +11,14 @@
     visibility: hidden;
     position: relative;
     overflow: hidden;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .card {
+        background: var(--glass-bg-strong);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
 }
 
 /* Celebration Icon */

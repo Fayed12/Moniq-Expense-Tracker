@@ -2,13 +2,19 @@
 .overlay {
     position: fixed;
     inset: 0;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-overlay);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--space-4);
     z-index: var(--z-modal);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .overlay {
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
 }
 
 /* ── Modal Window ────────────────────────────────────────────── */
@@ -19,15 +25,21 @@
     max-height: 88vh;
     overflow-y: auto;
     overflow-x: hidden;
-    background: var(--glass-bg-strong);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-elevated);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-2xl);
     box-shadow: var(--glass-shadow-lg);
     padding: var(--space-6);
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary-light) transparent;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .modal {
+        background: var(--glass-bg-strong);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
 }
 
 .modal::-webkit-scrollbar {

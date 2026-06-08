@@ -10,17 +10,26 @@
     justify-content: space-between;
     padding: 0 var(--space-8);
     z-index: calc(var(--z-overlay) + 1);
-    background-color: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background-color: var(--color-bg-surface);
     border-bottom: 1px solid var(--glass-border-subtle);
     transition: all var(--duration-normal) var(--ease-out);
 }
 
 .navScrolled {
-    background-color: var(--glass-bg-strong);
+    background-color: var(--color-bg-elevated);
     box-shadow: var(--shadow-sm);
     border-bottom: 1px solid var(--glass-border);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .navBar {
+        background-color: var(--glass-bg);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
+    .navScrolled {
+        background-color: var(--glass-bg-strong);
+    }
 }
 
 /* ── Logo ─────────────────────────────────────────────────── */
@@ -120,9 +129,7 @@
 .mobileMenu {
     position: fixed;
     inset: 0;
-    background: var(--glass-bg-strong);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-bg-elevated);
     z-index: var(--z-overlay);
     display: flex;
     flex-direction: column;
@@ -131,6 +138,14 @@
     gap: var(--space-8);
     opacity: 0;
     visibility: hidden;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .mobileMenu {
+        background: var(--glass-bg-strong);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
 }
 
 .mobileLink {

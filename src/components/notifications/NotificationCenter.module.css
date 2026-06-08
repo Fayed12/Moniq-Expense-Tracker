@@ -3,11 +3,16 @@
     position: fixed;
     inset: 0;
     background: var(--color-bg-overlay);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     z-index: var(--z-modal);
     display: flex;
     justify-content: flex-end;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .overlay {
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+    }
 }
 
 /* Sidebar Drawer Panel */
@@ -18,11 +23,17 @@
     background: var(--color-bg-elevated);
     border-left: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow-lg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .panel {
+        background: var(--glass-bg-strong);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
 }
 
 /* Header Section */
