@@ -73,17 +73,18 @@ function AnalysisPage() {
             });
 
             // Slide down Page Header
-            tl.from("[data-anim='header']", {
-                y: -40,
-                opacity: 0,
-            });
+            tl.fromTo("[data-anim='header']",
+                { y: -40, opacity: 0 },
+                { y: 0, opacity: 1 }
+            );
 
             // Stagger stat cards slide-up with back easing
-            tl.from(
+            tl.fromTo(
                 "[data-anim='overview-card']",
+                { y: 40, opacity: 0 },
                 {
-                    y: 40,
-                    opacity: 0,
+                    y: 0,
+                    opacity: 1,
                     duration: 0.5,
                     stagger: 0.08,
                     ease: "back.out(1.2)",
@@ -92,11 +93,12 @@ function AnalysisPage() {
             );
 
             // Stagger charts and table rows fading up
-            tl.from(
+            tl.fromTo(
                 "[data-anim='charts-row']",
+                { y: 35, opacity: 0 },
                 {
-                    y: 35,
-                    opacity: 0,
+                    y: 0,
+                    opacity: 1,
                     duration: 0.5,
                     stagger: 0.12,
                 },
@@ -104,11 +106,12 @@ function AnalysisPage() {
             );
 
             // Slide in category double blocks and grids
-            tl.from(
+            tl.fromTo(
                 "[data-anim='middle-card']",
+                { y: 30, opacity: 0 },
                 {
-                    y: 30,
-                    opacity: 0,
+                    y: 0,
+                    opacity: 1,
                     duration: 0.5,
                     stagger: 0.1,
                     ease: "back.out(1.1)",

@@ -15,6 +15,7 @@ import {
     FiCreditCard,
 } from "react-icons/fi";
 import { FaUniversity } from "react-icons/fa";
+import { FaScaleBalanced } from "react-icons/fa6";
 
 // components
 export default function AccountStatementReport({ data, currency }) {
